@@ -34,6 +34,6 @@ app.get("/test", function (req, res) {
     res.render("PartialsTemplate");
 })
 //LISTEN
-app.listen(port || process.env.PORT, () => {
+app.listen(port || process.env.PORT, process.env.IP, () => {
     console.log('server is up');
 });
