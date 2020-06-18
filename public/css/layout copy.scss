@@ -1,0 +1,290 @@
+$colors:(primary: #2AD1A7,
+    secondary: #4D428E,
+    gradient: -webkit-linear-gradient(244.48deg, #5790E2 1.52%, #4D428E 96.76%),
+    background: #f6f6f6,
+    danger: #FF7F33,
+
+);
+
+@function color($color-name) {
+    @return map-get($colors, $color-name);
+}
+
+///GLOBAL CSS
+
+.box {
+    box-shadow: 3px 3px 3px rgba($color: #000000, $alpha: 0.25);
+}
+
+body {
+    font-family: 'Roboto',
+        sans-serif;
+    margin: 0;
+    padding: 0;
+
+}
+
+p {
+    font-family: 'Nunito',
+        sans-serif;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+li {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 70%;
+    margin: auto;
+    color: color(background);
+
+}
+
+
+/// FOR HIDING-SHOWING CONTENT
+.hidden {
+    display: none;
+}
+
+//BACKGROUND
+.bg {
+    width: 100vw;
+    height: 100%;
+    background: linear-gradient(246.03deg, #5790E2 1.52%, #4D428E 96.76%);
+    z-index: -1;
+    position: fixed;
+}
+
+//NAVBAR
+body {
+    #navbar {
+        width: 100%;
+        text-transform: uppercase;
+        font-weight: bold;
+        position: fixed;
+        top: 0;
+        z-index: 1;
+
+        ul {
+            display: flex;
+            width: 100%;
+            padding: 0;
+            justify-content: space-evenly;
+            margin: 0;
+            background-color: color(background);
+
+            li {
+                padding: 1em .6em;
+            }
+
+            #logo {
+                margin-right: 120px;
+
+                img {
+                    width: 100px;
+                    position: absolute;
+                    margin-top: -20px;
+                    background-color: color(background);
+                    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.20)
+                }
+            }
+
+            #elements {
+                display: flex;
+                justify-content: space-evenly;
+                letter-spacing: 0.1em;
+            }
+
+            #buttons {
+                display: flex;
+
+                li {
+                    padding: 0;
+                    margin: auto .5em;
+                }
+            }
+        }
+    }
+}
+
+//NAVBAR ELEMENTS EFFECT
+#elements {
+    a {
+        position: relative;
+        color: #000;
+    }
+
+    a::before {
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 2px;
+        bottom: 0;
+        left: 0;
+        background-color: #000;
+        visibility: hidden;
+        transform: scaleX(0);
+        transition: all 0.3s ease-in-out 0s;
+    }
+
+    a:hover::before {
+        visibility: visible;
+        transform: scaleX(1);
+    }
+
+}
+
+// BUTTONS 
+.button {
+    text-transform: uppercase;
+    padding: .5em 1em;
+    border-radius: 5px;
+    transition: background-color 300ms;
+    border: 2px solid;
+    font-weight: 600;
+    outline: none;
+}
+
+.button.good {
+    background-color: color(primary);
+    color: color(background);
+    border-color: color(primary);
+
+    &:hover {
+        background-color: color(background);
+        color: color(primary);
+    }
+}
+
+.button.secondary {
+    background-color: color(background);
+    border-color: color(primary);
+    color: color(primary);
+
+    &:hover {
+        background-color: color(primary);
+        color: color(background);
+    }
+}
+
+.button.cta {
+    background-color: color(secondary);
+    color: color(background);
+    border-color: color(secondary);
+
+    &:hover {
+        background-color: color(background);
+        color: color(secondary);
+
+    }
+
+}
+
+////MAIN CONTENT
+#home {
+
+    height: 100vh;
+
+    .container {
+        padding-top: 3em;
+
+        .content {
+            padding-top: 5em;
+            width: 60%;
+            text-align: center;
+
+        }
+    }
+
+}
+
+//ILLUSTRATIONS
+
+.illustration {
+    img {
+        margin-right: 10%;
+        float: right;
+        width: 500px;
+    }
+}
+
+/// ticker
+
+#ticker {
+    background-color: #120A45;
+    overflow: hidden;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    color: white;
+    font-weight: 500;
+    display: flex;
+    justify-content: space-evenly;
+
+    ul {
+        display: flex;
+        flex-wrap: wrap;
+        margin: 5px;
+        padding: 0;
+
+        li {
+            padding: .5em .5em;
+            background-color: #251B61;
+
+            &.bad {
+                background-color: color(danger);
+            }
+
+            &.good {
+                background-color: color(primary);
+            }
+        }
+    }
+}
+
+
+///
+
+///FEATURES
+#features {
+    position: relative;
+    padding-bottom: 10%;
+
+    .container {
+        display: flex;
+        flex-wrap: wrap;
+        max-width: 90%;
+        justify-content: space-between;
+        padding: 1em 0;
+
+        .text {
+            padding-top: 3em;
+            max-width: 40%;
+            margin: 2em 2em;
+
+            &.right {
+                text-align: right;
+            }
+        }
+
+        .illustration {
+            min-width: 50%;
+
+            img {
+                width: 100%;
+            }
+        }
+    }
+}
+
+///SPECIFIC CSS FOR IDS
+#toggleButton {
+    padding: 1em 2em;
+}

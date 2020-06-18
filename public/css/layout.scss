@@ -1,0 +1,755 @@
+$colors:(primary: #2AD1A7,
+    secondary: #4D428E,
+    gradient: -webkit-linear-gradient(244.48deg, #5790E2 1.52%, #4D428E 96.76%),
+    background: #f6f6f6,
+    danger: #FF7F33,
+    dark: #040116);
+
+@function color($color-name) {
+    @return map-get($colors, $color-name);
+}
+
+$desktop: 840px;
+$mobileS: 360px;
+
+@mixin desktop {
+    @media (min-width: #{$desktop}) {
+        @content;
+    }
+}
+
+@mixin mobileS {
+    @media (max-width: #{$mobileS}) {
+        @content;
+    }
+}
+
+
+
+//MOBILE-FIRST CSS//
+
+//@include desktop {}
+//global css
+
+.hidden {
+    display: none;
+}
+
+.desktopOnly {
+    display: none;
+}
+
+.box {
+    box-shadow: 3px 3px 3px rgba($color: #000000, $alpha: 0.25);
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    color: black;
+    background-color: color(background);
+    font-family: nunito, sans-serif;
+    font-weight: 500;
+    color: color(background);
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+h3 {
+    text-transform: capitalize;
+    font-size: 2em;
+    text-align: center;
+
+    span {
+        color: color(primary);
+    }
+}
+
+ul {
+    list-style: none;
+}
+
+section {
+    /* <----- Smooth Scroll ---- */
+    scroll-behavior: smooth;
+
+    padding-top: 50px;
+
+    @include desktop {
+        min-height: 100vh;
+
+    }
+
+}
+
+#bg {
+    background: linear-gradient(265.88deg, #5790E2 1.52%, #4D428E 96.76%);
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+}
+
+.container {
+    max-width: 90%;
+    margin: auto;
+}
+
+.video {
+    max-width: 300px;
+    margin: auto;
+    padding: 20%;
+}
+
+//BUTTONS
+.button {
+    font-family: roboto, sans-serif;
+    border: none;
+    font-size: 16px;
+    border-radius: 3px;
+    box-shadow: 3px 3px 3px rgba($color: #000000, $alpha: 0.25);
+    //  -3px -3px 3px rgba($color: #fff, $alpha: 0.25)
+    padding: .5em 1em;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: inherit;
+    outline: none;
+    transition: background-color 300ms;
+
+    &.primary {
+        background-color: color(primary);
+
+        &:hover {
+            color: color(primary);
+            background-color: color(background);
+        }
+    }
+
+    &.secondary {
+        background-color: color(secondary);
+
+        &:hover {
+            color: color(primary);
+            background-color: color(background);
+        }
+    }
+}
+
+#mobileNavbar {
+
+    /*
+ * Made by Erik Terwan
+ * 24th of November 2015
+ * MIT License
+ */
+
+    #menuToggle {
+        background-color: color(background);
+        padding: 1em;
+        width: 100vw;
+        display: inline-block;
+        position: fixed;
+        z-index: 1;
+        -webkit-user-select: none;
+        user-select: none;
+        text-transform: uppercase;
+    }
+
+    #menuToggle a {
+        text-decoration: none;
+        transition: color 0.3s ease;
+    }
+
+    #menuToggle a:hover {
+        color: color(background);
+    }
+
+
+    #menuToggle input {
+        display: block;
+        width: 40px;
+        height: 32px;
+        position: absolute;
+        top: -7px;
+        left: -5px;
+
+        cursor: pointer;
+
+        opacity: 0;
+        /* hide this */
+        z-index: 2;
+        /* and place it over the hamburger */
+
+        -webkit-touch-callout: none;
+    }
+
+    /*
+ * Just a quick hamburger
+ */
+    #menuToggle span {
+        text-align: right;
+        display: block;
+        width: 33px;
+        height: 4px;
+        margin-bottom: 5px;
+        position: relative;
+        background: color(secondary);
+        border-radius: 3px;
+        z-index: 1;
+        transform-origin: 4px 0px;
+        transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1.0),
+            background 0.5s cubic-bezier(0.77, 0.2, 0.05, 1.0),
+            opacity 0.55s ease;
+    }
+
+    #menuToggle span:first-child {
+        transform-origin: 0% 0%;
+    }
+
+    #menuToggle span:nth-last-child(2) {
+        transform-origin: 0% 100%;
+    }
+
+    /* 
+ * Transform all the slices of hamburger
+ * into a crossmark.
+ */
+    #menuToggle input:checked~span {
+        opacity: 1;
+        transform: rotate(45deg) translate(-2px, -1px);
+        background: color(primary);
+    }
+
+    /*
+ * But let's hide the middle one.
+ */
+    #menuToggle input:checked~span:nth-last-child(3) {
+        opacity: 0;
+        transform: rotate(0deg) scale(0.2, 0.2);
+    }
+
+    /*
+ * Ohyeah and the last one should go the other direction
+ */
+    #menuToggle input:checked~span:nth-last-child(2) {
+        transform: rotate(-45deg) translate(0, -1px);
+    }
+
+    /*
+ * Make this absolute positioned
+ * at the top left of the screen
+ */
+    #menu {
+        position: absolute;
+        width: 300px;
+        margin: -100px 0 0 -50px;
+        padding: 50px;
+        padding-top: 125px;
+        background: color(secondary);
+        list-style-type: none;
+        -webkit-font-smoothing: antialiased;
+        /* to stop flickering of text in safari */
+
+        transform-origin: 0% 0%;
+        transform: translate(-100%, 0);
+
+        transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1.0);
+    }
+
+    #menu li {
+        padding: 10px 0;
+        font-size: 22px;
+    }
+
+    /*
+ * And let's slide it in from the left
+ */
+    #menuToggle input:checked~ul {
+        transform: none;
+    }
+
+    // hide on desktop size
+    @include desktop {
+        display: none;
+    }
+}
+
+
+#home {
+    padding-top: 2em;
+
+    .wrapper {
+        display: flex;
+        flex-direction: column-reverse;
+        padding-top: 5em;
+        text-align: center;
+
+    }
+
+    .button {
+        margin: .5em .5em;
+    }
+}
+
+
+
+#features {
+    padding: 3em 1em;
+    text-align: center;
+
+    .wrapper {
+        .text {
+            p {
+                text-align: left;
+
+                &.right {
+                    text-align: right;
+                }
+            }
+
+        }
+
+        .illustration {
+            padding: 1em 0;
+        }
+    }
+
+}
+
+#pricing {
+    .wrapper {
+        h3 {
+
+            span {
+                color: color(primary);
+            }
+        }
+
+        .item {
+            margin: 3em 0;
+            background-color: color(background);
+
+            .title {
+                background-color: color(primary);
+                padding: 0.5em;
+                line-height: 0;
+                text-align: center;
+
+                h3 {
+                    text-transform: uppercase;
+                }
+
+                p {
+                    opacity: 90%;
+                }
+
+            }
+
+            .details {
+                color: color(dark);
+                padding: 1em 4em;
+
+
+                p {
+                    margin: 0;
+                }
+
+
+                .price {
+
+                    &::first-letter {
+                        vertical-align: 1.5em;
+                    }
+
+                    span {
+                        font-size: 3em;
+                        font-weight: 700;
+                    }
+
+                }
+
+                ul {
+                    padding: 0;
+
+                    .fa-check {
+                        position: absolute;
+                        margin-left: -2em;
+                        color: color(primary);
+                    }
+
+                }
+
+            }
+
+            .cta {
+                display: flex;
+                border: none;
+                color: color(background);
+
+                a.button {
+                    margin: 0 auto;
+                    padding: 1em 2em;
+                }
+            }
+        }
+    }
+}
+
+#tutorials {
+    .card {
+        text-align: center;
+        background-color: color(secondary);
+        margin: 0 0 2em 0;
+
+        h2 {
+            margin: 0;
+            text-transform: capitalize;
+            padding: 1em;
+        }
+
+        img {
+            max-width: 90%;
+        }
+
+        .button {
+            font-size: 1.5em;
+            display: inline-block;
+            margin: 1em;
+        }
+
+        &:nth-child(odd) {
+            background-color: color(background);
+            color: color(dark);
+
+            .button {
+                color: color(background);
+            }
+        }
+    }
+}
+
+#testimonials {
+    .card {
+        margin: 1em 0;
+
+        .top {
+            background-color: color(secondary);
+            padding: 2em;
+            font-size: 1.5em;
+            text-align: center;
+
+            p {
+                margin: 0;
+
+            }
+
+            .quote {
+                font-weight: 700;
+            }
+        }
+
+        .bottom {
+            padding: 0 3em;
+            display: flex;
+            flex-wrap: wrap;
+            flex-direction: row;
+            background-color: color(background);
+            color: color(dark);
+
+            .avatar {
+                padding: 1em;
+                margin-right: 1em;
+                height: 80px;
+                width: 80px;
+                border-radius: 50%;
+
+                @include mobileS {
+                    height: 50px;
+                    width: 50px;
+                    padding: 0;
+                    align-self: center;
+                }
+
+            }
+
+            .text {
+                align-self: center;
+
+                h2 {
+                    margin: 0;
+
+                    span {
+                        opacity: 90%;
+                        font-size: .9em;
+                    }
+                }
+
+            }
+
+            .stars {
+                color: color(danger);
+            }
+        }
+    }
+}
+
+
+#faq {
+    ul {
+        padding: 0;
+
+        li {
+            padding: 1em;
+            border-bottom: solid 1px rgba($color: #000000, $alpha: 0.20);
+
+            .icon {
+                color: color(primary);
+                float: right;
+            }
+        }
+    }
+}
+
+
+#footer {
+    ul {
+        padding: 0;
+        margin: 0;
+    }
+
+    li {
+        padding: 1em;
+
+        h2,
+        p {
+            margin: 0;
+        }
+
+        p {
+            text-indent: 1em;
+        }
+    }
+
+    p#tm {
+        text-align: center;
+        opacity: 80%;
+    }
+}
+
+
+//// DESKTOP ONLY RULES
+#navbar {
+    @include desktop {
+        display: inline-block;
+    }
+
+    width: 100%;
+    text-transform: uppercase;
+    font-weight: bold;
+    position: fixed;
+    top: 0;
+    z-index: 1;
+    margin: 0;
+    padding: 0;
+    background: color(gradient);
+    max-height: 50px;
+
+
+    ul {
+        display: flex;
+        justify-content: space-around;
+        padding: 0;
+
+
+        #elements {
+            display: flex;
+            flex-wrap: wrap;
+
+            li {
+                padding: 0 1em;
+            }
+        }
+
+        #logo {
+            margin-top: -20px;
+
+            img {
+                width: 100px;
+                background: color(background);
+            }
+        }
+
+        #buttons {
+            display: flex;
+
+            li {
+                padding: 0 .5em;
+            }
+        }
+    }
+
+}
+
+@include desktop {
+    #home {
+        padding-top: 10%;
+
+        .wrapper {
+            flex-direction: row;
+            justify-content: space-around;
+
+            .content {
+                max-width: 50%;
+            }
+
+            .illustration {
+                align-self: flex-end;
+
+                img {
+                    height: 300px;
+
+                }
+            }
+
+        }
+    }
+
+    #features {
+        .wrapper {
+            padding: 0 0 10em 0;
+            display: flex;
+            flex-wrap: wrap;
+            flex-direction: row;
+            justify-content: space-around;
+
+            &.last {
+                padding: 0;
+            }
+
+            &.alt {
+                flex-direction: row-reverse;
+            }
+
+            .text {
+                width: 40%;
+                text-align: center;
+                align-self: center;
+            }
+
+            .illustration {
+                img {
+                    width: 500px;
+                }
+            }
+
+            .desktopOnly {
+                display: flex;
+            }
+        }
+    }
+
+    #pricing {
+        .wrapper {
+            display: flex;
+            justify-content: space-evenly;
+
+            .item {
+                margin: 1em;
+                max-width: 30%;
+            }
+
+        }
+    }
+
+    #tutorials {
+        .wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            flex-direction: row;
+            justify-content: space-evenly;
+            ;
+
+            .card {
+                flex-basis: 30%;
+            }
+        }
+    }
+
+    #testimonials {
+        margin: 10em 3em;
+
+        .wrapper {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+
+            .card {
+                margin: 1em;
+                max-width: 33%;
+
+                .bottom {
+                    display: flex;
+                    justify-content: center;
+
+                    .avatar {
+                        margin: 0;
+                    }
+                }
+            }
+        }
+    }
+
+    #faq {
+        .wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+
+            .desktopOnly {
+                display: inline-block;
+            }
+
+            .item {
+                margin: 0 10%;
+                text-align: center;
+
+                .icon {
+                    margin-left: 2em;
+                }
+            }
+        }
+
+    }
+
+    .links ul {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row;
+        justify-content: space-around;
+    }
+
+}
+
+
+[data-scroll] {
+    transition: all 2s;
+}
+
+[data-scroll="in"] {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+[data-scroll="out"] {
+    opacity: 0;
+    transform: translateX(-200px);
+
+    &.alt {
+        transform: translateX(200px);
+    }
+}
