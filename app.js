@@ -4,7 +4,8 @@ var express = require("express"),
     // methodOverride = require('method-override'),
     // uri = 'mongodb+srv://marandino:herediano@cluster0-deig9.gcp.mongodb.net/cluster0?retryWrites=true&w=majority',
     bodyParser = require('body-parser'),
-    port = 3000;
+    PORT = process.env.PORT || 5000;
+
 
 // mongoose.set('useUnifiedTopology', true);
 // mongoose.connect(uri, {
@@ -34,5 +35,4 @@ app.get("/test", function (req, res) {
     res.render("PartialsTemplate");
 })
 //LISTEN
-app.listen(port || process.env.PORT, process.env.IP;
-});
+app.listen(PORT, () => console.log(`Listening on ${PORT}`));
