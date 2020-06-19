@@ -41,9 +41,14 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 //=========
 
-app.get("/", function (req, res) {
-    res.render("index");
-})
+///MIDDLEWARE TO PASS THE user info to every single page
+app.use(function (req, res, next) {
+    // pass the user's information
+    res.locals.currentUser = req.user; //passport creates this when someone's logged in
+    next();
+});
+///
+
 /// USER AUTHENTICATION
 
 //REGISTER
@@ -87,7 +92,8 @@ app.get("/logout", (req, res) => {
     req.logout();
     res.redirect("/");
 })
-//isLoggedIn middleware on secret route
+//isLoggedIn middleware || checks if the user is logged in
+
 
 function isLoggedIn(req, res, next) {
     if (req.isAuthenticated()) {
@@ -97,15 +103,19 @@ function isLoggedIn(req, res, next) {
 }
 /////// END OF LOGIN INFORMATION ============
 
+//INDEX ROUTE
+app.get("/", function (req, res) {
+    res.render("index");
+})
+/// CONTACT FORM
 app.get("/contact", isLoggedIn, function (req, res) {
     res.render("contact");
 })
-
+///LESSONS PLACEHOLDER
 app.get("/lesson/:id", function (req, res) {
     res.render("lesson");
 })
-
-////TEST
+////TEST -- REMOVE BEFORE DEPLOYING-- 
 app.get("/test", function (req, res) {
     res.render("PartialsTemplate");
 })
