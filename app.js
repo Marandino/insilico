@@ -75,9 +75,29 @@ app.get("/login", (req, res) => {
     res.render("login")
 })
 
-//LOG OUT
+app.post("/login", passport.authenticate("local", {
+    successRedirect: "/contact",
+    failureRedirect: "/login"
+}), (req, res) => {
+    // original callback function
+})
 
-app.get("/contact", function (req, res) {
+//LOG OUT
+app.get("/logout", (req, res) => {
+    req.logout();
+    res.redirect("/");
+})
+//isLoggedIn middleware on secret route
+
+function isLoggedIn(req, res, next) {
+    if (req.isAuthenticated()) {
+        return next();
+    }
+    res.redirect("/login");
+}
+/////// END OF LOGIN INFORMATION ============
+
+app.get("/contact", isLoggedIn, function (req, res) {
     res.render("contact");
 })
 
