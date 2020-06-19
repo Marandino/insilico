@@ -564,6 +564,11 @@ section {
             flex-direction: column;
             overflow: hidden;
 
+            a {
+                color: color(primary);
+                font-size: 1.2em;
+            }
+
             label {
                 text-transform: capitalize;
 
@@ -586,7 +591,6 @@ section {
                 font-size: 1.2em;
             }
         }
-
     }
 }
 

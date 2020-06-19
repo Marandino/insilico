@@ -537,6 +537,11 @@ section {
   overflow: hidden;
 }
 
+#form .wrapper #contactForm a {
+  color: #2AD1A7;
+  font-size: 1.2em;
+}
+
 #form .wrapper #contactForm label {
   text-transform: capitalize;
 }
