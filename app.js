@@ -21,6 +21,19 @@ app.use(express.static('public'));
 app.get("/", function (req, res) {
     res.render("index");
 })
+/// USER AUTHENTICATION
+
+//REGISTER
+app.get("/register", (req, res) => {
+    res.render("register")
+})
+
+//LOG IN
+app.get("/login", (req, res) => {
+    res.render("login")
+})
+
+//LOG OUT
 
 app.get("/contact", function (req, res) {
     res.render("contact");
@@ -30,6 +43,7 @@ app.get("/lesson/:id", function (req, res) {
     res.render("lesson");
 })
 
+////TEST
 app.get("/test", function (req, res) {
     res.render("PartialsTemplate");
 })

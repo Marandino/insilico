@@ -9,7 +9,7 @@ $colors:(primary: #2AD1A7,
     @return map-get($colors, $color-name);
 }
 
-$desktop: 840px;
+$desktop: 900px;
 $mobileS: 360px;
 
 @mixin desktop {
@@ -764,7 +764,11 @@ section {
 
     }
 
-    #contact {
+    #form {
+        margin: auto;
+        padding-top: 10vh;
+
+
         h3 {
             background-color: color(secondary);
             padding: .5em;
