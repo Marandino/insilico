@@ -512,19 +512,19 @@ section {
   opacity: 80%;
 }
 
-#contact {
+#form {
   width: 95%;
   max-width: 500px;
   margin: auto;
   padding-top: 50px;
 }
 
-#contact .wrapper {
+#form .wrapper {
   background-color: #4D428E;
   padding: 2em;
 }
 
-#contact .wrapper #contactForm {
+#form .wrapper #contactForm {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -536,12 +536,12 @@ section {
           flex-direction: column;
 }
 
-#contact .wrapper #contactForm > * {
+#form .wrapper #contactForm > * {
   padding: 1em 0;
   text-transform: capitalize;
 }
 
-#contact .wrapper #contactForm .button {
+#form .wrapper #contactForm .button {
   width: 50%;
   margin: auto;
   margin-top: 1em;
