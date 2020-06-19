@@ -9,7 +9,7 @@ $colors:(primary: #2AD1A7,
     @return map-get($colors, $color-name);
 }
 
-$desktop: 840px;
+$desktop: 900px;
 $mobileS: 360px;
 
 @mixin desktop {
@@ -92,7 +92,19 @@ section {
     position: fixed;
     width: 100vw;
     height: 100vh;
+    z-index: -2;
+}
+
+.bgIllustration {
+    display: none;
+    position: absolute;
     z-index: -1;
+    width: 100vw;
+    height: 100vh;
+
+    @include desktop {
+        display: block;
+    }
 }
 
 .container {
@@ -279,7 +291,6 @@ section {
     }
 }
 
-
 #home {
     padding-top: 2em;
 
@@ -295,8 +306,6 @@ section {
         margin: .5em .5em;
     }
 }
-
-
 
 #features {
     padding: 3em 1em;
@@ -498,7 +507,6 @@ section {
     }
 }
 
-
 #faq {
     ul {
         padding: 0;
@@ -514,7 +522,6 @@ section {
         }
     }
 }
-
 
 #footer {
     ul {
@@ -541,6 +548,51 @@ section {
     }
 }
 
+#form {
+    width: 95%;
+    max-width: 500px;
+    margin: auto;
+    padding-top: 50px;
+
+    .wrapper {
+        background-color: color(secondary);
+        padding: 2em;
+
+        #contactForm {
+            display: flex;
+            flex-wrap: wrap;
+            flex-direction: column;
+            overflow: hidden;
+
+            a {
+                color: color(primary);
+                font-size: 1.2em;
+            }
+
+            label {
+                text-transform: capitalize;
+
+            }
+
+            &>* {
+                padding: .5em 1em;
+                outline: none;
+            }
+
+            input {
+                font-size: 18px;
+            }
+
+            .button {
+                width: 50%;
+                margin: auto;
+                margin-top: 1em;
+                padding: .5em;
+                font-size: 1.2em;
+            }
+        }
+    }
+}
 
 //// DESKTOP ONLY RULES
 #navbar {
@@ -724,6 +776,17 @@ section {
             }
         }
 
+    }
+
+    #form {
+        margin: auto;
+        padding-top: 10vh;
+
+
+        h3 {
+            background-color: color(secondary);
+            padding: .5em;
+        }
     }
 
     .links ul {

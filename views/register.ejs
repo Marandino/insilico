@@ -1,0 +1,20 @@
+<%- include('partials/header'); %>
+<img src="svg/form.svg" class="bgIllustration" alt="">
+<section id="form">
+    <h3>Create a New Account</h3>
+    <div class="wrapper box">
+        <form action="/register" method="post" id="contactForm">
+            <label for="username">username</label>
+            <input type="text" name="username" required>
+            <label for="email">email address</label>
+            <input type="email" name="email" required>
+            <label for="password">Password</label>
+            <input type="password" name="password" pattern="(?=.*).{8,}"
+                title="Must containt at least 8 or more characters" required>
+            <button class="button primary">Register</button>
+            <p>Already Have An Account? <br><a href="/login">Sign In</a></p>
+
+        </form>
+    </div>
+</section>
+<%- include('partials/footer'); %>

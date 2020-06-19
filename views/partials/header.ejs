@@ -21,13 +21,19 @@
 
                     <li><a href="/#home">home</a></li>
                     <li><a href="/#features">features</a></li>
-                    <li><a href="#testimonials">testimonials</a></li>
-                    <li><a href="#tutorials">tutorials</a></li>
-                    <li><a href="#contact">contact</a></li>
+                    <li><a href="/#testimonials">testimonials</a></li>
+                    <li><a href="/#tutorials">tutorials</a></li>
+                    <li><a href="/contact">contact</a></li>
                 </span>
+
+
                 <span id="buttons">
-                    <li><a class="button good" href="/">sign in</a></li>
-                    <li><a class="button secondary" href="/">sign up</a></li>
+                    <% if(!currentUser){ %>
+                    <li><a class="button good" href="/login">sign in</a></li>
+                    <li><a class="button secondary" href="/register">sign up</a></li>
+                    <% } else{ %>
+                    <li><a class="button secondary" href="/logout">log out</a></li>
+                    <% } %>
                 </span>
             </ul>
         </nav>
