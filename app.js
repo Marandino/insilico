@@ -2,10 +2,9 @@ var express = require("express"),
     app = express(),
     // mongoose = require('mongoose'),
     // methodOverride = require('method-override'),
-    // uri = 'mongodb+srv://marandino:herediano@cluster0-deig9.gcp.mongodb.net/cluster0?retryWrites=true&w=majority',
+    // uri = 'mongodb+srv://marandino:herediano@cluster0-deig9.gcp.mongodb.net/insilico?retryWrites=true&w=majority',
     bodyParser = require('body-parser'),
     PORT = process.env.PORT || 5000;
-
 
 // mongoose.set('useUnifiedTopology', true);
 // mongoose.connect(uri, {

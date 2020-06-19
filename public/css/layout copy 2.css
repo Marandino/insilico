@@ -43,15 +43,8 @@ ul {
 }
 
 section {
-  /* <----- Smooth Scroll ---- */
-  scroll-behavior: smooth;
   padding-top: 50px;
-}
-
-@media (min-width: 840px) {
-  section {
-    min-height: 100vh;
-  }
+  min-height: 100vh;
 }
 
 #bg {
@@ -59,32 +52,12 @@ section {
   position: fixed;
   width: 100vw;
   height: 100vh;
-  z-index: -2;
-}
-
-.bgIllustration {
-  display: none;
-  position: absolute;
   z-index: -1;
-  width: 100vw;
-  height: 100vh;
-}
-
-@media (min-width: 840px) {
-  .bgIllustration {
-    display: block;
-  }
 }
 
 .container {
   max-width: 90%;
   margin: auto;
-}
-
-.video {
-  max-width: 300px;
-  margin: auto;
-  padding: 20%;
 }
 
 .button {
@@ -286,6 +259,18 @@ section {
   text-align: center;
 }
 
+@media (min-width: 840px) {
+  #home .wrapper {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+  #home .wrapper .text {
+    max-width: 50%;
+  }
+}
+
 #home .button {
   margin: .5em .5em;
 }
@@ -313,7 +298,6 @@ section {
 
 #pricing .wrapper .item {
   margin: 3em 0;
-  background-color: #f6f6f6;
 }
 
 #pricing .wrapper .item .title {
@@ -333,7 +317,8 @@ section {
 
 #pricing .wrapper .item .details {
   color: #040116;
-  padding: 1em 4em;
+  background-color: #f6f6f6;
+  padding: 1em 2em;
 }
 
 #pricing .wrapper .item .details p {
@@ -346,35 +331,12 @@ section {
 
 #pricing .wrapper .item .details .price span {
   font-size: 3em;
-  font-weight: 700;
-}
-
-#pricing .wrapper .item .details ul {
-  padding: 0;
-}
-
-#pricing .wrapper .item .details ul .fa-check {
-  position: absolute;
-  margin-left: -2em;
-  color: #2AD1A7;
-}
-
-#pricing .wrapper .item .cta {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  border: none;
-  color: #f6f6f6;
-}
-
-#pricing .wrapper .item .cta a.button {
-  margin: 0 auto;
-  padding: 1em 2em;
 }
 
 #tutorials .card {
   text-align: center;
   background-color: #4D428E;
+  padding: 2em 0 3em 0;
   margin: 0 0 2em 0;
 }
 
@@ -385,13 +347,12 @@ section {
 }
 
 #tutorials .card img {
-  max-width: 90%;
+  margin: 2em;
 }
 
 #tutorials .card .button {
   font-size: 1.5em;
   display: inline-block;
-  margin: 1em;
 }
 
 #tutorials .card:nth-child(odd) {
@@ -512,43 +473,6 @@ section {
   opacity: 80%;
 }
 
-#contact {
-  width: 95%;
-  max-width: 500px;
-  margin: auto;
-  padding-top: 50px;
-}
-
-#contact .wrapper {
-  background-color: #4D428E;
-  padding: 2em;
-}
-
-#contact .wrapper #contactForm {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-}
-
-#contact .wrapper #contactForm > * {
-  padding: 1em 0;
-  text-transform: capitalize;
-}
-
-#contact .wrapper #contactForm .button {
-  width: 50%;
-  margin: auto;
-  margin-top: 1em;
-  padding: .5em;
-  font-size: 1.2em;
-}
-
 #navbar {
   width: 100%;
   text-transform: uppercase;
@@ -607,185 +531,4 @@ section {
 #navbar ul #buttons li {
   padding: 0 .5em;
 }
-
-@media (min-width: 840px) {
-  #home {
-    padding-top: 10%;
-  }
-  #home .wrapper {
-    -webkit-box-orient: horizontal;
-    -webkit-box-direction: normal;
-        -ms-flex-direction: row;
-            flex-direction: row;
-    -ms-flex-pack: distribute;
-        justify-content: space-around;
-  }
-  #home .wrapper .content {
-    max-width: 50%;
-  }
-  #home .wrapper .illustration {
-    -ms-flex-item-align: end;
-        align-self: flex-end;
-  }
-  #home .wrapper .illustration img {
-    height: 300px;
-  }
-  #features .wrapper {
-    padding: 0 0 10em 0;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-wrap: wrap;
-        flex-wrap: wrap;
-    -webkit-box-orient: horizontal;
-    -webkit-box-direction: normal;
-        -ms-flex-direction: row;
-            flex-direction: row;
-    -ms-flex-pack: distribute;
-        justify-content: space-around;
-  }
-  #features .wrapper.last {
-    padding: 0;
-  }
-  #features .wrapper.alt {
-    -webkit-box-orient: horizontal;
-    -webkit-box-direction: reverse;
-        -ms-flex-direction: row-reverse;
-            flex-direction: row-reverse;
-  }
-  #features .wrapper .text {
-    width: 40%;
-    text-align: center;
-    -ms-flex-item-align: center;
-        -ms-grid-row-align: center;
-        align-self: center;
-  }
-  #features .wrapper .illustration img {
-    width: 500px;
-  }
-  #features .wrapper .desktopOnly {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-  }
-  #pricing .wrapper {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-pack: space-evenly;
-        -ms-flex-pack: space-evenly;
-            justify-content: space-evenly;
-  }
-  #pricing .wrapper .item {
-    margin: 1em;
-    max-width: 30%;
-  }
-  #tutorials .wrapper {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-wrap: wrap;
-        flex-wrap: wrap;
-    -webkit-box-orient: horizontal;
-    -webkit-box-direction: normal;
-        -ms-flex-direction: row;
-            flex-direction: row;
-    -webkit-box-pack: space-evenly;
-        -ms-flex-pack: space-evenly;
-            justify-content: space-evenly;
-  }
-  #tutorials .wrapper .card {
-    -ms-flex-preferred-size: 30%;
-        flex-basis: 30%;
-  }
-  #testimonials {
-    margin: 10em 3em;
-  }
-  #testimonials .wrapper {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-orient: horizontal;
-    -webkit-box-direction: normal;
-        -ms-flex-direction: row;
-            flex-direction: row;
-    -webkit-box-pack: center;
-        -ms-flex-pack: center;
-            justify-content: center;
-  }
-  #testimonials .wrapper .card {
-    margin: 1em;
-    max-width: 33%;
-  }
-  #testimonials .wrapper .card .bottom {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-pack: center;
-        -ms-flex-pack: center;
-            justify-content: center;
-  }
-  #testimonials .wrapper .card .bottom .avatar {
-    margin: 0;
-  }
-  #faq .wrapper {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-wrap: wrap;
-        flex-wrap: wrap;
-    -webkit-box-pack: center;
-        -ms-flex-pack: center;
-            justify-content: center;
-  }
-  #faq .wrapper .desktopOnly {
-    display: inline-block;
-  }
-  #faq .wrapper .item {
-    margin: 0 10%;
-    text-align: center;
-  }
-  #faq .wrapper .item .icon {
-    margin-left: 2em;
-  }
-  #contact h3 {
-    background-color: #4D428E;
-    padding: .5em;
-  }
-  .links ul {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-wrap: wrap;
-        flex-wrap: wrap;
-    -webkit-box-orient: horizontal;
-    -webkit-box-direction: normal;
-        -ms-flex-direction: row;
-            flex-direction: row;
-    -ms-flex-pack: distribute;
-        justify-content: space-around;
-  }
-}
-
-[data-scroll] {
-  -webkit-transition: all 2s;
-  transition: all 2s;
-}
-
-[data-scroll="in"] {
-  opacity: 1;
-  -webkit-transform: translateX(0);
-          transform: translateX(0);
-}
-
-[data-scroll="out"] {
-  opacity: 0;
-  -webkit-transform: translateX(-200px);
-          transform: translateX(-200px);
-}
-
-[data-scroll="out"].alt {
-  -webkit-transform: translateX(200px);
-          transform: translateX(200px);
-}
-/*# sourceMappingURL=layout.css.map */
+/*# sourceMappingURL=layout copy 2.css.map */
