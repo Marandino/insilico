@@ -30,6 +30,16 @@ $mobileS: 360px;
 
 //@include desktop {}
 //global css
+form input {
+    &[type="text"] {
+        text-transform: lowercase;
+    }
+
+}
+
+input:invalid {
+    border: solid 1px color(danger);
+}
 
 .hidden {
     display: none;

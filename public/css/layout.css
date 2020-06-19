@@ -1,3 +1,11 @@
+form input[type="text"] {
+  text-transform: lowercase;
+}
+
+input:invalid {
+  border: solid 1px #FF7F33;
+}
+
 .hidden {
   display: none;
 }
