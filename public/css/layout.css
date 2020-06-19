@@ -534,11 +534,20 @@ section {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+  overflow: hidden;
+}
+
+#form .wrapper #contactForm label {
+  text-transform: capitalize;
 }
 
 #form .wrapper #contactForm > * {
-  padding: 1em 0;
-  text-transform: capitalize;
+  padding: .5em 1em;
+  outline: none;
+}
+
+#form .wrapper #contactForm input {
+  font-size: 18px;
 }
 
 #form .wrapper #contactForm .button {
