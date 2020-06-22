@@ -99,6 +99,11 @@ app.get("/logout", (req, res) => {
     req.logout();
     res.redirect("/");
 })
+// ACCOUNT SETTINGS
+app.get("/account", (req, res) => {
+    res.render("account");
+})
+
 //isLoggedIn middleware || checks if the user is logged in
 
 
