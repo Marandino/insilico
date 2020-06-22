@@ -50,7 +50,7 @@ app.use(function (req, res, next) {
 ///
 ////EMAILING VARIABLES
 const sgMail = require('@sendgrid/mail');
-sgMail.setApiKey("process.env.SENDGRID_API_KEY");
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 //////<
 
 
