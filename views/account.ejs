@@ -1,20 +1,14 @@
 <%- include('partials/header'); %>
 <img src="svg/form.svg" class="bgIllustration" alt="">
-<section id="form">
-    <h3>Get In Touch With Us</h3>
-    <div class="wrapper box">
-        <%if(alert){%>
-        <h2><%= alert %></h2>
-        <%}%>
-        <form action="/contact" method="post" id="contactForm">
-            <label for="user">tradingview username</label>
-            <input type="text" name="user">
-            <label for="email" required>email address</label>
-            <input type="email" name="email">
-            <label for="message" required>inquiry</label>
-            <textarea name="message" id="contactForm" cols="30" rows="10"></textarea>
-            <button class="button primary">Send</button>
-        </form>
+<section id="account">
+    <% if (currentUser) { %>
+    <h1> <%= currentUser.name %></h1>
+    <% } %>
+    <div class="wrapper left box">
+        <div class="avatar"><img src="images/avatar/default.png" alt=""></div>
+    </div>
+    <div class="wrapper right box">
+
     </div>
 </section>
 <%- include('partials/footer'); %>

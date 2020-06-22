@@ -2,9 +2,17 @@ const mongoose = require("mongoose"),
     passportLocalMongoose = require("passport-local-mongoose");
 
 var userSchema = new mongoose.Schema({
+    name: String,
+    avatar: {
+        type: String,
+        default: "default.png"
+    },
     username: String,
     email: String,
-    premium: Boolean,
+    premium: {
+        type: Boolean,
+        default: false
+    },
     password: String
 })
 

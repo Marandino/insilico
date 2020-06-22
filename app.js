@@ -100,7 +100,7 @@ app.get("/logout", (req, res) => {
     res.redirect("/");
 })
 // ACCOUNT SETTINGS
-app.get("/account", (req, res) => {
+app.get("/account", isLoggedIn, (req, res) => {
     res.render("account");
 })
 
