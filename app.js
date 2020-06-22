@@ -66,7 +66,8 @@ app.post("/register", (req, res) => {
     //user REGISTRATION
     User.register(new User({
         username: req.body.username,
-        email: req.body.email
+        email: req.body.email,
+        premium: false
     }), req.body.password, function (err, user) {
         if (err) {
             console.log(err)
@@ -116,7 +117,7 @@ app.get("/", function (req, res) {
 
 
 /// CONTACT FORM
-app.get("/contact", function (req, res) {
+app.get("/contact", isLoggedIn, function (req, res) {
     res.render("contact", {
         alert: false
     });
@@ -150,10 +151,11 @@ app.post("/contact", function (req, res) {
 
 ////>
 ///LESSONS PLACEHOLDER
-app.get("/lesson/:id", function (req, res) {
+app.get("/lesson/:id", isLoggedIn, function (req, res) {
     res.render("lesson");
 })
 ////TEST -- REMOVE BEFORE DEPLOYING-- 
+
 app.get("/test", function (req, res) {
     res.render("PartialsTemplate");
 })
