@@ -35,6 +35,11 @@ form input {
         text-transform: lowercase;
     }
 
+    &.capitalize {
+        text-transform: capitalize;
+    }
+
+
 }
 
 input:invalid {
@@ -127,6 +132,7 @@ section {
     margin: auto;
     padding: 20%;
 }
+
 
 //BUTTONS
 .button {
@@ -604,7 +610,46 @@ section {
     }
 }
 
-#account {}
+#account {
+    .wrapper {
+
+        &.left {
+            display: flex;
+            flex-wrap: wrap;
+            flex-direction: row;
+            justify-content: center;
+
+            img {
+                width: 50px;
+                border-radius: 50%;
+                margin: 0 1em;
+            }
+
+            ul {
+                width: 100vw;
+                padding: 0;
+                text-align: center;
+            }
+        }
+
+        &.right {
+            .form {
+                form {
+                    padding: 1em 4em;
+                    display: flex;
+                    flex-wrap: wrap;
+                    flex-direction: column;
+                    text-align: center;
+
+                    input {
+                        padding: .5em;
+                        margin: 1em 0;
+                    }
+                }
+            }
+        }
+    }
+}
 
 //// DESKTOP ONLY RULES
 #navbar {

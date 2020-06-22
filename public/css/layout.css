@@ -2,6 +2,10 @@ form input[type="text"] {
   text-transform: lowercase;
 }
 
+form input.capitalize {
+  text-transform: capitalize;
+}
+
 input:invalid {
   border: solid 1px #FF7F33;
 }
@@ -571,6 +575,52 @@ section {
   font-size: 1.2em;
 }
 
+#account .wrapper.left {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+#account .wrapper.left img {
+  width: 50px;
+  border-radius: 50%;
+  margin: 0 1em;
+}
+
+#account .wrapper.left ul {
+  width: 100vw;
+  padding: 0;
+  text-align: center;
+}
+
+#account .wrapper.right .form form {
+  padding: 1em 4em;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  text-align: center;
+}
+
+#account .wrapper.right .form form input {
+  padding: .5em;
+  margin: 1em 0;
+}
+
 #navbar {
   width: 100%;
   text-transform: uppercase;
@@ -773,6 +823,9 @@ section {
   #form {
     margin: auto;
     padding-top: 10vh;
+  }
+  #form h2 {
+    color: #2AD1A7;
   }
   #form h3 {
     background-color: #4D428E;
