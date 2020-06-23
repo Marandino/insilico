@@ -7,7 +7,7 @@ form input.capitalize {
 }
 
 input:invalid {
-  border: solid 1px #FF7F33;
+  border: solid 1px #ff7f33;
 }
 
 .hidden {
@@ -47,7 +47,7 @@ h3 {
 }
 
 h3 span {
-  color: #2AD1A7;
+  color: #2ad1a7;
 }
 
 ul {
@@ -67,7 +67,7 @@ section {
 }
 
 #bg {
-  background: linear-gradient(265.88deg, #5790E2 1.52%, #4D428E 96.76%);
+  background: linear-gradient(265.88deg, #5790e2 1.52%, #4d428e 96.76%);
   position: fixed;
   width: 100vw;
   height: 100vh;
@@ -116,20 +116,20 @@ section {
 }
 
 .button.primary {
-  background-color: #2AD1A7;
+  background-color: #2ad1a7;
 }
 
 .button.primary:hover {
-  color: #2AD1A7;
+  color: #2ad1a7;
   background-color: #f6f6f6;
 }
 
 .button.secondary {
-  background-color: #4D428E;
+  background-color: #4d428e;
 }
 
 .button.secondary:hover {
-  color: #2AD1A7;
+  color: #2ad1a7;
   background-color: #f6f6f6;
 }
 
@@ -207,7 +207,7 @@ section {
   height: 4px;
   margin-bottom: 5px;
   position: relative;
-  background: #4D428E;
+  background: #4d428e;
   border-radius: 3px;
   z-index: 1;
   -webkit-transform-origin: 4px 0px;
@@ -232,7 +232,7 @@ section {
   opacity: 1;
   -webkit-transform: rotate(45deg) translate(-2px, -1px);
           transform: rotate(45deg) translate(-2px, -1px);
-  background: #2AD1A7;
+  background: #2ad1a7;
 }
 
 #mobileNavbar #menuToggle input:checked ~ span:nth-last-child(3) {
@@ -252,7 +252,7 @@ section {
   margin: -100px 0 0 -50px;
   padding: 50px;
   padding-top: 125px;
-  background: #4D428E;
+  background: #4d428e;
   list-style-type: none;
   -webkit-font-smoothing: antialiased;
   /* to stop flickering of text in safari */
@@ -320,7 +320,7 @@ section {
 }
 
 #pricing .wrapper h3 span {
-  color: #2AD1A7;
+  color: #2ad1a7;
 }
 
 #pricing .wrapper .item {
@@ -329,7 +329,7 @@ section {
 }
 
 #pricing .wrapper .item .title {
-  background-color: #2AD1A7;
+  background-color: #2ad1a7;
   padding: 0.5em;
   line-height: 0;
   text-align: center;
@@ -368,7 +368,7 @@ section {
 #pricing .wrapper .item .details ul .fa-check {
   position: absolute;
   margin-left: -2em;
-  color: #2AD1A7;
+  color: #2ad1a7;
 }
 
 #pricing .wrapper .item .cta {
@@ -386,7 +386,7 @@ section {
 
 #tutorials .card {
   text-align: center;
-  background-color: #4D428E;
+  background-color: #4d428e;
   margin: 0 0 2em 0;
 }
 
@@ -420,7 +420,7 @@ section {
 }
 
 #testimonials .card .top {
-  background-color: #4D428E;
+  background-color: #4d428e;
   padding: 2em;
   font-size: 1.5em;
   text-align: center;
@@ -484,7 +484,7 @@ section {
 }
 
 #testimonials .card .bottom .stars {
-  color: #FF7F33;
+  color: #ff7f33;
 }
 
 #faq ul {
@@ -497,7 +497,7 @@ section {
 }
 
 #faq ul li .icon {
-  color: #2AD1A7;
+  color: #2ad1a7;
   float: right;
 }
 
@@ -532,7 +532,7 @@ section {
 }
 
 #form .wrapper {
-  background-color: #4D428E;
+  background-color: #4d428e;
   padding: 2em;
 }
 
@@ -550,7 +550,7 @@ section {
 }
 
 #form .wrapper #contactForm a {
-  color: #2AD1A7;
+  color: #2ad1a7;
   font-size: 1.2em;
 }
 
@@ -630,7 +630,7 @@ section {
   z-index: 1;
   margin: 0;
   padding: 0;
-  background: -webkit-linear-gradient(244.48deg, #5790E2 1.52%, #4D428E 96.76%);
+  background: -webkit-linear-gradient(244.48deg, #5790e2 1.52%, #4d428e 96.76%);
   max-height: 50px;
 }
 
@@ -825,11 +825,45 @@ section {
     padding-top: 10vh;
   }
   #form h2 {
-    color: #2AD1A7;
+    color: #2ad1a7;
   }
   #form h3 {
-    background-color: #4D428E;
+    background-color: #4d428e;
     padding: .5em;
+  }
+  #account .container {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: flex;
+        flex-wrap: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+  }
+  #account .container .wrapper {
+    margin: 1em;
+    -webkit-box-shadow: none;
+            box-shadow: none;
+  }
+  #account .container .wrapper.left {
+    width: 200px;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -ms-flex-line-pack: center;
+        align-content: center;
+    padding: 2em;
+    background-color: #4d428e;
+  }
+  #account .container .wrapper.right .box {
+    padding: 1em;
+    margin: 1em;
+    background-color: #4d428e;
   }
   .links ul {
     display: -webkit-box;
