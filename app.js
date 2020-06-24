@@ -1,42 +1,42 @@
 if (process.env.NODE_ENV !== 'production') {
-	///load all keys to heroku ****
-	require('dotenv').config();
+    ///load all keys to heroku ****
+    require('dotenv').config();
 }
 var express = require('express'),
-	app = express(),
-	///MANAGING DATABASES
-	mongoose = require('mongoose'),
-	///BODY PARSER (PARSE FORMS)
-	bodyParser = require('body-parser'),
-	///PASSPORT DEPENDENCIES (AUTHENTICATION)
-	User = require('./models/users'),
-	passport = require('passport'),
-	LocalStrategy = require('passport-local'),
-	passportLocalMongoose = require('passport-local-mongoose'),
-	//// PORT
-	PORT = process.env.PORT || 5000;
+    app = express(),
+    ///MANAGING DATABASES
+    mongoose = require('mongoose'),
+    ///BODY PARSER (PARSE FORMS)
+    bodyParser = require('body-parser'),
+    ///PASSPORT DEPENDENCIES (AUTHENTICATION)
+    User = require('./models/users'),
+    passport = require('passport'),
+    LocalStrategy = require('passport-local'),
+    passportLocalMongoose = require('passport-local-mongoose'),
+    //// PORT
+    PORT = process.env.PORT || 5000;
 ///ENVIROMENT KEYS
 
 ////CONNECT TO DATABASE
 const uri = process.env.URI;
 mongoose.set('useUnifiedTopology', true);
 mongoose.connect(uri, {
-	useNewUrlParser: true
+    useNewUrlParser: true
 });
 
 ////=======
 //INIT DEPENDENCIES
 app.use(
-	bodyParser.urlencoded({
-		extended: true
-	})
+    bodyParser.urlencoded({
+        extended: true
+    })
 );
 app.use(
-	require('express-session')({
-		secret: 'encoding passwords2',
-		resave: false,
-		saveUninitialized: false
-	})
+    require('express-session')({
+        secret: 'encoding passwords2',
+        resave: false,
+        saveUninitialized: false
+    })
 );
 app.use(passport.initialize());
 app.use(passport.session());
@@ -52,10 +52,10 @@ passport.deserializeUser(User.deserializeUser());
 //=========
 
 ///MIDDLEWARE TO PASS THE user info to every single page
-app.use(function(req, res, next) {
-	// pass the user's information
-	res.locals.currentUser = req.user; //passport creates this when someone's logged in
-	next();
+app.use(function (req, res, next) {
+    // pass the user's information
+    res.locals.currentUser = req.user; //passport creates this when someone's logged in
+    next();
 });
 ///
 ////EMAILING VARIABLES
@@ -67,83 +67,83 @@ sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 //REGISTER
 app.get('/register', (req, res) => {
-	res.render('register');
+    res.render('register');
 });
 //POST ROUTE
 app.post('/register', (req, res) => {
-	//user REGISTRATION
-	User.register(
-		new User({
-			username: req.body.username,
-			email: req.body.email,
-			premium: false
-		}),
-		req.body.password,
-		function(err, user) {
-			if (err) {
-				console.log(err);
-				return res.render('register');
-			}
+    //user REGISTRATION
+    User.register(
+        new User({
+            username: req.body.username,
+            email: req.body.email,
+            premium: false
+        }),
+        req.body.password,
+        function (err, user) {
+            if (err) {
+                console.log(err);
+                return res.render('register');
+            }
 
-			//this part logs in the user after registering
-			passport.authenticate('local')(req, res, function() {
-				res.redirect('/');
-			});
-		}
-	);
+            //this part logs in the user after registering
+            passport.authenticate('local')(req, res, function () {
+                res.redirect('/');
+            });
+        }
+    );
 });
 /////======= END OF REGISTRATION ========
 
 //LOG IN
 app.get('/login', (req, res) => {
-	res.render('login');
+    res.render('login');
 });
 
 app.post(
-	'/login',
-	passport.authenticate('local', {
-		successRedirect: '/contact',
-		failureRedirect: '/login'
-	}),
-	(req, res) => {
-		// original callback function
-	}
+    '/login',
+    passport.authenticate('local', {
+        successRedirect: '/contact',
+        failureRedirect: '/login'
+    }),
+    (req, res) => {
+        // original callback function
+    }
 );
 
 //LOG OUT
 app.get('/logout', (req, res) => {
-	req.logout();
-	res.redirect('/');
+    req.logout();
+    res.redirect('/');
 });
 // ACCOUNT SETTINGS
 app.get('/account', isLoggedIn, (req, res) => {
-	res.render('account');
+    res.render('account');
 });
 
 //isLoggedIn middleware || checks if the user is logged in
 
 function isLoggedIn(req, res, next) {
-	if (req.isAuthenticated()) {
-		return next();
-	}
-	res.redirect('/login');
+    if (req.isAuthenticated()) {
+        return next();
+    }
+    res.redirect('/login');
 }
 /////// END OF LOGIN INFORMATION ============
 
 //INDEX ROUTE
-app.get('/', function(req, res) {
-	res.render('index');
+app.get('/', function (req, res) {
+    res.render('index');
 });
 
 /// CONTACT FORM
-app.get('/contact', isLoggedIn, function(req, res) {
-	res.render('contact', {
-		alert: false
-	});
+app.get('/contact', isLoggedIn, function (req, res) {
+    res.render('contact', {
+        alert: false
+    });
 });
-app.post('/contact', function(req, res) {
-	///retrieve the email info
-	const output = `
+app.post('/contact', function (req, res) {
+    ///retrieve the email info
+    const output = `
         <h3> You 've got a New Contact</h3> 
         <p> This person is trying to reach you: </p> 
         <ul>
@@ -152,31 +152,40 @@ app.post('/contact', function(req, res) {
             <li>phone: ${req.body.message}</li> 
         </ul> 
     `;
-	//send the email info
-	const msg = {
-		to: 'chiy100196@gmail.com',
-		// *** change it to be customer's email
-		from: 'chi@marandino.dev',
-		subject: 'Insilico Customer Contact',
-		text: 'null',
-		html: output
-	};
-	sgMail.send(msg);
-	///send you back
-	res.render('contact', {
-		alert: 'Your Message Has Been Sent'
-	});
+    //send the email info
+    const msg = {
+        to: 'chiy100196@gmail.com',
+        // *** change it to be customer's email
+        from: 'chi@marandino.dev',
+        subject: 'Insilico Customer Contact',
+        text: 'null',
+        html: output
+    };
+    sgMail.send(msg);
+    ///send you back
+    res.render('contact', {
+        alert: 'Your Message Has Been Sent'
+    });
 });
 
 ////>
 ///LESSONS PLACEHOLDER
-app.get('/lesson/:id', isLoggedIn, function(req, res) {
-	res.render('lesson');
+app.get('/lesson/:id', isLoggedIn, function (req, res) {
+    res.render('lesson');
 });
+
+////CHECKOUT PAGE
+
+app.get("/checkout", (req, res) => {
+    res.render("checkout");
+})
+//adding IDs for the different plans is going to be necessary
+
+
 ////TEST -- REMOVE BEFORE DEPLOYING--
 
-app.get('/test', function(req, res) {
-	res.render('PartialsTemplate');
+app.get('/test', function (req, res) {
+    res.render('PartialsTemplate');
 });
 //LISTEN
 app.listen(PORT, () => console.log(`Listening on ${PORT}`));
