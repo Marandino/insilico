@@ -878,6 +878,10 @@ section {
     -ms-flex-pack: distribute;
         justify-content: space-around;
   }
+  #lesson .wrapper {
+    max-width: 80vw;
+    margin: 2em auto;
+  }
 }
 
 [data-scroll] {

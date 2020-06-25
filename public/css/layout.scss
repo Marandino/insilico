@@ -850,6 +850,13 @@ section {
         flex-direction: row;
         justify-content: space-around;
     }
+
+    #lesson {
+        .wrapper {
+            max-width: 80vw;
+            margin: 2em auto;
+        }
+    }
 }
 
 [data-scroll] {
