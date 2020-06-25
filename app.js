@@ -111,14 +111,17 @@ app.get('/login', (req, res) => {
 app.post(
     '/login',
     passport.authenticate('local', {
-        successRedirect: '/contact',
+        successRedirect: '/redirect',
         failureRedirect: '/login'
     }),
-    (req, res) => {
-        // original callback function
-    }
+    (req, res) => {}
 );
 
+
+app.get("/redirect", (req, res) => {
+    res.redirect(req.session.returnTo || '/');
+    delete req.session.returnTo;
+})
 //LOG OUT
 app.get('/logout', (req, res) => {
     req.logout();
@@ -135,6 +138,7 @@ function isLoggedIn(req, res, next) {
     if (req.isAuthenticated()) {
         return next();
     }
+    req.session.returnTo = req.originalUrl;
     res.redirect('/login');
 }
 /////// END OF LOGIN INFORMATION ============
