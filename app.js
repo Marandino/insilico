@@ -180,7 +180,10 @@ app.post('/contact', function (req, res) {
 ////>
 ///LESSONS PLACEHOLDER
 app.get('/lesson/:id', isLoggedIn, function (req, res) {
-    res.render('lesson');
+    lessonId = req.params.id;
+    res.render('lesson', {
+        lessonId: lessonId
+    });
 });
 
 ////CHECKOUT PAGE
