@@ -740,6 +740,9 @@ section {
     display: -ms-flexbox;
     display: flex;
   }
+  #pricing li {
+    line-height: 1.5;
+  }
   #pricing .wrapper {
     display: -webkit-box;
     display: -ms-flexbox;

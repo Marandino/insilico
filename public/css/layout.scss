@@ -732,6 +732,10 @@ section {
     }
 
     #pricing {
+        li {
+            line-height: 1.5;
+        }
+
         .wrapper {
             display: flex;
             justify-content: space-evenly;
