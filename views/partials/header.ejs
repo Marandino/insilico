@@ -12,9 +12,10 @@
         <link rel="stylesheet" href="css/normalize.css" />
         <link rel="stylesheet" href="css/global.css" />
         <link rel="stylesheet" href="css/layout.css">
-
+        <!-- Note: when deploying, replace "development.js" with "production.min.js". -->
         <script src="https://js.stripe.com/v3/"></script>
         <script src="js/script.js" defer></script>
+
     </head>
 
     <body>
@@ -31,7 +32,6 @@
                     <li><a href="/contact">contact</a></li>
                 </span>
 
-
                 <span id="buttons">
                     <% if(!currentUser){ %>
                     <li><a class="button good" href="/login">sign in</a></li>
@@ -45,6 +45,7 @@
                     <li><a class="button secondary" href="/logout">log out</a></li>
                     <% } %>
                 </span>
+
             </ul>
         </nav>
         <nav id="mobileNavbar">

@@ -36,7 +36,7 @@ var stripeElements = function (publicKey) {
 
     document.querySelector('#submit').addEventListener('click', function (evt) {
         evt.preventDefault();
-        changeLoadingState(true);
+        changeLoadingState(true); ///^^^^^^***SHOULD BE TRUE disabled for testing pourpuses 
         // Initiate payment
         createPaymentMethodAndCustomer(stripe, card);
     });
@@ -66,29 +66,36 @@ var createPaymentMethodAndCustomer = function (stripe, card) {
             if (result.error) {
                 showCardError(result.error);
             } else {
+                console.log("estoy en create payment method" + result.paymentMethod.id + cardholderEmail)
                 createCustomer(result.paymentMethod.id, cardholderEmail);
             }
         });
 };
 
-async function createCustomer(paymentMethod, cardholderEmail) {
+
+
+
+async function createCustomer() {
+    let billingEmail = document.querySelector('#email').value;
     return fetch('/create-customer', {
             method: 'post',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                email: cardholderEmail,
-                payment_method: paymentMethod,
+                email: billingEmail
             })
         })
         .then(response => {
             return response.json();
         })
-        .then(subscription => {
-            handleSubscription(subscription);
+        .then(result => {
+            // result.customer.id is used to map back to the customer object
+            // result.setupIntent.client_secret is used to create the payment method
+            return result;
         });
 }
+
 
 function handleSubscription(subscription) {
     const {
@@ -165,36 +172,16 @@ getPublicKey();
 
 /* Shows a success / error message when the payment is complete */
 var orderComplete = function (subscription) {
-    /////MAKE MY CHANGES HERE..
-    //custom function ****
-    mergeUser(subscription);
-
     changeLoadingState(false);
-    var subscriptionJson = JSON.stringify(subscription, null, 2); //this line is not necessary
-    // document.querySelectorAll('.payment-view').forEach(function (view) {
-    //     view.classList.add('hidden');
-    // });
+    var subscriptionJson = JSON.stringify(subscription, null, 2);
+    document.querySelectorAll('.payment-view').forEach(function (view) {
+        view.classList.add('hidden');
+    });
     document.querySelectorAll('.completed-view').forEach(function (view) {
         view.classList.remove('hidden');
     });
     document.querySelector('.order-status').textContent = subscription.status;
     document.querySelector('code').textContent = subscriptionJson;
-    // document.querySelector('code').textContent = subscriptionJson;
-    ///CUSTOM TEST CODE
-
-    // if (subscription.id) {
-    //     var subscriptionId = subscription.id;
-    //     console.log(subscriptionId)
-    //     return fetch('/register', {
-    //         method: 'post',
-    //         headers: {
-    //             'Content-type': 'application/json'
-    //         },
-    //         body: JSON.stringify({
-    //             subscriptionId: subscriptionId;
-    //         })
-    //     })
-    // }
 };
 
 // Show a spinner on subscription submission
@@ -212,10 +199,90 @@ var changeLoadingState = function (isLoading) {
 };
 
 
-function mergeUser(subs) {
-    console.log(subs.latest_invoice.status)
 
-    ////HACER QUE EL SUBSCRIPTION REQUEST VALIDE LA INFO SERVERSIDEA
-    // AT SOME POINT THIS INOF WAS SENT TOWARSD THE CLIENT SIDE SO ALL I NEED TO DO IS CHECK IT ON THE BACKEND
-    // INTERCEPT IT AND USER IT
+
+////////////////
+
+function createPaymentMethod(cardElement, customerId, priceId) {
+    return stripe
+        .createPaymentMethod({
+            type: 'card',
+            card: cardElement,
+        })
+        .then((result) => {
+            if (result.error) {
+                displayError(error);
+            } else {
+                createSubscription({
+                    customerId: customerId,
+                    paymentMethodId: result.paymentMethod.id,
+                    priceId: priceId,
+                });
+            }
+        });
+}
+
+function createSubscription({
+    customerId,
+    paymentMethodId,
+    priceId
+}) {
+    return (
+        fetch('/create-subscription', {
+            method: 'post',
+            headers: {
+                'Content-type': 'application/json',
+            },
+            body: JSON.stringify({
+                customerId: customerId,
+                paymentMethodId: paymentMethodId,
+                priceId: priceId,
+            }),
+        })
+        .then((response) => {
+            return response.json();
+        })
+        // If the card is declined, display an error to the user.
+        .then((result) => {
+            if (result.error) {
+                // The card had an error when trying to attach it to a customer.
+                throw result;
+            }
+            return result;
+        })
+        // Normalize the result to contain the object returned by Stripe.
+        // Add the addional details we need.
+        .then((result) => {
+            return {
+                paymentMethodId: paymentMethodId,
+                priceId: priceId,
+                subscription: result,
+            };
+        })
+        // Some payment methods require a customer to be on session
+        // to complete the payment process. Check the status of the
+        // payment intent to handle these actions.
+        .then(handlePaymentThatRequiresCustomerAction)
+        // If attaching this card to a Customer object succeeds,
+        // but attempts to charge the customer fail, you
+        // get a requires_payment_method error.
+        .then(handleRequiresPaymentMethod)
+        // No more actions required. Provision your service for the user.
+        .then(onSubscriptionComplete)
+        .catch((error) => {
+            // An error has happened. Display the failure to the user here.
+            // We utilize the HTML element we created.
+            showCardError(error);
+        })
+    );
+}
+
+function onSubscriptionComplete(result) {
+    // Payment was successful.
+    if (result.subscription.status === 'active') {
+        // Change your UI to show a success message to your customer.
+        // Call your backend to grant access to your service based on
+        // `result.subscription.items.data[0].price.product` the customer subscribed to.
+
+    }
 }

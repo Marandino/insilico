@@ -2,11 +2,12 @@ const mongoose = require("mongoose"),
     passportLocalMongoose = require("passport-local-mongoose");
 
 var userSchema = new mongoose.Schema({
-    name: String,
-    avatar: {
-        type: String,
-        default: "default.png"
-    },
+    // name: String,
+    // avatar: {
+    //     type: String,
+    //     default: "default.png"
+    // },
+    stripeId: String,
     username: String,
     email: String,
     premium: {

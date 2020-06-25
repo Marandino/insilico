@@ -78,12 +78,11 @@ app.get('/register', (req, res) => {
 //POST ROUTE
 app.post('/register', (req, res) => {
     //user REGISTRATION
-    // if statement so i can check if it's just a registering or something else
-    // still it'd be better to implement it on the stripe acct 
     User.register(
         new User({
             username: req.body.username,
             email: req.body.email,
+            premium: false
         }),
         req.body.password,
         function (err, user) {
@@ -94,7 +93,7 @@ app.post('/register', (req, res) => {
 
             //this part logs in the user after registering
             passport.authenticate('local')(req, res, function () {
-                res.redirect('/checkout');
+                res.redirect('/');
             });
         }
     );
@@ -182,11 +181,18 @@ app.get('/lesson/:id', isLoggedIn, function (req, res) {
 });
 
 ////CHECKOUT PAGE
-app.get("/checkout", isLoggedIn, (req, res) => {
+
+app.get("/checkout", (req, res) => {
     res.render("checkout");
 })
 //adding IDs for the different plans is going to be necessary
+
+
 ////PAYMENTS
+
+app.get("/checkout", (req, res) => {
+    res.render("checkout");
+})
 
 app.get('/public-key', (req, res) => {
     res.send({
@@ -195,7 +201,7 @@ app.get('/public-key', (req, res) => {
 });
 app.post('/create-customer', async (req, res) => {
     // This creates a new Customer and attaches
-    // console.log(req.body);
+    console.log(req.body);
     // the PaymentMethod to be default for invoice in one API call.
     const customer = await stripe.customers.create({
         payment_method: req.body.payment_method,
@@ -204,24 +210,10 @@ app.post('/create-customer', async (req, res) => {
             default_payment_method: req.body.payment_method
         }
     });
-    ////alll the magic happens here
-    // console.log("=====================")
-    // console.log(req.user.email);
-    // console.log(customer.id);
-    // ///==== END OF MAGIC
-    // User.findOneAndUpdate({
-    //     email: "chiy100196@gmail.com"
-    // }, {
-    //     premium: true
-    // })
-
-
-
     // At this point, associate the ID of the Customer object with your
     // own internal representation of a customer, if you have one.
     const subscription = await stripe.subscriptions.create({
         customer: customer.id,
-
         items: [{
             // price: process.env.SUBSCRIPTION_PRICE_ID
             price: "price_1GxAcpJyRCyDOw0D2kfbRhKe"
@@ -234,7 +226,6 @@ app.post('/create-customer', async (req, res) => {
 app.post('/subscription', async (req, res) => {
     let subscription = await stripe.subscriptions.retrieve(
         req.body.subscriptionId
-
     );
     res.send(subscription);
 });
