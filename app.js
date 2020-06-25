@@ -122,6 +122,8 @@ app.get("/redirect", (req, res) => {
     res.redirect(req.session.returnTo || '/');
     delete req.session.returnTo;
 })
+
+
 //LOG OUT
 app.get('/logout', (req, res) => {
     req.logout();
