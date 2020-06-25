@@ -766,11 +766,11 @@ section {
         .wrapper {
             display: flex;
             flex-direction: row;
-            justify-content: center;
+            justify-content: space-between;
 
             .card {
                 margin: 1em;
-                max-width: 33%;
+                max-width: 30%;
 
                 .bottom {
                     display: flex;

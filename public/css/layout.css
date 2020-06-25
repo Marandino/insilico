@@ -784,13 +784,13 @@ section {
     -webkit-box-direction: normal;
         -ms-flex-direction: row;
             flex-direction: row;
-    -webkit-box-pack: center;
-        -ms-flex-pack: center;
-            justify-content: center;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
   }
   #testimonials .wrapper .card {
     margin: 1em;
-    max-width: 33%;
+    max-width: 30%;
   }
   #testimonials .wrapper .card .bottom {
     display: -webkit-box;
