@@ -171,30 +171,16 @@ var orderComplete = function (subscription) {
 
     changeLoadingState(false);
     var subscriptionJson = JSON.stringify(subscription, null, 2); //this line is not necessary
-    // document.querySelectorAll('.payment-view').forEach(function (view) {
-    //     view.classList.add('hidden');
-    // });
+    document.querySelectorAll('.payment-view').forEach(function (view) {
+        view.classList.add('hidden');
+    });
     document.querySelectorAll('.completed-view').forEach(function (view) {
         view.classList.remove('hidden');
     });
     document.querySelector('.order-status').textContent = subscription.status;
-    document.querySelector('code').textContent = subscriptionJson;
     // document.querySelector('code').textContent = subscriptionJson;
-    ///CUSTOM TEST CODE
+    // document.querySelector('code').textContent = subscriptionJson;
 
-    // if (subscription.id) {
-    //     var subscriptionId = subscription.id;
-    //     console.log(subscriptionId)
-    //     return fetch('/register', {
-    //         method: 'post',
-    //         headers: {
-    //             'Content-type': 'application/json'
-    //         },
-    //         body: JSON.stringify({
-    //             subscriptionId: subscriptionId;
-    //         })
-    //     })
-    // }
 };
 
 // Show a spinner on subscription submission
