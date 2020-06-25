@@ -24,6 +24,8 @@ const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 ////CONNECT TO DATABASE
 const uri = process.env.ATLAS_URI;
 mongoose.set('useUnifiedTopology', true);
+///removes deprecation when updoating files
+mongoose.set('useFindAndModify', false);
 mongoose.connect(uri, {
     useNewUrlParser: true
 });
@@ -205,17 +207,18 @@ app.post('/create-customer', async (req, res) => {
         }
     });
     ////alll the magic happens here
-    // console.log("=====================")
-    // console.log(req.user.email);
-    // console.log(customer.id);
+    ///Variables for update
+    // // // var userEmail = req.body.email,
+    // // //     conditions = {
+    // // //         email: userEmail
+    // // //     },
+    // // //     update = {
+    // // //         email: userEmail,
+    // // //         premium: true
+    // // //     };
+
+    // save the customer.id as stripeCustomerId
     // ///==== END OF MAGIC
-    // User.findOneAndUpdate({
-    //     email: "chiy100196@gmail.com"
-    // }, {
-    //     premium: true
-    // })
-
-
 
     // At this point, associate the ID of the Customer object with your
     // own internal representation of a customer, if you have one.
@@ -228,6 +231,10 @@ app.post('/create-customer', async (req, res) => {
         }],
         expand: ['latest_invoice.payment_intent']
     });
+
+    ///update premium status on users
+    // // // User.findOneAndUpdate(conditions, update)
+
     res.send(subscription);
 });
 
