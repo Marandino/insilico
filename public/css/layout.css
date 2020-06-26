@@ -908,4 +908,32 @@ section {
   -webkit-transform: translateX(200px);
           transform: translateX(200px);
 }
+
+.item .accordionButton {
+  opacity: .9;
+  display: block;
+  width: 100%;
+  padding: 1em;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  background-color: #040116;
+  color: #f6f6f6;
+  text-align: left;
+  -webkit-transition: all .3s;
+  transition: all .3s;
+}
+
+.item .accordionButton.active {
+  opacity: 1;
+}
+
+.item .accordionContent {
+  overflow: hidden;
+  max-height: 0;
+  padding: 0 1em;
+  background-color: #4d428e;
+  -webkit-transition: all .3s;
+  transition: all .3s;
+}
 /*# sourceMappingURL=layout.css.map */
