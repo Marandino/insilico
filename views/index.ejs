@@ -32,9 +32,47 @@
                 <button id="toggleButton" class="button primary">Read More</button>
                 <a href="#pricing" class="button secondary">Enhance your trading now</a>
             </div>
-            <div class="illustration"><img src="svg/curve.svg" alt=""></div>
+            <div class="illustration">  <!-- TradingView Widget BEGIN -->
+<div class="tradingview-widget-container">
+  <div class="tradingview-widget-container__widget"></div>
+  <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-market-overview.js" async>
+  {
+  "colorTheme": "light",
+  "dateRange": "12m",
+  "showChart": false,
+  "locale": "en",
+  "largeChartUrl": "",
+  "isTransparent": false,
+  "width": "400",
+  "height": "230",
+  "tabs": [
+    {
+      "title": "Index",
+      "symbols": [
+        {
+          "s": "CRYPTOCAP:BTC",
+          "d": "Bitcoin"
+        },
+        {
+          "s": "CRYPTOCAP:ETH",
+          "d": "Ethereum"
+        },
+        {
+          "s": "CURRENCYCOM:US500",
+          "d": "S&P 500"
+        }
+      ],
+      "originalTitle": "Index"
+    }
+  ]
+}
+  </script>
+</div>
+<!-- TradingView Widget END -->
+</div>
         </div>
     </section>
+
     <div id="ticker" class="desktopOnly">
         <ul>
             <li>GBP/USD - 1.2123</li>
