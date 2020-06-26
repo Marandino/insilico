@@ -659,16 +659,15 @@ section {
 }
 
 #navbar ul #elements li {
-  padding: 0 1em;
+  padding: 0 1.5em;
 }
 
 #navbar ul #logo {
-  margin-top: -20px;
+  margin-top: -15px;
 }
 
 #navbar ul #logo img {
-  width: 100px;
-  background: #f6f6f6;
+  width: 50px;
 }
 
 #navbar ul #buttons {
@@ -702,7 +701,6 @@ section {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
-    padding: 1em;
     background-color: black;
     border-radius: 10px;
   }

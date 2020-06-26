@@ -1,9 +1,13 @@
 $colors: (primary: #2ad1a7,
+    contrast: #FFF185,
     secondary: #4d428e,
     gradient: -webkit-linear-gradient(244.48deg, #5790e2 1.52%, #4d428e 96.76%),
     background: #f6f6f6,
     danger: #ff7f33,
     dark: #040116);
+
+//// otra opcion  FFEE70
+
 
 @function color($color-name) {
     @return map-get($colors, $color-name);
@@ -661,16 +665,15 @@ section {
             flex-wrap: wrap;
 
             li {
-                padding: 0 1em;
+                padding: 0 1.5em;
             }
         }
 
         #logo {
-            margin-top: -20px;
+            margin-top: -15px;
 
             img {
-                width: 100px;
-                background: color(background);
+                width: 50px;
             }
         }
 
@@ -699,7 +702,6 @@ section {
             .tradingTickers {
                 align-self: flex-end;
                 display: flex;
-                padding: 1em;
                 background-color: black;
                 border-radius: 10px;
             }
