@@ -284,6 +284,7 @@ section {
 
 #home {
   padding-top: 2em;
+  min-height: 70vh;
 }
 
 #home .wrapper {
@@ -296,6 +297,10 @@ section {
           flex-direction: column-reverse;
   padding-top: 5em;
   text-align: center;
+}
+
+#home .wrapper .tradingTickers {
+  display: none;
 }
 
 #home .button {
@@ -421,8 +426,8 @@ section {
 
 #testimonials .card .top {
   background-color: #4d428e;
-  padding: 2em;
-  font-size: 1.5em;
+  padding: 1em;
+  font-size: 1.4em;
   text-align: center;
 }
 
@@ -435,7 +440,7 @@ section {
 }
 
 #testimonials .card .bottom {
-  padding: 0 3em;
+  padding: 1em 3em;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -449,25 +454,6 @@ section {
   color: #040116;
 }
 
-#testimonials .card .bottom .avatar {
-  padding: 1em;
-  margin-right: 1em;
-  height: 80px;
-  width: 80px;
-  border-radius: 50%;
-}
-
-@media (max-width: 360px) {
-  #testimonials .card .bottom .avatar {
-    height: 50px;
-    width: 50px;
-    padding: 0;
-    -ms-flex-item-align: center;
-        -ms-grid-row-align: center;
-        align-self: center;
-  }
-}
-
 #testimonials .card .bottom .text {
   -ms-flex-item-align: center;
       -ms-grid-row-align: center;
@@ -479,7 +465,7 @@ section {
 }
 
 #testimonials .card .bottom .text h2 span {
-  opacity: 90%;
+  opacity: 80%;
   font-size: .9em;
 }
 
@@ -709,12 +695,12 @@ section {
   #home .wrapper .content {
     max-width: 50%;
   }
-  #home .wrapper .illustration {
+  #home .wrapper .tradingTickers {
     -ms-flex-item-align: end;
         align-self: flex-end;
-  }
-  #home .wrapper .illustration img {
-    height: 300px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
   }
   #features .wrapper {
     padding: 0 0 10em 0;
@@ -794,6 +780,8 @@ section {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
     -webkit-box-orient: horizontal;
     -webkit-box-direction: normal;
         -ms-flex-direction: row;
@@ -805,6 +793,13 @@ section {
   #testimonials .wrapper .card {
     margin: 1em;
     max-width: 30%;
+  }
+  #testimonials .wrapper .card .top {
+    -ms-grid-column-align: center;
+        justify-self: center;
+    -ms-flex-item-align: center;
+        -ms-grid-row-align: center;
+        align-self: center;
   }
   #testimonials .wrapper .card .bottom {
     display: -webkit-box;
@@ -826,9 +821,6 @@ section {
     -webkit-box-pack: center;
         -ms-flex-pack: center;
             justify-content: center;
-  }
-  #faq .wrapper .desktopOnly {
-    display: inline-block;
   }
   #faq .wrapper .item {
     margin: 0 10%;
@@ -904,6 +896,7 @@ section {
 [data-scroll] {
   -webkit-transition: all 2s;
   transition: all 2s;
+  overflow: hidden;
 }
 
 [data-scroll="in"] {
