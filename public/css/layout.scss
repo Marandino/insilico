@@ -65,6 +65,8 @@ body {
     color: color(background);
     margin: 0;
     padding: 0;
+    overflow-x: hidden; //horizontal
+
 }
 
 a {
@@ -697,6 +699,9 @@ section {
             .tradingTickers {
                 align-self: flex-end;
                 display: flex;
+                padding: 1em;
+                background-color: black;
+                border-radius: 10px;
             }
         }
     }

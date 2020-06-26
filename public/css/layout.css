@@ -33,6 +33,7 @@ body {
   color: #f6f6f6;
   margin: 0;
   padding: 0;
+  overflow-x: hidden;
 }
 
 a {
@@ -701,6 +702,9 @@ section {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
+    padding: 1em;
+    background-color: black;
+    border-radius: 10px;
   }
   #features .wrapper {
     padding: 0 0 10em 0;
