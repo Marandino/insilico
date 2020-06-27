@@ -820,16 +820,18 @@ section {
     display: flex;
     -ms-flex-wrap: wrap;
         flex-wrap: wrap;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
     -webkit-box-pack: center;
         -ms-flex-pack: center;
             justify-content: center;
   }
   #faq .wrapper .item {
-    margin: 0 10%;
+    margin: 1em;
     text-align: center;
-  }
-  #faq .wrapper .item .icon {
-    margin-left: 2em;
+    max-width: 500px;
   }
   #form {
     margin: auto;

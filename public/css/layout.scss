@@ -805,15 +805,13 @@ section {
         .wrapper {
             display: flex;
             flex-wrap: wrap;
+            flex-direction: row;
             justify-content: center;
 
             .item {
-                margin: 0 10%;
+                margin: 1em;
                 text-align: center;
-
-                .icon {
-                    margin-left: 2em;
-                }
+                max-width: 500px
             }
         }
     }
