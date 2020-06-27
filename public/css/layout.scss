@@ -449,6 +449,13 @@ section {
             font-size: 1.5em;
             display: inline-block;
             margin: 1em;
+            background-color: color(background);
+            color: color(secondary);
+
+            &:hover {
+                background-color: color(secondary);
+                color: color(background);
+            }
         }
 
         &:nth-child(odd) {
@@ -456,12 +463,20 @@ section {
             color: color(dark);
 
             .button {
+                background-color: color(primary);
                 color: color(background);
+
+                &:hover {
+                    color: color(primary);
+                    background-color: color(background);
+                }
             }
         }
     }
+
 }
 
+// &.pri
 #testimonials {
     .card {
         margin: 1em 0;
@@ -645,6 +660,29 @@ section {
                 }
             }
         }
+    }
+}
+
+#lesson {
+    .wrapper {
+        .card {
+            width: 80vw;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: auto;
+            margin-top: 2em;
+
+            img {
+                max-width: 80vw;
+            }
+
+            h2 {
+                padding: .5em;
+                margin: 0;
+            }
+        }
+
     }
 }
 

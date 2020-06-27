@@ -1,13 +1,49 @@
 <%- include('partials/header'); %>
 <section id="lesson">
-    <h3><%= lessonId %> </h3>
+    <h3><%= lesson.name %> </h3>
     <div class="wrapper box">
-        <div class="videoWrapper"> <iframe allow="autoplay" class="video-player-container vooplayer"
-                data-playerId="<%=lessonId%>" allowtransparency="true" style="max-width:100%" name="vooplayerframe"
-                allowfullscreen="true" src="" watch-type="" url-params="" frameborder="0" scrolling="no"> </iframe>
+        <iframe allow="autoplay" class="video-player-container vooplayer" data-playerId="<%=lesson.id%>"
+            allowtransparency="true" allowfullscreen="true" frameborder="0" scrolling="no"> </iframe>
+    </div>
+    <div class="wrapper">
+        <div class="card box">
+            <a href="/lesson/MzAyNTgz">
+                <img src="/images/thumbnail/default.jpg" alt="">
+            </a>
+            <h2>Trend Buddy</h2>
+        </div>
+        <div class="card box">
+            <a href="/lesson/MzAyNTc4">
+                <img src="/images/thumbnail/default.jpg" alt="">
+            </a>
+            <h2>PAL</h2>
+        </div>
+        <div class="card box">
+            <a href="/lesson/MzAyNTc5">
+                <img src="/images/thumbnail/default.jpg" alt="">
+            </a>
+            <h2>Heuristics</h2>
+        </div>
+        <div class="card box">
+            <a href="/lesson/MzAyNTgy">
+                <img src="/images/thumbnail/default.jpg" alt="">
+            </a>
+            <h2>FSVZO</h2>
+        </div>
+        <div class="card box">
+            <a href="/lesson/MzAzMDQy">
+                <img src="/images/thumbnail/default.jpg" alt="">
+            </a>
+            <h2>Crayons</h2>
+        </div>
+        <div class="card box">
+            <a href="/lesson/MzAyNTc2">
+                <img src="/images/thumbnail/default.jpg" alt="">
+            </a>
+            <h2>Genie</h2>
         </div>
     </div>
+
 </section>
-<%- include("partials/tutorials") %>
 
 <%- include('partials/footer'); %>

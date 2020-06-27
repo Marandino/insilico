@@ -410,6 +410,13 @@ section {
   font-size: 1.5em;
   display: inline-block;
   margin: 1em;
+  background-color: #f6f6f6;
+  color: #6557b2ff;
+}
+
+#tutorials .card .button:hover {
+  background-color: #6557b2ff;
+  color: #f6f6f6;
 }
 
 #tutorials .card:nth-child(odd) {
@@ -418,7 +425,13 @@ section {
 }
 
 #tutorials .card:nth-child(odd) .button {
+  background-color: #e74b7fff;
   color: #f6f6f6;
+}
+
+#tutorials .card:nth-child(odd) .button:hover {
+  color: #e74b7fff;
+  background-color: #f6f6f6;
 }
 
 #testimonials .card {
@@ -620,6 +633,31 @@ section {
 #account .wrapper.right .form form input {
   padding: .5em;
   margin: 1em 0;
+}
+
+#lesson .wrapper .card {
+  width: 80vw;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin: auto;
+  margin-top: 2em;
+}
+
+#lesson .wrapper .card img {
+  max-width: 80vw;
+}
+
+#lesson .wrapper .card h2 {
+  padding: .5em;
+  margin: 0;
 }
 
 #navbar {

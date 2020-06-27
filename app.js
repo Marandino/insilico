@@ -10,7 +10,8 @@ var express = require('express'),
     bodyParser = require('body-parser'),
     ///PASSPORT DEPENDENCIES (AUTHENTICATION)
     User = require('./models/users'),
-    passport = require('passport'),
+    Lesson = require('./models/lessons')
+passport = require('passport'),
     LocalStrategy = require('passport-local'),
     passportLocalMongoose = require('passport-local-mongoose'),
     //// PORT
@@ -71,8 +72,7 @@ const sgMail = require('@sendgrid/mail');
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 //////<
 
-/// USER AUTHENTICATION
-
+//USER AUTHENTICATION
 //REGISTER
 app.get('/register', (req, res) => {
     res.render('register');
@@ -147,7 +147,7 @@ function isLoggedIn(req, res, next) {
 
 //INDEX ROUTE
 app.get('/', function (req, res) {
-    res.render('index');
+    res.render("index");
 });
 
 /// CONTACT FORM
@@ -185,11 +185,31 @@ app.post('/contact', function (req, res) {
 
 ////>
 ///LESSONS PLACEHOLDER
-app.get('/lesson/:id', isLoggedIn, function (req, res) {
-    lessonId = req.params.id;
-    res.render('lesson', {
-        lessonId: lessonId
+
+app.get("/lesson", (req, res) => {
+    Lesson.find({}, function (err, lessons) {
+        if (err) {
+            console.log(err);
+        } else {
+            res.render('lessons', {
+                lessons: lessons
+            });
+        }
     });
+})
+app.get('/lesson/:id', isLoggedIn, function (req, res) {
+    //request all lessons
+    // pass lesson information onto the rendered site
+    // ejsout all that crap
+    Lesson.findById(req.params.id, function (err, lesson) {
+        if (err) {
+            console.log(err)
+        } else {
+            res.render("lesson", {
+                lesson: lesson
+            });
+        }
+    })
 });
 
 ////CHECKOUT PAGE
