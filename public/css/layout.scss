@@ -323,10 +323,12 @@ section {
         padding-top: 5em;
         text-align: center;
 
-        .tradingTickers {
-            display: none;
-        }
+        .illustration {
+            img {
+                max-width: 70%;
 
+            }
+        }
     }
 
 
@@ -699,9 +701,14 @@ section {
     #home {
         padding-top: 10%;
 
+        p {
+            padding: 1em .5em;
+        }
+
         .wrapper {
             flex-direction: row;
             justify-content: space-around;
+            padding-bottom: 3em;
 
             .content {
                 max-width: 50%;

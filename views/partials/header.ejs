@@ -36,13 +36,13 @@
 
                 <span id="buttons">
                     <% if(!currentUser){ %>
-                    <li><a class="button good" href="/login">sign in</a></li>
+                    <li><a class="button primary" href="/login">sign in</a></li>
                     <li><a class="button secondary" href="/register">sign up</a></li>
                     <% } else{ %>
                     <% if(currentUser.premium){ %>
-                    <li><a class="button good" href="/account"><%=currentUser.username%></a></li>
+                    <li><a class="button primary" href="/account"><%=currentUser.username%></a></li>
                     <% } else { %>
-                    <li><a class="button good" href="/#pricing">Subscribe</a></li>
+                    <li><a class="button primary" href="/#pricing">Subscribe</a></li>
                     <% } %>
                     <li><a class="button secondary" href="/logout">log out</a></li>
                     <% } %>

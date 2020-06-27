@@ -31,61 +31,42 @@
                 </p>
                 <a href="#pricing" class="button primary">Enhance your trading now</a>
             </div>
-            <div class="tradingTickers box">
-                <!-- TradingView Widget BEGIN -->
-                <div class="tradingview-widget-container">
-                    <div class="tradingview-widget-container__widget"></div>
-                    <script type="text/javascript"
-                        src="https://s3.tradingview.com/external-embedding/embed-widget-market-overview.js" async>
-                        {
-                            "colorTheme": "light",
-                            "dateRange": "12m",
-                            "showChart": false,
-                            "locale": "en",
-                            "largeChartUrl": "",
-                            "isTransparent": false,
-                            "width": "400",
-                            "height": "230",
-                            "tabs": [{
-                                "title": "Index",
-                                "symbols": [{
-                                        "s": "CRYPTOCAP:BTC",
-                                        "d": "Bitcoin"
-                                    },
-                                    {
-                                        "s": "CRYPTOCAP:ETH",
-                                        "d": "Ethereum"
-                                    },
-                                    {
-                                        "s": "CURRENCYCOM:US500",
-                                        "d": "S&P 500"
-                                    }
-                                ],
-                                "originalTitle": "Index"
-                            }]
-                        }
-
-                    </script>
-                </div>
-                <!-- TradingView Widget END -->
+            <div class="illustration">
+                <img src="svg/takingNotes.svg" alt="">
             </div>
         </div>
-    </section>
+        <!-- TradingView Widget BEGIN -->
+        <div class="tradingview-widget-container">
+            <div class="tradingview-widget-container__widget"></div>
+            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-tickers.js"
+                async>
+                {
+                    "symbols": [{
+                            "proName": "FOREXCOM:SPXUSD",
+                            "title": "S&P 500"
+                        },
+                        {
+                            "proName": "BITSTAMP:BTCUSD",
+                            "title": "BTC/USD"
+                        },
+                        {
+                            "proName": "BITSTAMP:ETHUSD",
+                            "title": "ETH/USD"
+                        },
+                        {
+                            "description": "Nasdaq 100",
+                            "proName": "FOREXCOM:NSXUSD"
+                        }
+                    ],
+                    "colorTheme": "dark",
+                    "isTransparent": false,
+                    "locale": "en"
+                }
 
-    <div id="ticker" class="desktopOnly">
-        <ul>
-            <li>GBP/USD - 1.2123</li>
-            <li class="bad">-0.19%</li>
-        </ul>
-        <ul>
-            <li>GBP/USD - 1.2123</li>
-            <li class="bad">-0.19%</li>
-        </ul>
-        <ul>
-            <li>GBP/USD - 1.2123</li>
-            <li class="good">-0.19%</li>
-        </ul>
-    </div>
+            </script>
+        </div>
+        <!-- TradingView Widget END -->
+    </section>
     <section id="features">
         <div data-scroll="" class="wrapper">
             <div class="text">
