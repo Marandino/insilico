@@ -325,17 +325,13 @@ section {
   padding: 1em 0;
 }
 
-#pricing .wrapper h3 span {
-  color: #e74b7fff;
-}
-
 #pricing .wrapper .item {
   margin: 3em 0;
   background-color: #f6f6f6;
 }
 
 #pricing .wrapper .item .title {
-  background-color: #e74b7fff;
+  background-color: #6557b2ff;
   padding: 0.5em;
   line-height: 0;
   text-align: center;
@@ -359,7 +355,7 @@ section {
 }
 
 #pricing .wrapper .item .details .price::first-letter {
-  vertical-align: 1.5em;
+  vertical-align: 1.3em;
 }
 
 #pricing .wrapper .item .details .price span {
@@ -374,7 +370,7 @@ section {
 #pricing .wrapper .item .details ul .fa-check {
   position: absolute;
   margin-left: -2em;
-  color: #e74b7fff;
+  color: #2ad1a7;
 }
 
 #pricing .wrapper .item .cta {
@@ -933,9 +929,38 @@ section {
     -ms-flex-pack: distribute;
         justify-content: space-around;
   }
+  #lesson {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    overflow: hidden;
+    min-height: auto;
+    padding-top: 10%;
+  }
   #lesson .wrapper {
-    max-width: 80vw;
-    margin: 2em auto;
+    margin: 2em;
+  }
+  #lesson .wrapper.videoWrapper {
+    min-width: 60%;
+  }
+  #lesson .wrapper.videoWrapper h3 {
+    margin: 0;
+  }
+  #lesson .wrapper.cardsWrapper {
+    width: 35%;
+    max-height: 60vh;
+    overflow-y: scroll;
+    margin-left: 0;
+  }
+  #lesson .wrapper.cardsWrapper .card {
+    width: 30vw;
+  }
+  #lesson .wrapper.cardsWrapper .card img {
+    width: 100%;
   }
 }
 
@@ -955,10 +980,5 @@ section {
   opacity: 0;
   -webkit-transform: translateX(-200px);
           transform: translateX(-200px);
-}
-
-[data-scroll="out"].alt {
-  -webkit-transform: translateX(200px);
-          transform: translateX(200px);
 }
 /*# sourceMappingURL=layout.css.map */

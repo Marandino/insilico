@@ -7,7 +7,7 @@
 //     dark: #040116);
 
 $colors: (primary: #e74b7fff,
-    contrast: #e74b7fff,
+    contrast: #2ad1a7,
     secondary: #6557b2ff,
     gradient: -webkit-linear-gradient(244.48deg, #73a4e7ff 1.52%, #6557b2ff 96.76%),
     background: #f6f6f6,
@@ -360,18 +360,12 @@ section {
 
 #pricing {
     .wrapper {
-        h3 {
-            span {
-                color: color(primary);
-            }
-        }
-
         .item {
             margin: 3em 0;
             background-color: color(background);
 
             .title {
-                background-color: color(primary);
+                background-color: color(secondary);
                 padding: 0.5em;
                 line-height: 0;
                 text-align: center;
@@ -395,7 +389,7 @@ section {
 
                 .price {
                     &::first-letter {
-                        vertical-align: 1.5em;
+                        vertical-align: 1.3em;
                     }
 
                     span {
@@ -410,7 +404,7 @@ section {
                     .fa-check {
                         position: absolute;
                         margin-left: -2em;
-                        color: color(primary);
+                        color: color(contrast);
                     }
                 }
             }
@@ -920,9 +914,37 @@ section {
     }
 
     #lesson {
+        display: flex;
+        flex-direction: row;
+        overflow: hidden;
+        min-height: auto;
+        padding-top: 10%;
+
         .wrapper {
-            max-width: 80vw;
-            margin: 2em auto;
+            margin: 2em;
+
+            &.videoWrapper {
+                min-width: 60%;
+
+                h3 {
+                    margin: 0;
+                }
+            }
+
+            &.cardsWrapper {
+                width: 35%;
+                max-height: 60vh;
+                overflow-y: scroll;
+                margin-left: 0;
+
+                .card {
+                    width: 30vw;
+
+                    img {
+                        width: 100%;
+                    }
+                }
+            }
         }
     }
 }
@@ -942,6 +964,6 @@ section {
     transform: translateX(-200px);
 
     &.alt {
-        transform: translateX(200px);
+        // this is doing nothing, since it bugged the whole site lol
     }
 }
