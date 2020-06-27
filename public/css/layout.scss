@@ -1,12 +1,19 @@
-$colors: (primary: #2ad1a7,
-    contrast: #FFF185,
-    secondary: #4d428e,
-    gradient: -webkit-linear-gradient(244.48deg, #5790e2 1.52%, #4d428e 96.76%),
+// $colors: (primary: #2ad1a7,
+//     contrast: #FFF185,
+//     secondary: #4d428e,
+//     gradient: -webkit-linear-gradient(244.48deg, #5790e2 1.52%, #4d428e 96.76%),
+//     background: #f6f6f6,
+//     danger: #ff7f33,
+//     dark: #040116);
+
+$colors: (primary: #e74b7fff,
+    contrast: #e74b7fff,
+    secondary: #6557b2ff,
+    gradient: -webkit-linear-gradient(244.48deg, #73a4e7ff 1.52%, #6557b2ff 96.76%),
     background: #f6f6f6,
     danger: #ff7f33,
     dark: #040116);
-
-//// otra opcion  FFEE70
+//// otra opcion  FFEE70 DB5461
 
 
 @function color($color-name) {
@@ -109,6 +116,7 @@ section {
     width: 100vw;
     height: 100vh;
     z-index: -2;
+
 }
 
 .bgIllustration {
