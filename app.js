@@ -10,8 +10,8 @@ var express = require('express'),
     bodyParser = require('body-parser'),
     ///PASSPORT DEPENDENCIES (AUTHENTICATION)
     User = require('./models/users'),
-    Lesson = require('./models/lessons')
-passport = require('passport'),
+    Lesson = require('./models/lessons'),
+    passport = require('passport'),
     LocalStrategy = require('passport-local'),
     passportLocalMongoose = require('passport-local-mongoose'),
     //// PORT
@@ -75,7 +75,9 @@ sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 //USER AUTHENTICATION
 //REGISTER
 app.get('/register', (req, res) => {
-    res.render('register');
+    res.render('register', {
+        err: false
+    });
 });
 //POST ROUTE
 app.post('/register', (req, res) => {
@@ -90,8 +92,9 @@ app.post('/register', (req, res) => {
         req.body.password,
         function (err, user) {
             if (err) {
-                console.log(err);
-                return res.render('register');
+                return res.render('register', {
+                    err: err
+                });
             }
 
             //this part logs in the user after registering
@@ -212,143 +215,14 @@ app.get('/lesson/:id', isLoggedIn, function (req, res) {
     })
 });
 
-////CHECKOUT PAGE
-app.get("/checkout", isLoggedIn, (req, res) => {
-    res.render("checkout");
-})
-//adding IDs for the different plans is going to be necessary
-////PAYMENTS
-
-app.get('/public-key', (req, res) => {
-    res.send({
-        publicKey: process.env.STRIPE_PUBLISHABLE_KEY
-    });
-});
-app.post('/create-customer', async (req, res) => {
-    // This creates a new Customer and attaches
-    // console.log(req.body);
-    // the PaymentMethod to be default for invoice in one API call.
-    const customer = await stripe.customers.create({
-        payment_method: req.body.payment_method,
-        email: req.body.email,
-        invoice_settings: {
-            default_payment_method: req.body.payment_method
-        }
-    });
-    ////alll the magic happens here
-    ///Variables for update
-    // // // var userEmail = req.body.email,
-    // // //     conditions = {
-    // // //         email: userEmail
-    // // //     },
-    // // //     update = {
-    // // //         email: userEmail,
-    // // //         premium: true
-    // // //     };
-
-    // save the customer.id as stripeCustomerId
-    // ///==== END OF MAGIC
-
-    // At this point, associate the ID of the Customer object with your
-    // own internal representation of a customer, if you have one.
-    const subscription = await stripe.subscriptions.create({
-        customer: customer.id,
-
-        items: [{
-            // price: process.env.SUBSCRIPTION_PRICE_ID
-            price: "price_1GxAcpJyRCyDOw0D2kfbRhKe"
-        }],
-        expand: ['latest_invoice.payment_intent']
-    });
-
-    ///update premium status on users
-    // // // User.findOneAndUpdate(conditions, update)
-
-    res.send(subscription);
-});
-
-app.post('/subscription', async (req, res) => {
-    let subscription = await stripe.subscriptions.retrieve(
-        req.body.subscriptionId
-
-    );
-    res.send(subscription);
-});
-
-// Webhook handler for asynchronous events.
-app.post('/webhook', async (req, res) => {
-    let data;
-    let eventType;
-    // Check if webhook signing is configured.
-    if (process.env.STRIPE_WEBHOOK_SECRET) {
-        // Retrieve the event by verifying the signature using the raw body and secret.
-        let event;
-        let signature = req.headers['stripe-signature'];
-
-        try {
-            event = stripe.webhooks.constructEvent(
-                req.rawBody,
-                signature,
-                process.env.STRIPE_WEBHOOK_SECRET
-            );
-        } catch (err) {
-            console.log(`⚠️  Webhook signature verification failed.`);
-            return res.sendStatus(400);
-        }
-        // Extract the object from the event.
-        dataObject = event.data.object;
-        eventType = event.type;
-
-        // Handle the event
-        // Review important events for Billing webhooks
-        // https://stripe.com/docs/billing/webhooks
-        // Remove comment to see the various objects sent for this sample
-        switch (event.type) {
-            case 'customer.created':
-                // console.log(dataObject);
-                break;
-            case 'customer.updated':
-                // console.log(dataObject);
-                break;
-            case 'invoice.upcoming':
-                // console.log(dataObject);
-                break;
-            case 'invoice.created':
-                // console.log(dataObject);
-                break;
-            case 'invoice.finalized':
-                // console.log(dataObject);
-                break;
-            case 'invoice.payment_succeeded':
-                // console.log(dataObject);
-                break;
-            case 'invoice.payment_failed':
-                // console.log(dataObject);
-                break;
-            case 'customer.subscription.created':
-                // console.log(dataObject);
-                break;
-                // ... handle other event types
-            default:
-                // Unexpected event type
-                return res.status(400).end();
-        }
-    } else {
-        // Webhook signing is recommended, but if the secret is not configured in `config.js`,
-        // retrieve the event data directly from the request body.
-        data = req.body.data;
-        eventType = req.body.type;
-    }
-
-    res.sendStatus(200);
-});
-
-
-/////
 
 ////TEST -- REMOVE BEFORE DEPLOYING--
 
 app.get('/test', function (req, res) {
+    if (res.locals) {
+        console.log(res.locals.currentUser);
+        res.render('PartialsTemplate');
+    }
     res.render('PartialsTemplate');
 });
 //LISTEN

@@ -1,3 +1,10 @@
+@font-face {
+    font-family: SF-Pro;
+    src: url("/fonts/SF-Pro.ttf") format("truetype");
+}
+
+
+
 // $colors: (primary: #2ad1a7,
 //     contrast: #FFF185,
 //     secondary: #4d428e,
@@ -59,6 +66,10 @@ input:invalid {
 
 .desktopOnly {
     display: none;
+
+    @include desktop {
+        display: inherit;
+    }
 }
 
 .box {
@@ -70,8 +81,7 @@ body {
     padding: 0;
     color: black;
     background-color: color(background);
-    font-family: 'Montserrat',
-        sans-serif;
+    font-family: 'SF-Pro';
     font-weight: 500;
     color: color(background);
     margin: 0;
@@ -89,10 +99,6 @@ h3 {
     text-transform: capitalize;
     font-size: 2em;
     text-align: center;
-
-    span {
-        color: color(primary);
-    }
 }
 
 ul {
@@ -144,7 +150,7 @@ section {
 
 //BUTTONS
 .button {
-    font-family: 'Roboto',
+    font-family: 'SF-Pro',
         sans-serif;
     border: none;
     font-size: 16px;
@@ -153,9 +159,11 @@ section {
     //  -3px -3px 3px rgba($color: #fff, $alpha: 0.25)
     padding: .5em 1em;
     text-transform: uppercase;
-    font-weight: 600;
+    font-weight: 500;
+    //not really sure
     color: inherit;
     outline: none;
+    cursor: pointer;
     transition: background-color 300ms;
 
     &.primary {
@@ -335,6 +343,10 @@ section {
     .button {
         margin: .5em .5em;
     }
+
+    .tradingview-widget-container {
+        margin-top: 3em;
+    }
 }
 
 #features {
@@ -394,7 +406,6 @@ section {
 
                     span {
                         font-size: 3em;
-                        font-weight: 700;
                     }
                 }
 
@@ -413,6 +424,13 @@ section {
                 display: flex;
                 border: none;
                 color: color(background);
+                font-weight: 600;
+                margin: auto;
+                cursor: pointer;
+
+                &:hover {
+                    color: color(secondary);
+                }
 
                 a.button {
                     margin: 0 auto;
@@ -486,7 +504,7 @@ section {
             }
 
             .quote {
-                font-weight: 700;
+                font-weight: 800;
             }
         }
 
@@ -589,7 +607,7 @@ section {
             overflow: hidden;
 
             a {
-                color: color(primary);
+                color: color(contrast);
                 font-size: 1.2em;
             }
 
@@ -680,6 +698,41 @@ section {
     }
 }
 
+///POP UP STYLES///
+#popup {
+    padding: 2em 5%;
+    text-align: center;
+    z-index: 2;
+    background-color: color(secondary);
+    position: fixed;
+    top: 10%;
+    bottom: 5%;
+    left: 10%;
+    right: 10%;
+    transition-duration: display 1s;
+
+    h3 {
+        font-weight: 500;
+        padding: 0;
+
+    }
+
+    h2 {
+        font-size: 1.2em;
+    }
+
+    img {
+        min-width: 200px;
+        max-width: 20%;
+    }
+
+    a {
+        color: color(contrast);
+    }
+}
+
+//========== END OF POPUP
+
 //// DESKTOP ONLY RULES
 #navbar {
     @include desktop {
@@ -688,8 +741,9 @@ section {
 
     width: 100%;
     text-transform: uppercase;
-    font-weight: bold;
+    font-weight: 500;
     position: fixed;
+    letter-spacing: 1px;
     top: 0;
     z-index: 1;
     margin: 0;

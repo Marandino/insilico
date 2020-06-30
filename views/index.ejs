@@ -4,17 +4,18 @@
     <section id="home">
         <div class="wrapper">
             <div class="content">
-                <h3>Why Insilico?</h3>
+                <h3>WHY INSILICO?</h3>
                 <p>InSilico offers a suite of technical indicators which gives traders access to raw market data
                     visualized
                     in
                     ways
                     which can help provide a deeper level of analysis, and help in making timely, informed trading
-                    decisions.
-                    The
-                    InSilico suite of indicators includes a wide range of tools, each precisely designed for different
-                    trading
-                    styles including; momentum, mean reversion, volume analysis, and more. <span class="hidden">Our
+                    decisions. <span class="desktopOnly">The
+                        InSilico suite of indicators includes a wide range of tools, each precisely designed for
+                        different
+                        trading
+                        styles including; momentum, mean reversion, volume analysis, and more. </span>
+                    <span class="hidden">Our
                         indicators
                         are
                         suitable
@@ -32,30 +33,25 @@
                 <a href="#pricing" class="button primary">Enhance your trading now</a>
             </div>
             <div class="illustration">
-                <img src="svg/takingNotes.svg" alt="">
+                <img src="svg/predictive.svg" alt="">
             </div>
         </div>
         <!-- TradingView Widget BEGIN -->
         <div class="tradingview-widget-container">
-            <div class="tradingview-widget-container__widget"></div>
             <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-tickers.js"
                 async>
                 {
                     "symbols": [{
-                            "proName": "FOREXCOM:SPXUSD",
-                            "title": "S&P 500"
-                        },
-                        {
                             "proName": "BITSTAMP:BTCUSD",
                             "title": "BTC/USD"
                         },
                         {
-                            "proName": "BITSTAMP:ETHUSD",
-                            "title": "ETH/USD"
+                            "proName": "FOREXCOM:SPXUSD",
+                            "title": "S&P 500"
                         },
                         {
-                            "description": "Nasdaq 100",
-                            "proName": "FOREXCOM:NSXUSD"
+                            "proName": "BITSTAMP:ETHUSD",
+                            "title": "ETH/USD"
                         }
                     ],
                     "colorTheme": "dark",
@@ -74,10 +70,11 @@
                 <p>
                     Insilico offers packages of trading indicators and algorithms so traders can gain more
                     comprehensive market views. </p>
-                <button id="toggleButton" class="button primary">Read More</button>
+                <a href="#pricing" class="button primary">Read More</a>
+
             </div>
             <div class="illustration">
-                <img src="svg/invest.svg" alt="">
+                <img src="svg/projections.svg" alt="">
             </div>
         </div>
         <!-- second pair  -->
@@ -88,7 +85,9 @@
                     Each indicator is specifically tailored to individual traders
                     trading styles in order to give them an edge over the market.</span>
                 </p>
-                <button id="toggleButton" class="button primary">Read More</button>.
+                <!-- <button id="toggleButton" class="button primary">Read More</button> -->
+                <a href="#pricing" class="button primary">Read More</a>
+
             </div>
             <div class="illustration">
                 <img src="svg/stockPrices.svg" alt="">
@@ -106,16 +105,16 @@
                         coordinated system of indicators to enhance your trading capabilities by giving you real time,
                         actionable signals.</span>
                 </p>
-                <button id="toggleButton" class="button primary">Read More</button>
+                <a href="#pricing" class="button primary">Read More</a>
+
             </div>
             <div class="illustration desktopOnly">
                 <img src="svg/investing.svg" alt="">
             </div>
         </div>
     </section>
-    <section data-scroll class="alt" id="pricing">
+    <section data-scroll id="pricing">
         <h3>What plans do we have for your growth?</h3>
-
         <div class="wrapper">
             <!-- FIRST PLAN -->
             <div class="item box">
@@ -137,7 +136,8 @@
                             the Discord</li>
 
                     </ul>
-                    <div class="cta"><a href="/checkout" class="button secondary">BUY NOW</a></div>
+                    <button id="basicButton" class="button secondary cta">BUY NOW</button>
+                    <!-- <div class="cta"><a href="/checkout" class="button secondary">BUY NOW</a></div> -->
                 </div>
             </div>
             <!-- SECOND -->
@@ -162,7 +162,9 @@
                         <li> <i class="fa fa-check" aria-hidden="true"></i>
                             Access to New Lessons</li>
                     </ul>
-                    <div class="cta"><a href="/checkout" class="button secondary">BUY NOW</a></div>
+                    <button id="premiumButton" class="button secondary cta">BUY NOW</button>
+
+                    <!-- <div class="cta"><a href="/checkout" class="button secondary">BUY NOW</a></div> -->
                 </div>
             </div>
             <!-- THIRD -->
@@ -199,11 +201,27 @@
                             Direct Line of Communication to
                             developers of Insilico</li>
                     </ul>
-                    <div class="cta"><a href="/checkout" class="button secondary">BUY NOW</a></div>
+                    <button id="vipButton" class="button secondary cta">BUY NOW</button>
+
+                    <!-- <div class="cta"><a href="/checkout" class="button secondary">BUY NOW</a></div> -->
                 </div>
             </div>
         </div>
     </section>
+    <!-- POP UP CODE -->
+    <div id="popup" class="hidden">
+        <h3><span id="packageTitle">Premium</span> Package</h3>
+        <h2><span id="usdAmount">0</span> USD = <span id="bitcoinAmount">0</span> BTC</h2>
+        <h2>One of our representatives will reach you to set your tradingview account manually</h2>
+        <img src="/images/qr.jpg" alt="">
+        <p>125tW55WQtp2VMbdyEFNCCt6rtjPK9DZzV</p>
+        <p>Please contact via our <a href="/contact">contact form</a> or via e-mail at support@insilico.com</p>
+        <button id="hidePopUp" class="button primary">Back</button>
+    </div>
+
+
+    <!-- END OF POPUP -->
+
     <div data-scroll class="alt" id="testimonials">
         <h3>what do our partners think about us?</h3>
         <div class="wrapper">
@@ -263,4 +281,5 @@
         </div>
     </div>
 </div>
+
 <%- include('partials/footer'); %>
