@@ -1,14 +1,18 @@
   <%- include('partials/header'); %>
-
   <section data-scroll id="tutorials">
-      <h3>Lessons from our Expert Team</h3>
+      <h3>We'll Guide You Through The Whole Process</h3>
       <div class="wrapper">
-
           <% lessons.forEach(lesson => { %>
-          <div class="card box">
-              <h2><%= lesson.name %> </h2>
-              <img src="./images/thumbnail/<%= lesson.thumbnail %>.jpg" alt="">
-              <a class="button tutorial" href="/lesson/<%= lesson._id %> ">Watch Now</a>
+          <div class="lessonBox">
+              <a href="/lesson/<%= lesson._id %> ">
+                  <img src="./images/thumbnail/<%= lesson.thumbnail %>.jpg" alt="">
+                  <div class="title">
+                      <h2>Some Cool Stuff With This Guy </h2>
+                      <p><%= lesson.name  %></p>
+
+                  </div>
+
+              </a>
           </div>
           <% }) %>
       </div>
