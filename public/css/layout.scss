@@ -355,6 +355,10 @@ section {
 
     .wrapper {
         .text {
+            h3 {
+                margin: 0;
+            }
+
             p {
                 text-align: left;
 
@@ -362,11 +366,21 @@ section {
                     text-align: right;
                 }
             }
+
+            .button {
+                display: block;
+                margin: auto;
+                margin-bottom: 2em;
+                max-width: 150px;
+            }
         }
 
         .illustration {
-            padding: 1em 0;
+            img {
+                max-width: 80%;
+            }
         }
+
     }
 }
 
@@ -833,6 +847,7 @@ section {
 
             .illustration {
                 img {
+
                     width: 500px;
                 }
             }
@@ -873,7 +888,7 @@ section {
     }
 
     #testimonials {
-        margin: 10em 3em;
+        padding-top: 3em;
 
         .wrapper {
             display: flex;

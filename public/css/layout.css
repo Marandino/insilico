@@ -325,6 +325,10 @@ section {
   text-align: center;
 }
 
+#features .wrapper .text h3 {
+  margin: 0;
+}
+
 #features .wrapper .text p {
   text-align: left;
 }
@@ -333,8 +337,15 @@ section {
   text-align: right;
 }
 
-#features .wrapper .illustration {
-  padding: 1em 0;
+#features .wrapper .text .button {
+  display: block;
+  margin: auto;
+  margin-bottom: 2em;
+  max-width: 150px;
+}
+
+#features .wrapper .illustration img {
+  max-width: 80%;
 }
 
 #pricing .wrapper .item {
@@ -865,7 +876,7 @@ section {
         flex-basis: 30%;
   }
   #testimonials {
-    margin: 10em 3em;
+    padding-top: 3em;
   }
   #testimonials .wrapper {
     display: -webkit-box;
