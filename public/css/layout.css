@@ -198,6 +198,10 @@ section {
  */
 }
 
+#mobileNavbar img {
+  max-width: 50px;
+}
+
 #mobileNavbar #menuToggle {
   background: -webkit-linear-gradient(244.48deg, #73a4e7ff 1.52%, #6557b2ff 96.76%);
   padding: 1em;

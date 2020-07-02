@@ -8,20 +8,9 @@ var express = require('express'),
     mongoose = require('mongoose'),
     ///BODY PARSER (PARSE FORMS)
     bodyParser = require('body-parser'),
-    ///PASSPORT DEPENDENCIES (AUTHENTICATION)
-    User = require('./models/users'),
     Lesson = require('./models/lessons'),
-    passport = require('passport'),
-    LocalStrategy = require('passport-local'),
-    passportLocalMongoose = require('passport-local-mongoose'),
     //// PORT
     PORT = process.env.PORT || 5000;
-///ENVIROMENT KEYS
-const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
-// (async () => {
-//     console.log(await stripe.plans.list());
-// })();
-
 ////CONNECT TO DATABASE
 const uri = process.env.ATLAS_URI;
 mongoose.set('useUnifiedTopology', true);
@@ -40,25 +29,9 @@ app.use(
 );
 
 app.use(bodyParser.json());
-app.use(
-    require('express-session')({
-        secret: 'encoding passwords2',
-        resave: false,
-        saveUninitialized: false
-    })
-);
-app.use(passport.initialize());
-app.use(passport.session());
-
 ///SET VIEW ENGINE AND PUBLIC DIR
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
-
-///// PASSPORT INITIALIZATION
-passport.use(new LocalStrategy(User.authenticate()));
-passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser());
-//=========
 
 ///MIDDLEWARE TO PASS THE user info to every single page
 app.use(function (req, res, next) {
@@ -73,89 +46,13 @@ const lessons = require('./models/lessons');
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 //////<
 
-//USER AUTHENTICATION
-//REGISTER
-app.get('/register', (req, res) => {
-    res.render('register', {
-        err: false
-    });
-});
-//POST ROUTE
-app.post('/register', (req, res) => {
-    //user REGISTRATION
-    // if statement so i can check if it's just a registering or something else
-    // still it'd be better to implement it on the stripe acct 
-    User.register(
-        new User({
-            username: req.body.username,
-            email: req.body.email,
-        }),
-        req.body.password,
-        function (err, user) {
-            if (err) {
-                return res.render('register', {
-                    err: err
-                });
-            }
-
-            //this part logs in the user after registering
-            passport.authenticate('local')(req, res, function () {
-                res.redirect('/checkout');
-            });
-        }
-    );
-});
-/////======= END OF REGISTRATION ========
-
-//LOG IN
-app.get('/login', (req, res) => {
-    res.render('login');
-});
-
-app.post(
-    '/login',
-    passport.authenticate('local', {
-        successRedirect: '/redirect',
-        failureRedirect: '/login'
-    }),
-    (req, res) => {}
-);
-
-
-app.get("/redirect", (req, res) => {
-    res.redirect(req.session.returnTo || '/');
-    delete req.session.returnTo;
-})
-
-
-//LOG OUT
-app.get('/logout', (req, res) => {
-    req.logout();
-    res.redirect('/');
-});
-// ACCOUNT SETTINGS
-app.get('/account', isLoggedIn, (req, res) => {
-    res.render('account');
-});
-
-//isLoggedIn middleware || checks if the user is logged in
-
-function isLoggedIn(req, res, next) {
-    if (req.isAuthenticated()) {
-        return next();
-    }
-    req.session.returnTo = req.originalUrl;
-    res.redirect('/login');
-}
-/////// END OF LOGIN INFORMATION ============
-
 //INDEX ROUTE
 app.get('/', function (req, res) {
     res.render("index");
 });
 
 /// CONTACT FORM
-app.get('/contact', isLoggedIn, function (req, res) {
+app.get('/contact', function (req, res) {
     res.render('contact', {
         alert: false
     });
@@ -201,6 +98,7 @@ app.get("/lesson", (req, res) => {
         }
     });
 })
+
 app.get('/lesson/:id', function (req, res) {
     var lessonsData = [];
     //request all lessons
@@ -226,18 +124,7 @@ app.get('/lesson/:id', function (req, res) {
     // pass lesson information onto the rendered site
     // ejsout all that crap
 
-
 });
 
-
-////TEST -- REMOVE BEFORE DEPLOYING--
-
-app.get('/test', function (req, res) {
-    if (res.locals) {
-        console.log(res.locals.currentUser);
-        res.render('PartialsTemplate');
-    }
-    res.render('PartialsTemplate');
-});
 //LISTEN
 app.listen(PORT, () => console.log(`Listening on ${PORT}`));
