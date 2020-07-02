@@ -820,6 +820,8 @@ section {
     }
 
     #features {
+        padding-top: 10%;
+
         .wrapper {
             padding: 0 0 10em 0;
             display: flex;
@@ -855,6 +857,8 @@ section {
     }
 
     #pricing {
+        min-height: 100%;
+
         li {
             line-height: 1.5;
         }
@@ -964,6 +968,10 @@ section {
         flex-wrap: wrap;
         flex-direction: row;
         justify-content: space-around;
+
+        li {
+            max-width: 25%;
+        }
     }
 
     #lesson {

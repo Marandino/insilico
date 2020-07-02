@@ -782,6 +782,9 @@ section {
     background-color: black;
     border-radius: 10px;
   }
+  #features {
+    padding-top: 10%;
+  }
   #features .wrapper {
     padding: 0 0 10em 0;
     display: -webkit-box;
@@ -819,6 +822,9 @@ section {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
+  }
+  #pricing {
+    min-height: 100%;
   }
   #pricing li {
     line-height: 1.5;
@@ -950,6 +956,9 @@ section {
             flex-direction: row;
     -ms-flex-pack: distribute;
         justify-content: space-around;
+  }
+  .links ul li {
+    max-width: 25%;
   }
   #tutorials {
     padding-top: 5%;
