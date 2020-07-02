@@ -415,6 +415,19 @@ section {
   padding: 1em 2em;
 }
 
+#pricing .illustration {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+#pricing .illustration img {
+  max-width: 70%;
+}
+
 #tutorials {
   padding-top: 20%;
 }

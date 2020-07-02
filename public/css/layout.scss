@@ -453,6 +453,16 @@ section {
             }
         }
     }
+
+    .illustration {
+        display: flex;
+        justify-content: center;
+
+        img {
+            max-width: 70%;
+        }
+    }
+
 }
 
 #tutorials {
