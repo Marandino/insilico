@@ -223,7 +223,7 @@ section {
  */
 
     #menuToggle {
-        background-color: color(background);
+        background: color(gradient);
         padding: 1em;
         width: 100vw;
         display: inline-block;
@@ -271,7 +271,7 @@ section {
         height: 4px;
         margin-bottom: 5px;
         position: relative;
-        background: color(secondary);
+        background: color(background);
         border-radius: 3px;
         z-index: 1;
         transform-origin: 4px 0px;
@@ -294,7 +294,7 @@ section {
     #menuToggle input:checked~span {
         opacity: 1;
         transform: rotate(45deg) translate(-2px, -1px);
-        background: color(primary);
+        background: color(background);
     }
 
     /*
@@ -318,7 +318,7 @@ section {
  */
     #menu {
         position: absolute;
-        width: 300px;
+        width: 50%;
         margin: -100px 0 0 -50px;
         padding: 50px;
         padding-top: 125px;
@@ -329,13 +329,14 @@ section {
 
         transform-origin: 0% 0%;
         transform: translate(-100%, 0);
-
+        opacity: 95%;
         transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1.0);
     }
 
     #menu li {
         padding: 10px 0;
         font-size: 22px;
+        border-bottom: solid 1px rgba($color: #ffffff, $alpha: 0.25);
     }
 
     /*

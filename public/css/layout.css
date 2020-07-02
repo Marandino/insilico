@@ -199,7 +199,7 @@ section {
 }
 
 #mobileNavbar #menuToggle {
-  background-color: #f6f6f6;
+  background: -webkit-linear-gradient(244.48deg, #73a4e7ff 1.52%, #6557b2ff 96.76%);
   padding: 1em;
   width: 100vw;
   display: inline-block;
@@ -244,7 +244,7 @@ section {
   height: 4px;
   margin-bottom: 5px;
   position: relative;
-  background: #6557b2ff;
+  background: #f6f6f6;
   border-radius: 3px;
   z-index: 1;
   -webkit-transform-origin: 4px 0px;
@@ -269,7 +269,7 @@ section {
   opacity: 1;
   -webkit-transform: rotate(45deg) translate(-2px, -1px);
           transform: rotate(45deg) translate(-2px, -1px);
-  background: #e74b7fff;
+  background: #f6f6f6;
 }
 
 #mobileNavbar #menuToggle input:checked ~ span:nth-last-child(3) {
@@ -285,7 +285,7 @@ section {
 
 #mobileNavbar #menu {
   position: absolute;
-  width: 300px;
+  width: 50%;
   margin: -100px 0 0 -50px;
   padding: 50px;
   padding-top: 125px;
@@ -297,6 +297,7 @@ section {
           transform-origin: 0% 0%;
   -webkit-transform: translate(-100%, 0);
           transform: translate(-100%, 0);
+  opacity: 95%;
   -webkit-transition: -webkit-transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1);
   transition: -webkit-transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1);
   transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1);
@@ -306,6 +307,7 @@ section {
 #mobileNavbar #menu li {
   padding: 10px 0;
   font-size: 22px;
+  border-bottom: solid 1px rgba(255, 255, 255, 0.25);
 }
 
 #mobileNavbar #menuToggle input:checked ~ ul {
