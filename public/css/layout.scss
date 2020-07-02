@@ -1056,8 +1056,6 @@ section {
                         margin-left: 2em;
                         justify-content: left;
 
-                        img {}
-
                         h2 {
                             align-self: start;
                         }
@@ -1116,7 +1114,4 @@ section {
     opacity: 0;
     transform: translateX(-200px);
 
-    &.alt {
-        // this is doing nothing, since it bugged the whole site lol
-    }
 }
