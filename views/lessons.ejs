@@ -1,20 +1,20 @@
-  <%- include('partials/header'); %>
-  <section data-scroll id="tutorials">
-      <h3>We'll Guide You Through The Whole Process</h3>
-      <div class="wrapper">
-          <% lessons.forEach(lesson => { %>
-          <div class="lessonBox">
-              <a href="/lesson/<%= lesson._id %> ">
-                  <img src="./images/thumbnail/<%= lesson.thumbnail %>.jpg" alt="">
-                  <div class="title">
-                      <h2>Some Cool Stuff With This Guy </h2>
-                      <p><%= lesson.name  %></p>
-
-                  </div>
-
-              </a>
-          </div>
-          <% }) %>
-      </div>
-  </section>
-  <%- include('partials/footer'); %>
+<!-- lessonsData is for all the lessons db -->
+<!-- lesson is just the information passed by the ID (this specific lesson) -->
+<%- include('partials/header'); %>
+<section id="tutorials">
+    <h3>How to Use Our Premium Tools</h3>
+    <div class="wrapper">
+        <% lessons.forEach(lesson => { %>
+        <div class="lessonBox">
+            <a href="/lesson/<%= lesson._id %> ">
+                <img src="./images/thumbnail/<%= lesson.thumbnail %>.jpg" alt="">
+                <div class="title">
+                    <h2><%= lesson.description %> </h2>
+                    <p><%= lesson.name  %></p>
+                </div>
+            </a>
+        </div>
+        <% }) %>
+    </div>
+</section>
+<%- include('partials/footer'); %>

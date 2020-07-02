@@ -5,6 +5,7 @@ var lessonSchema = new mongoose.Schema({
     name: String,
     description: String,
     thumbnail: String,
+    social: String
 })
 
 module.exports = mongoose.model("Lesson", lessonSchema)

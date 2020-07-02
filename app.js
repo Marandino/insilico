@@ -69,6 +69,7 @@ app.use(function (req, res, next) {
 ///
 ////EMAILING VARIABLES
 const sgMail = require('@sendgrid/mail');
+const lessons = require('./models/lessons');
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 //////<
 
@@ -200,19 +201,33 @@ app.get("/lesson", (req, res) => {
         }
     });
 })
-app.get('/lesson/:id', isLoggedIn, function (req, res) {
+app.get('/lesson/:id', function (req, res) {
+    var lessonsData = [];
     //request all lessons
+    Lesson.find({}, function (err, lessons) {
+        if (err) {
+            console.log(err);
+        } else {
+            lessonsData.push(lessons);
+            Lesson.findById(req.params.id, function (err, lesson) {
+                if (err) {
+                    console.log(err)
+                } else {
+                    lessonsData.push(lesson);
+                    console.log("everything is fine")
+                    res.render("lesson", {
+                        lessons: lessonsData[0],
+                        lesson: lessonsData[1]
+                    });
+
+                }
+            })
+        }
+    });
     // pass lesson information onto the rendered site
     // ejsout all that crap
-    Lesson.findById(req.params.id, function (err, lesson) {
-        if (err) {
-            console.log(err)
-        } else {
-            res.render("lesson", {
-                lesson: lesson
-            });
-        }
-    })
+
+
 });
 
 

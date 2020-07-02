@@ -643,29 +643,20 @@ section {
   margin: 1em 0;
 }
 
-#lesson .wrapper .card {
-  width: 80vw;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  margin: auto;
-  margin-top: 2em;
-}
-
-#lesson .wrapper .card img {
-  max-width: 80vw;
-}
-
-#lesson .wrapper .card h2 {
-  padding: .5em;
+#lesson .container {
   margin: 0;
+}
+
+#lesson .container .videoWrapper {
+  width: 100vw;
+}
+
+#lesson .container h2 {
+  padding-left: 1em;
+}
+
+#lesson .container .wrapper .lessonBox a img {
+  max-width: 50%;
 }
 
 #popup {
@@ -959,39 +950,6 @@ section {
             flex-direction: row;
     -ms-flex-pack: distribute;
         justify-content: space-around;
-  }
-  #lesson {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-orient: horizontal;
-    -webkit-box-direction: normal;
-        -ms-flex-direction: row;
-            flex-direction: row;
-    overflow: hidden;
-    min-height: auto;
-    padding-top: 10%;
-  }
-  #lesson .wrapper {
-    margin: 2em;
-  }
-  #lesson .wrapper.videoWrapper {
-    min-width: 60%;
-  }
-  #lesson .wrapper.videoWrapper h3 {
-    margin: 0;
-  }
-  #lesson .wrapper.cardsWrapper {
-    width: 35%;
-    max-height: 60vh;
-    overflow-y: scroll;
-    margin-left: 0;
-  }
-  #lesson .wrapper.cardsWrapper .card {
-    width: 30vw;
-  }
-  #lesson .wrapper.cardsWrapper .card img {
-    width: 100%;
   }
   #tutorials {
     padding-top: 5%;

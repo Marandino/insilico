@@ -1,50 +1,28 @@
 <%- include('partials/header'); %>
+<div id="altbg"></div>
 <section id="lesson">
-    <div class="wrapper videoWrapper">
-        <iframe allow="autoplay" class="video-player-container vooplayer" data-playerId="<%=lesson.id%>"
-            allowtransparency="true" allowfullscreen="true" frameborder="0" scrolling="no"> </iframe>
-        <h3><%= lesson.name %> </h3>
 
-    </div>
-    <div class="wrapper cardsWrapper">
-        <h3>Related Lessons</h3>
-        <div class="card box">
-            <a href="/lesson/5ef7875c7118ad05f8d27a7f">
-                <img src="/images/thumbnail/default.jpg" alt="">
-            </a>
-            <h2>Trend Buddy</h2>
+    <div class="container">
+        <div class="videoWrapper">
+            <iframe allow="autoplay" class="video-player-container vooplayer" data-playerId="<%=lesson.id%>"
+                allowtransparency="true" allowfullscreen="true" frameborder="0" scrolling="no"> </iframe>
+            <h2><%= lesson.description %> </h3>
         </div>
-        <div class="card box">
-            <a href="/lesson/5ef787712ad34c0605b422e3">
-                <img src="/images/thumbnail/default.jpg" alt="">
-            </a>
-            <h2>PAL</h2>
-        </div>
-        <div class="card box">
-            <a href="/lesson/5ef787801c454b061326fd9b">
-                <img src="/images/thumbnail/default.jpg" alt="">
-            </a>
-            <h2>Heuristics</h2>
-        </div>
-        <div class="card box">
-            <a href="/lesson/5ef787a8863801062f3a5dcf">
-                <img src="/images/thumbnail/default.jpg" alt="">
-            </a>
-            <h2>FSVZO</h2>
-        </div>
-        <div class="card box">
-            <a href="/lesson/5ef787bcedd97c063dada33c">
-                <img src="/images/thumbnail/default.jpg" alt="">
-            </a>
-            <h2>Crayons</h2>
-        </div>
-        <div class="card box">
-            <a href="/lesson/5ef787cbee46e9064bd91793">
-                <img src="/images/thumbnail/default.jpg" alt="">
-            </a>
-            <h2>Genie</h2>
+        <div class="wrapper">
+            <% lessons.forEach(lesson => { %>
+            <div class="lessonBox">
+                <a href="/lesson/<%= lesson._id %> ">
+                    <img src="/images/thumbnail/<%= lesson.thumbnail %>.jpg" alt="">
+                    <div class="title">
+                        <h2><%= lesson.description %> </h2>
+                        <p><%= lesson.name  %></p>
+                    </div>
+                </a>
+            </div>
+            <% }) %>
         </div>
     </div>
+
 
 </section>
 

@@ -677,25 +677,29 @@ section {
 }
 
 #lesson {
-    .wrapper {
-        .card {
-            width: 80vw;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin: auto;
-            margin-top: 2em;
+    .container {
+        margin: 0;
 
-            img {
-                max-width: 80vw;
-            }
-
-            h2 {
-                padding: .5em;
-                margin: 0;
-            }
+        .videoWrapper {
+            width: 100vw;
         }
 
+        h2 {
+            padding-left: 1em;
+        }
+
+
+        .wrapper {
+            .lessonBox {
+
+                a {
+
+                    img {
+                        max-width: 50%;
+                    }
+                }
+            }
+        }
     }
 }
 
@@ -963,39 +967,15 @@ section {
     }
 
     #lesson {
-        display: flex;
-        flex-direction: row;
-        overflow: hidden;
-        min-height: auto;
-        padding-top: 10%;
-
         .wrapper {
-            margin: 2em;
-
-            &.videoWrapper {
-                min-width: 60%;
-
-                h3 {
-                    margin: 0;
-                }
-            }
-
-            &.cardsWrapper {
-                width: 35%;
-                max-height: 60vh;
-                overflow-y: scroll;
-                margin-left: 0;
-
-                .card {
-                    width: 30vw;
-
-                    img {
-                        width: 100%;
-                    }
+            .lessonBox {
+                a {
+                    img {}
                 }
             }
         }
     }
+
 
     #tutorials {
         padding-top: 5%;
