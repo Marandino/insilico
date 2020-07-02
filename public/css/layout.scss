@@ -777,8 +777,8 @@ section {
         max-width: 20%;
     }
 
-    a {
-        color: color(contrast);
+    button {
+        margin-right: 1em;
     }
 
     p {
@@ -969,10 +969,6 @@ section {
     #form {
         margin: auto;
         padding-top: 10vh;
-
-        h2 {
-            color: color(primary);
-        }
 
         h3 {
             background-color: color(secondary);
