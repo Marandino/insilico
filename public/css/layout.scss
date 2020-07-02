@@ -116,6 +116,36 @@ section {
     }
 }
 
+/////ACCORDEON STYLE
+.accordionButton {
+    opacity: .9;
+    display: block;
+    width: 100%;
+    padding: 1em;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    background-color: color(secondary);
+    color: color(background);
+    text-align: left;
+    font-size: 1.2em;
+
+    &.active {
+        opacity: 1;
+    }
+
+    transition: all .3s;
+}
+
+.accordionContent {
+    overflow: hidden;
+    max-height: 0;
+    padding: 0 1em;
+    transition: all .3s;
+}
+
+////END OF ACCORDEON STYLE
+
 #bg {
     background: linear-gradient(265.88deg, #5790e2 1.52%, #4d428e 96.76%);
     position: fixed;
@@ -547,34 +577,6 @@ section {
     }
 }
 
-#faq {
-    .accordionButton {
-        opacity: .9;
-        display: block;
-        width: 100%;
-        padding: 1em;
-        border: none;
-        outline: none;
-        cursor: pointer;
-        background-color: color(secondary);
-        color: color(background);
-        text-align: left;
-        font-size: 1.2em;
-
-        &.active {
-            opacity: 1;
-        }
-
-        transition: all .3s;
-    }
-
-    .accordionContent {
-        overflow: hidden;
-        max-height: 0;
-        padding: 0 1em;
-        transition: all .3s;
-    }
-}
 
 #footer {
     ul {
@@ -692,6 +694,16 @@ section {
 
         .videoWrapper {
             width: 100vw;
+
+            .accordionButton {
+                background: none;
+
+                span {
+                    float: right;
+                    opacity: 80%;
+                    font-weight: 500;
+                }
+            }
         }
 
         h2 {
@@ -702,12 +714,31 @@ section {
         .wrapper {
             .lessonBox {
 
+
                 a {
+                    margin: auto;
+                    width: 100vw;
+                    display: flex;
+                    flex-wrap: wrap;
+                    justify-content: space-around;
+
 
                     img {
-                        max-width: 50%;
+                        max-width: 45%;
+                        margin: .5em 0;
+                    }
+
+                    .title {
+                        min-width: 45%;
+                        align-self: center;
+
+                        h2 {
+                            font-size: 1em;
+
+                        }
                     }
                 }
+
             }
         }
     }
@@ -985,12 +1016,50 @@ section {
     }
 
     #lesson {
-        .wrapper {
-            .lessonBox {
-                a {
-                    img {}
+        padding-top: 10vh;
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            margin: auto;
+            min-width: 95%;
+
+            .videoWrapper {
+                max-width: 70%;
+
+                .accordionButton {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    padding: .5em;
+
+                    span {
+                        background-color: color(secondary);
+                        padding: .5em 1em;
+                    }
                 }
             }
+
+            .wrapper {
+                max-width: 25%;
+
+                .lessonBox {
+
+                    a {
+                        max-width: 100%;
+                        margin: 0;
+                        margin-left: 2em;
+                        justify-content: left;
+
+                        img {}
+
+                        h2 {
+                            align-self: start;
+                        }
+                    }
+                }
+            }
+
         }
     }
 

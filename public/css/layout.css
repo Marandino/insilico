@@ -74,6 +74,34 @@ section {
   }
 }
 
+.accordionButton {
+  opacity: .9;
+  display: block;
+  width: 100%;
+  padding: 1em;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  background-color: #6557b2ff;
+  color: #f6f6f6;
+  text-align: left;
+  font-size: 1.2em;
+  -webkit-transition: all .3s;
+  transition: all .3s;
+}
+
+.accordionButton.active {
+  opacity: 1;
+}
+
+.accordionContent {
+  overflow: hidden;
+  max-height: 0;
+  padding: 0 1em;
+  -webkit-transition: all .3s;
+  transition: all .3s;
+}
+
 #bg {
   background: linear-gradient(265.88deg, #5790e2 1.52%, #4d428e 96.76%);
   position: fixed;
@@ -508,34 +536,6 @@ section {
   color: #ff7f33;
 }
 
-#faq .accordionButton {
-  opacity: .9;
-  display: block;
-  width: 100%;
-  padding: 1em;
-  border: none;
-  outline: none;
-  cursor: pointer;
-  background-color: #6557b2ff;
-  color: #f6f6f6;
-  text-align: left;
-  font-size: 1.2em;
-  -webkit-transition: all .3s;
-  transition: all .3s;
-}
-
-#faq .accordionButton.active {
-  opacity: 1;
-}
-
-#faq .accordionContent {
-  overflow: hidden;
-  max-height: 0;
-  padding: 0 1em;
-  -webkit-transition: all .3s;
-  transition: all .3s;
-}
-
 #footer ul {
   padding: 0;
   margin: 0;
@@ -664,12 +664,46 @@ section {
   width: 100vw;
 }
 
+#lesson .container .videoWrapper .accordionButton {
+  background: none;
+}
+
+#lesson .container .videoWrapper .accordionButton span {
+  float: right;
+  opacity: 80%;
+  font-weight: 500;
+}
+
 #lesson .container h2 {
   padding-left: 1em;
 }
 
+#lesson .container .wrapper .lessonBox a {
+  margin: auto;
+  width: 100vw;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+}
+
 #lesson .container .wrapper .lessonBox a img {
-  max-width: 50%;
+  max-width: 45%;
+  margin: .5em 0;
+}
+
+#lesson .container .wrapper .lessonBox a .title {
+  min-width: 45%;
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+}
+
+#lesson .container .wrapper .lessonBox a .title h2 {
+  font-size: 1em;
 }
 
 #popup {
@@ -972,6 +1006,53 @@ section {
   }
   .links ul li {
     max-width: 25%;
+  }
+  #lesson {
+    padding-top: 10vh;
+  }
+  #lesson .container {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+    margin: auto;
+    min-width: 95%;
+  }
+  #lesson .container .videoWrapper {
+    max-width: 70%;
+  }
+  #lesson .container .videoWrapper .accordionButton {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+    padding: .5em;
+  }
+  #lesson .container .videoWrapper .accordionButton span {
+    background-color: #6557b2ff;
+    padding: .5em 1em;
+  }
+  #lesson .container .wrapper {
+    max-width: 25%;
+  }
+  #lesson .container .wrapper .lessonBox a {
+    max-width: 100%;
+    margin: 0;
+    margin-left: 2em;
+    -webkit-box-pack: left;
+        -ms-flex-pack: left;
+            justify-content: left;
+  }
+  #lesson .container .wrapper .lessonBox a h2 {
+    -ms-flex-item-align: start;
+        -ms-grid-row-align: start;
+        align-self: start;
   }
   #tutorials {
     padding-top: 5%;

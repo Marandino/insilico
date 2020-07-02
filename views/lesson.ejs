@@ -5,7 +5,14 @@
         <div class="videoWrapper">
             <iframe allow="autoplay" class="video-player-container vooplayer" data-playerId="<%=lesson.id%>"
                 allowtransparency="true" allowfullscreen="true" frameborder="0" scrolling="no"> </iframe>
-            <h2><%= lesson.description %> </h3>
+
+            <button class="accordionButton">
+                <%= lesson.name %> <span>Read More</span>
+            </button>
+            <div class="accordionContent">
+                <%= lesson.description %>
+            </div>
+
         </div>
         <div class="wrapper">
             <% lessons.forEach(lesson => { %>
@@ -13,8 +20,7 @@
                 <a href="/lesson/<%= lesson._id %> ">
                     <img src="/images/thumbnail/<%= lesson.thumbnail %>.jpg" alt="">
                     <div class="title">
-                        <h2><%= lesson.description %> </h2>
-                        <p><%= lesson.name  %></p>
+                        <h2><%= lesson.name %> </h2>
                     </div>
                 </a>
             </div>

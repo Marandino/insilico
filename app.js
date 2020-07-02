@@ -214,7 +214,6 @@ app.get('/lesson/:id', function (req, res) {
                     console.log(err)
                 } else {
                     lessonsData.push(lesson);
-                    console.log("everything is fine")
                     res.render("lesson", {
                         lessons: lessonsData[0],
                         lesson: lessonsData[1]
