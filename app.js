@@ -64,8 +64,8 @@ app.post('/contact', function (req, res) {
         <p> This person is trying to reach you: </p> 
         <ul>
             <li>name: ${req.body.user}</li> 
-            <li>phone: ${req.body.email}</li> 
-            <li>phone: ${req.body.message}</li> 
+            <li>email: ${req.body.email}</li> 
+            <li>message: ${req.body.message}</li> 
         </ul> 
     `;
     //send the email info
