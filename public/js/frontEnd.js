@@ -59,9 +59,9 @@ async function changePrice(package) {
     var bitcoinRate = await exchangeRate();
     console.log("current bitcoin exchange rate is " + bitcoinRate);
     if (package === "premiumButton") {
-        var premiumPrice = bitcoinRate * 150;
+        var premiumPrice = bitcoinRate * 200;
         amount.textContent = premiumPrice;
-        usd.textContent = 150;
+        usd.textContent = 200;
         title.textContent = "Premium"
     } else if (package === "basicButton") {
         var basicPrice = bitcoinRate * 100;
