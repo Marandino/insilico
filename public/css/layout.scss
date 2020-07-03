@@ -3,16 +3,6 @@
     src: url("/fonts/SF-Pro.otf") format("opentype");
 }
 
-
-
-// $colors: (primary: #2ad1a7,
-//     contrast: #FFF185,
-//     secondary: #4d428e,
-//     gradient: -webkit-linear-gradient(244.48deg, #5790e2 1.52%, #4d428e 96.76%),
-//     background: #f6f6f6,
-//     danger: #ff7f33,
-//     dark: #040116);
-
 $colors: (primary: #e74b7fff,
     contrast: #2ad1a7,
     secondary: #6557b2ff,
@@ -596,10 +586,6 @@ section {
         p {
             margin: 0;
         }
-
-        p {
-            text-indent: 1em;
-        }
     }
 
     p#tm {
@@ -934,8 +920,11 @@ section {
                 max-width: 30%;
 
                 .top {
-                    justify-self: center;
-                    align-self: center;
+                    min-height: 220px;
+
+                    p {
+                        margin-top: .7em;
+                    }
                 }
 
                 .bottom {
