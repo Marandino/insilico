@@ -1,0 +1,34 @@
+<%- include('partials/header'); %>
+<section id="checkout">
+    <!-- create a form -->
+    <!-- send that form info to server -->
+    <!-- display a message -->
+
+    <div class="container">
+        <form action="/charge" method="post" id="payment-form">
+            <fieldset>
+                <div class="row">
+                    <label for="example1-email" data-tid="elements_examples.form.email_label">Email</label>
+                    <input id="example1-email" data-tid="elements_examples.form.email_placeholder" type="email"
+                        placeholder="janedoe@gmail.com" required="" autocomplete="email">
+                </div>
+            </fieldset>
+            <fieldset>
+                <div class="form-row">
+
+                    <label for="card-element">
+                        Credit or debit card
+                    </label>
+                    <div id="card-element">
+                        <!-- A Stripe Element will be inserted here. -->
+                    </div>
+
+                    <!-- Used to display form errors. -->
+                    <div id="card-errors" role="alert"></div>
+                </div>
+            </fieldset>
+            <button class="button">Submit Payment</button>
+        </form>
+    </div>
+</section>
+<%- include('partials/footer'); %>

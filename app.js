@@ -126,5 +126,22 @@ app.get('/lesson/:id', function (req, res) {
 
 });
 
+/// PAYMENTS
+
+// GET Request
+app.get("/checkout", (req, res) => {
+    res.render("checkout");
+})
+// POST Request
+app.post("/charge", (req, res) => {
+    res.send("I'm doing something");
+    console.log(req.body.stripeToken);
+})
+// REQUIRE THE PAYMENT INTENT
+// VALIDATE THE PAYMENT INTENT
+// WEBHOOK TO RECEIVE AND ACT UPON IT
+
+/// END OF PAYMENTS
+
 //LISTEN
 app.listen(PORT, () => console.log(`Listening on ${PORT}`));

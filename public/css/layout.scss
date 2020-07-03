@@ -459,8 +459,17 @@ section {
                 }
             }
 
-            .cta {
+            .paymentButtons {
                 display: flex;
+                justify-content: center;
+
+                .button {
+                    margin: 0 .5em;
+                }
+
+            }
+
+            .cta {
                 border: none;
                 color: color(background);
                 font-weight: 600;
@@ -731,6 +740,46 @@ section {
 
             }
         }
+    }
+}
+
+#checkout {
+    .container {
+        padding-top: 20%;
+        max-width: 400px;
+        background-color: color(secondary);
+
+        form {
+            background-color: color(background);
+            padding: 4em;
+            color: color(secondary);
+            // .card-element {
+            //     box-sizing: border-box;
+            //     height: 40px;
+            //     padding: 10px 12px;
+            //     border-radius: 4px;
+            // }
+
+            // .card-element--invalid {
+            //     border-color: color(primary);
+            // }
+
+            // .payment-form--webkit-autofill {
+            //     background-color: color(background) !important;
+            // }
+            button {
+                display: block;
+                margin: 1em auto;
+                background-color: color(secondary);
+                color: color(background);
+
+                &:hover {
+                    background-color: color(contrast);
+                    color: color(background);
+                }
+            }
+        }
+
     }
 }
 
@@ -1099,3 +1148,6 @@ section {
     transform: translateX(-200px);
 
 }
+
+
+//// TEST FOR PAYMENTS CSS<script src="https://js.stripe.com/v3/"></script>
