@@ -21,6 +21,8 @@ mongoose.connect(uri, {
 });
 
 ////=======
+
+////CONNECT TO STRIPE
 //INIT DEPENDENCIES
 app.use(
     bodyParser.urlencoded({
@@ -28,7 +30,17 @@ app.use(
     })
 );
 
-app.use(bodyParser.json());
+app.use(
+    express.json({
+        // We need the raw body to verify webhook signatures.
+        // Let's compute it only when hitting the Stripe webhook endpoint.
+        verify: function (req, res, buf) {
+            if (req.originalUrl.startsWith("/webhook")) {
+                req.rawBody = buf.toString();
+            }
+        },
+    })
+);
 ///SET VIEW ENGINE AND PUBLIC DIR
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
@@ -126,20 +138,107 @@ app.get('/lesson/:id', function (req, res) {
 
 });
 
-/// PAYMENTS
+///STRIPE CHECKOUT 
+// Set your secret key. Remember to switch to your live secret key in production!
+// See your keys here: https://dashboard.stripe.com/account/apikeys
+const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
-// GET Request
-app.get("/checkout", (req, res) => {
-    res.render("checkout");
+app.get("/success", (req, res) => {
+    res.render("success");
 })
-// POST Request
-app.post("/charge", (req, res) => {
-    res.send("I'm doing something");
-    console.log(req.body.stripeToken);
-})
-// REQUIRE THE PAYMENT INTENT
-// VALIDATE THE PAYMENT INTENT
-// WEBHOOK TO RECEIVE AND ACT UPON IT
+
+
+// Fetch the Checkout Session to display the JSON result on the success page
+
+app.get("/checkout-session", async (req, res) => {
+    const {
+        sessionId
+    } = req.query;
+    const session = await stripe.checkout.sessions.retrieve(sessionId);
+    res.send(session);
+});
+
+app.post("/create-checkout-session", async (req, res) => {
+    const domainURL = process.env.DOMAIN;
+    const {
+        priceId
+    } = req.body;
+
+    // Create new Checkout Session for the order
+    // Other optional params include:
+    // [billing_address_collection] - to display billing address details on the page
+    // [customer] - if you have an existing Stripe Customer ID
+    // [customer_email] - lets you prefill the email input in the form
+    // For full details see https://stripe.com/docs/api/checkout/sessions/create
+    const session = await stripe.checkout.sessions.create({
+        mode: "subscription",
+        payment_method_types: ["card"],
+        line_items: [{
+            price: priceId,
+            quantity: 1,
+        }, ],
+        // ?session_id={CHECKOUT_SESSION_ID} means the redirect will have the session ID set as a query param
+        // success_url: `${domainURL}/success.html?session_id={CHECKOUT_SESSION_ID}`,
+        // cancel_url: `${domainURL}/canceled.html`,
+        success_url: "http://localhost:5000/success",
+        cancel_url: "http://localhost:5000/cancel",
+
+    });
+
+    res.send({
+        sessionId: session.id,
+    });
+});
+
+app.get("/setup", (req, res) => {
+    res.send({
+        publishableKey: process.env.STRIPE_PUBLISHABLE_KEY,
+        basicPrice: process.env.BASIC_PRICE_ID,
+        proPrice: process.env.PRO_PRICE_ID,
+        vipPrice: process.env.VIP_PRICE_ID,
+    });
+});
+//////
+// Webhook handler for asynchronous events.
+app.post("/webhook", async (req, res) => {
+    let eventType;
+    // Check if webhook signing is configured.
+    if (process.env.STRIPE_WEBHOOK_SECRET) {
+        // Retrieve the event by verifying the signature using the raw body and secret.
+        let event;
+        let signature = req.headers["stripe-signature"];
+
+        try {
+            event = stripe.webhooks.constructEvent(
+                req.rawBody,
+                signature,
+                process.env.STRIPE_WEBHOOK_SECRET
+            );
+        } catch (err) {
+            console.log(`⚠️  Webhook signature verification failed.`);
+            return res.sendStatus(400);
+        }
+        // Extract the object from the event.
+        data = event.data;
+        eventType = event.type;
+    } else {
+        // Webhook signing is recommended, but if the secret is not configured in `config.js`,
+        // retrieve the event data directly from the request body.
+        data = req.body.data;
+        eventType = req.body.type;
+    }
+
+    if (eventType === "checkout.session.completed") {
+        console.log(`🔔  Payment received!`);
+        console.log(data);
+        console.log(" === === ");
+        console.log(eventType);
+        //// I NEED TO SEND THE INFO TO THE DATABASE AND THEN SEND AN E-MAIL ********
+    }
+
+    res.sendStatus(200);
+});
+
 
 /// END OF PAYMENTS
 

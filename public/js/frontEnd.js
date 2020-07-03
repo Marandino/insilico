@@ -1,22 +1,22 @@
-//TICKER DOM ANIMATION
+// //TICKER DOM ANIMATION
 
-document.querySelectorAll('.accordionButton').forEach((button) => {
-    button.addEventListener('click', () => {
-        const accordionContent = button.nextElementSibling;
-        button.classList.toggle('active');
-        if (button.classList.contains('active')) {
-            accordionContent.style.maxHeight = accordionContent.scrollHeight + 'px'; //scrollHeight gives back the auto height
-            accordionContent.style.padding = "1em";
-        } else {
-            accordionContent.style.maxHeight = 0;
-            accordionContent.style.padding = "0 1em";
-        }
-    });
-});
+// document.querySelectorAll('.accordionButton').forEach((button) => {
+//     button.addEventListener('click', () => {
+//         const accordionContent = button.nextElementSibling;
+//         button.classList.toggle('active');
+//         if (button.classList.contains('active')) {
+//             accordionContent.style.maxHeight = accordionContent.scrollHeight + 'px'; //scrollHeight gives back the auto height
+//             accordionContent.style.padding = "1em";
+//         } else {
+//             accordionContent.style.maxHeight = 0;
+//             accordionContent.style.padding = "0 1em";
+//         }
+//     });
+// });
 
 
 
-////GET EXCHANGE RATE 
+// //GET EXCHANGE RATE 
 // //// pop-up 
 
 // const popup = document.getElementById("popup"),
@@ -76,7 +76,7 @@ document.querySelectorAll('.accordionButton').forEach((button) => {
 //     }
 // }
 
-// //// END OF POPUP´
+// // //// END OF POPUP´
 
 ////STRIPE PAYMENTS
 // Create a Stripe client.
@@ -84,71 +84,89 @@ const stripe = Stripe('pk_test_51Gsx6JJyRCyDOw0DXnApg528fwHVjqfXGDLDGjAsUJGH4ELE
 
 // Create an instance of Elements.
 const elements = stripe.elements();
+////CHECKOUT
 
-// INITIALIZE
-// Custom styling can be passed to options when creating an Element.
-// (Note that this demo uses a wider set of styles than the guide below.)
-var style = {
-    base: {
-        color: '#32325d',
-        fontSize: '16px',
-        '::placeholder': {
-            color: '#aab7c4'
-        }
-    },
-    invalid: {
-        color: '#e74b7f',
-        iconColor: '#e74b7f'
+
+// Create a Checkout Session with the selected plan ID
+var createCheckoutSession = function (priceId) {
+    return fetch("/create-checkout-session", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            priceId: priceId
+        })
+    }).then(function (result) {
+        return result.json();
+    });
+};
+
+// Handle any errors returned from Checkout
+var handleResult = function (result) {
+    if (result.error) {
+        var displayError = document.getElementById("error-message");
+        displayError.textContent = result.error.message;
     }
 };
 
-// Create an instance of the card Element.
-var card = elements.create('card', {
-    style: style
-});
+/* Get your Stripe publishable key to initialize Stripe.js */
+fetch("/setup")
+    .then(function (result) {
+        return result.json();
+    })
+    .then(function (json) {
+        var publishableKey = json.publishableKey;
+        var basicPriceId = json.basicPrice;
+        var proPriceId = json.proPrice;
+        var vipPriceId = json.vipPrice;
 
-// Add an instance of the card Element into the `card-element` <div>.
-card.mount('#card-element');
+        var stripe = Stripe(publishableKey);
+        // Setup event handler to create a Checkout Session when button is clicked
+        document
+            .getElementById("basic-plan-btn")
+            .addEventListener("click", function (evt) {
+                createCheckoutSession(basicPriceId).then(function (data) {
+                    // Call Stripe.js method to redirect to the new Checkout page
+                    stripe
+                        .redirectToCheckout({
+                            sessionId: data.sessionId
+                        })
+                        .then(handleResult);
+                });
+            });
+        // Setup event handler to create a Checkout Session when button is clicked
+        document
+            .getElementById("pro-plan-btn")
+            .addEventListener("click", function (evt) {
+                createCheckoutSession(proPriceId).then(function (data) {
+                    // Call Stripe.js method to redirect to the new Checkout page
+                    stripe
+                        .redirectToCheckout({
+                            sessionId: data.sessionId
+                        })
+                        .then(handleResult);
+                });
+            });
+        // Setup event handler to create a Checkout Session when button is clicked
+        document
+            .getElementById("vip-plan-btn")
+            .addEventListener("click", function (evt) {
+                createCheckoutSession(vipPriceId).then(function (data) {
+                    // Call Stripe.js method to redirect to the new Checkout page
+                    stripe
+                        .redirectToCheckout({
+                            sessionId: data.sessionId
+                        })
+                        .then(handleResult);
+                });
+            });
 
-// Handle real-time validation errors from the card Element.
-card.on('change', function (event) {
-    var displayError = document.getElementById('card-errors');
-    if (event.error) {
-        displayError.textContent = event.error.message;
-    } else {
-        displayError.textContent = '';
-    }
-});
-
-// Handle form submission.
-var form = document.getElementById('payment-form');
-form.addEventListener('submit', function (event) {
-    event.preventDefault();
-
-    stripe.createToken(card).then(function (result) {
-        if (result.error) {
-            // Inform the user if there was an error.
-            var errorElement = document.getElementById('card-errors');
-            errorElement.textContent = result.error.message;
-        } else {
-            // Send the token to your server.
-            stripeTokenHandler(result.token);
-        }
     });
-});
 
-// Submit the form with the token ID.
-function stripeTokenHandler(token) {
-    // Insert the token ID into the form so it gets submitted to the server
-    var form = document.getElementById('payment-form');
-    var hiddenInput = document.createElement('input');
-    hiddenInput.setAttribute('type', 'hidden');
-    hiddenInput.setAttribute('name', 'stripeToken');
-    hiddenInput.setAttribute('value', token.id);
-    form.appendChild(hiddenInput);
-    // Submit the form
-    form.submit();
-}
+
+
+// INITIALIZE
 
 // ELEMENTS
 // EVENTS
