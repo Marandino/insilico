@@ -1082,6 +1082,16 @@ section {
             }
         }
     }
+
+    #footer {
+        ul {
+            justify-content: space-between;
+        }
+
+        li {
+            text-align: center;
+        }
+    }
 }
 
 [data-scroll] {
