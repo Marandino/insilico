@@ -231,9 +231,19 @@ app.post("/webhook", async (req, res) => {
     if (eventType === "checkout.session.completed") {
         console.log(`🔔  Payment received!`);
         console.log(data);
-        console.log(" === === ");
-        console.log(eventType);
         //// I NEED TO SEND THE INFO TO THE DATABASE AND THEN SEND AN E-MAIL ********
+    } else if (eventType === "customer.created") {
+        console.log(data.object.email + data.object.id);
+
+        console.log("Customer has been created")
+
+        ////CREATE USER AUTHENTICATION WITHOUT A PASSWORD THERE. 
+
+        //THEN AN EMAIL CONFIRMATION SETUP WHERE THE FIRST TIME THE USER LOGS IN, SETS UP THE PASSWORD
+
+        //SAID SETUP WILL CHANGE THE LOG IN BUTTON INTO A "ACCOUNT BUTTON" SO THEY CAN MANAGE THEIR SUBSCRITPION
+
+        // PROBABLY JUST THE STRIPE USER SETTING
     }
 
     res.sendStatus(200);

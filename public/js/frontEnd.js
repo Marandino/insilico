@@ -164,8 +164,6 @@ fetch("/setup")
 
     });
 
-
-
 // INITIALIZE
 
 // ELEMENTS
