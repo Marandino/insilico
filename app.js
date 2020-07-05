@@ -9,6 +9,11 @@ var express = require('express'),
     ///BODY PARSER (PARSE FORMS)
     bodyParser = require('body-parser'),
     Lesson = require('./models/lessons'),
+    User = require('./models/users'),
+    //    PASSPORT
+    passport = require('passport'),
+    LocalStrategy = require('passport-local'),
+    passportLocalMongoose = require('passport-local-mongoose'),
     //// PORT
     PORT = process.env.PORT || 5000;
 ////CONNECT TO DATABASE
@@ -16,6 +21,7 @@ const uri = process.env.ATLAS_URI;
 mongoose.set('useUnifiedTopology', true);
 ///removes deprecation when updoating files
 mongoose.set('useFindAndModify', false);
+
 mongoose.connect(uri, {
     useNewUrlParser: true
 });
@@ -29,6 +35,22 @@ app.use(
         extended: true
     })
 );
+// app.use(bodyParser.json());
+app.use(
+    require('express-session')({
+        secret: 'encoding passwords2',
+        resave: false,
+        saveUninitialized: false
+    })
+);
+app.use(passport.initialize());
+app.use(passport.session());
+
+///// PASSPORT INITIALIZATION
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+//=========
 
 app.use(
     express.json({
@@ -54,9 +76,104 @@ app.use(function (req, res, next) {
 ///
 ////EMAILING VARIABLES
 const sgMail = require('@sendgrid/mail');
-const lessons = require('./models/lessons');
+const {
+    update
+} = require('./models/lessons');
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 //////<
+
+//USER AUTHENTICATION
+///USER AUTHENTICATION
+//REGISTER
+app.get('/register', (req, res) => {
+    res.render('register', {
+        err: false
+    });
+});
+//POST ROUTE
+app.post('/register', (req, res) => {
+    //user REGISTRATION
+    // if statement so i can check if it's just a registering or something else
+    // still it'd be better to implement it on the stripe acct 
+    User.register(
+        new User({
+            username: req.body.username,
+            email: req.body.email,
+        }),
+        req.body.password,
+        function (err, user) {
+            if (err) {
+                return res.render('register', {
+                    err: err
+                });
+            }
+
+            //this part logs in the user after registering
+            passport.authenticate('local')(req, res, function () {
+                res.redirect('/lesson');
+            });
+        }
+    );
+});
+/////======= END OF REGISTRATION ========
+
+//LOG IN
+app.get('/login', (req, res) => {
+    res.render('login');
+});
+
+app.post(
+    '/login',
+    passport.authenticate('local', {
+        successRedirect: '/redirect',
+        failureRedirect: '/login'
+    }),
+    (req, res) => {}
+);
+
+
+app.get("/redirect", (req, res) => {
+    res.redirect(req.session.returnTo || '/');
+    delete req.session.returnTo;
+})
+
+
+//LOG OUT
+app.get('/logout', (req, res) => {
+    req.logout();
+    res.redirect('/');
+});
+// ACCOUNT SETTINGS
+app.get('/account', isLoggedIn, (req, res) => {
+    res.render('account');
+});
+
+//isLoggedIn middleware || checks if the user is logged in
+
+function isLoggedIn(req, res, next) {
+    if (req.isAuthenticated()) {
+        return next();
+    }
+    req.session.returnTo = req.originalUrl;
+    res.redirect('/login');
+}
+/////// END OF LOGIN INFORMATION ============
+
+app.get("/test", (req, res) => {
+    //FETCHES THE USER INFORMATION FROM REQ
+    let conditions = {
+        email: req.user.email
+    };
+    ///SETS UP THE USER ID WE'VE RECEIVED FROM THE TOKEN 
+    let update = {
+        stripeId: "segundo asalto",
+    }
+
+    //UPDATES IT ONTO THE DATABASE
+    User.findOneAndUpdate(conditions, update, (err) => {}) // returns Query
+
+    res.redirect("/");
+})
 
 //INDEX ROUTE
 app.get('/', function (req, res) {
@@ -233,8 +350,17 @@ app.post("/webhook", async (req, res) => {
         console.log(data);
         //// I NEED TO SEND THE INFO TO THE DATABASE AND THEN SEND AN E-MAIL ********
     } else if (eventType === "customer.created") {
-        console.log(data.object.email + data.object.id);
-
+        let conditions = {
+            email: req.user.email
+        };
+        ///SETS UP THE USER ID WE'VE RECEIVED FROM THE TOKEN 
+        let update = {
+            stripeId: data.object.id
+        }
+        //UPDATES IT ONTO THE DATABASE
+        User.findOneAndUpdate(conditions, update, (err) => {
+            console.log(err)
+        }) // returns Query
         console.log("Customer has been created")
 
         ////CREATE USER AUTHENTICATION WITHOUT A PASSWORD THERE. 

@@ -1,0 +1,15 @@
+const mongoose = require("mongoose"),
+    passportLocalMongoose = require("passport-local-mongoose");
+
+var userSchema = new mongoose.Schema({
+    stripeId: {
+        type: String,
+        default: null
+    },
+    email: String,
+    password: String
+})
+
+userSchema.plugin(passportLocalMongoose);
+
+module.exports = mongoose.model("User", userSchema)

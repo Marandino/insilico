@@ -24,7 +24,17 @@
                     <li><a href="/contact">contact</a></li>
                 </span>
                 <span id="buttons">
-                    <li><a class="button primary" href="/#pricing">Subscribe</a></li>
+                    <% if(!currentUser){ %>
+                    <li><a class="button primary" href="/login">sign in</a></li>
+                    <li><a class="button secondary" href="/register">sign up</a></li>
+                    <% } else{ %>
+                    <% if(currentUser.premium){ %>
+                    <li><a class="button primary" href="/account"><%=currentUser.username%></a></li>
+                    <% } else { %>
+                    <li><a class="button primary" href="/test">Subscribe</a></li>
+                    <% } %>
+                    <li><a class="button secondary" href="/logout">log out</a></li>
+                    <% } %>
                     <li><a class="button secondary" href="/contact">Contact</a></li>
                 </span>
 
