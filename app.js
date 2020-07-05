@@ -347,11 +347,11 @@ app.post("/webhook", async (req, res) => {
 
     if (eventType === "checkout.session.completed") {
         console.log(`🔔  Payment received!`);
-        console.log(data);
+        // console.log(data);
         //// I NEED TO SEND THE INFO TO THE DATABASE AND THEN SEND AN E-MAIL ********
     } else if (eventType === "customer.created") {
         let conditions = {
-            email: req.user.email
+            email: data.object.email
         };
         ///SETS UP THE USER ID WE'VE RECEIVED FROM THE TOKEN 
         let update = {
@@ -362,19 +362,27 @@ app.post("/webhook", async (req, res) => {
             console.log(err)
         }) // returns Query
         console.log("Customer has been created")
-
-        ////CREATE USER AUTHENTICATION WITHOUT A PASSWORD THERE. 
-
-        //THEN AN EMAIL CONFIRMATION SETUP WHERE THE FIRST TIME THE USER LOGS IN, SETS UP THE PASSWORD
-
         //SAID SETUP WILL CHANGE THE LOG IN BUTTON INTO A "ACCOUNT BUTTON" SO THEY CAN MANAGE THEIR SUBSCRITPION
-
-        // PROBABLY JUST THE STRIPE USER SETTING
     }
-
     res.sendStatus(200);
 });
 
+// ACCOUNT MANAGING PORTAL 
+app.post("/create_customer_portal_session", async (req, res) => {
+
+    stripe.billingPortal.sessions.create({
+            customer: 'cus_HaYwn4awVhvJRL',
+            return_url: 'https://insilicotrading.info',
+        },
+        function (err, session) {
+            // asynchronously called
+            console.log(err);
+            console.log(session.url);
+            res.redirect(session.url);
+        }
+    );
+
+})
 
 /// END OF PAYMENTS
 
