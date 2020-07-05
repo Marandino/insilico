@@ -865,10 +865,23 @@ section {
 
         #buttons {
             display: flex;
+            align-items: baseline;
+            margin-top: -.5em;
+
+            .buttonsPreLogin {
+                display: flex;
+                margin-top: .5em;
+            }
 
             li {
                 padding: 0 .5em;
             }
+
+            // #manageBillingButton {
+            //     padding: 0;
+            //     margin: 0;
+            //     padding: .5em .5em;
+            // }
         }
     }
 }
