@@ -369,19 +369,23 @@ app.post("/webhook", async (req, res) => {
 
 // ACCOUNT MANAGING PORTAL 
 app.post("/create_customer_portal_session", async (req, res) => {
-
-    stripe.billingPortal.sessions.create({
-            customer: 'cus_HaYwn4awVhvJRL',
-            return_url: 'https://insilicotrading.info',
-        },
+    let customer = {
+        customer: req.user.stripeId,
+        /////HARDCODED CUSTOMER SHOULD BE FIXED
+        return_url: 'https://insilicotrading.info',
+    }
+    stripe.billingPortal.sessions.create(customer,
         function (err, session) {
             // asynchronously called
-            console.log(err);
-            console.log(session.url);
-            res.redirect(session.url);
+            // if error send a message 
+            if (err) {
+                console.log(err);
+                res.redirect("/#pricing");
+            } else {
+                res.redirect(session.url);
+            }
         }
     );
-
 })
 
 /// END OF PAYMENTS
