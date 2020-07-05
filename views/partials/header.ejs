@@ -75,6 +75,21 @@
                         <li><a href="/#testimonials">testimonials</a></li>
                         <li><a href="/lesson">tutorials</a></li>
                         <li><a href="/contact">contact</a></li>
+                        <% if(!currentUser){ %>
+                        <div class="buttonsPreLogin">
+                            <li><a class="button primary" href="/login">sign in</a></li>
+                            <li><a class="button secondary" href="/register">sign up</a></li>
+                        </div>
+                        <% } else{ %>
+                        <li>
+                            <form method="POST" action="/create_customer_portal_session">
+                                <button id="manageBillingButton" class="button primary" type="submit">Manage
+                                    billing</button>
+                            </form>
+                        </li>
+                        <!-- <li><a class="button primary" href="/test">Subscribe</a></li> -->
+                        <li><a class="button secondary" href="/logout">log out</a></li>
+                        <% } %>
                     </ul>
 
                 </div>
