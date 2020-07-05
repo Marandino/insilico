@@ -799,7 +799,7 @@ section {
     h3 {
         font-weight: 500;
         padding: 0;
-
+        margin: 0;
     }
 
     h2 {
@@ -884,6 +884,7 @@ section {
             // }
         }
     }
+
 }
 
 @include desktop {
