@@ -1,4 +1,4 @@
-//TICKER DOM ANIMATION
+// //TICKER DOM ANIMATION
 
 document.querySelectorAll('.accordionButton').forEach((button) => {
     button.addEventListener('click', () => {
@@ -16,7 +16,7 @@ document.querySelectorAll('.accordionButton').forEach((button) => {
 
 
 
-////GET EXCHANGE RATE 
+//GET EXCHANGE RATE 
 //// pop-up 
 
 const popup = document.getElementById("popup"),
@@ -76,5 +76,98 @@ async function changePrice(package) {
     }
 }
 
+// // //// END OF POPUP´
 
-//// END OF POPUP
+////STRIPE PAYMENTS
+// Create a Stripe client.
+const stripe = Stripe('pk_test_51Gsx6JJyRCyDOw0DXnApg528fwHVjqfXGDLDGjAsUJGH4ELEZWc9hOW85e4PSOPQt0iDqfH8w1UVTwmmMlnFMV0s00by1xmXp4');
+
+// Create an instance of Elements.
+const elements = stripe.elements();
+////CHECKOUT
+
+
+// Create a Checkout Session with the selected plan ID
+var createCheckoutSession = function (priceId) {
+    return fetch("/create-checkout-session", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            priceId: priceId
+        })
+    }).then(function (result) {
+        return result.json();
+    });
+};
+
+// Handle any errors returned from Checkout
+var handleResult = function (result) {
+    if (result.error) {
+        var displayError = document.getElementById("error-message");
+        displayError.textContent = result.error.message;
+    }
+};
+
+/* Get your Stripe publishable key to initialize Stripe.js */
+fetch("/setup")
+    .then(function (result) {
+        return result.json();
+    })
+    .then(function (json) {
+        var publishableKey = json.publishableKey;
+        var basicPriceId = json.basicPrice;
+        var proPriceId = json.proPrice;
+        var vipPriceId = json.vipPrice;
+
+        var stripe = Stripe(publishableKey);
+        // Setup event handler to create a Checkout Session when button is clicked
+        document
+            .getElementById("basic-plan-btn")
+            .addEventListener("click", function (evt) {
+                createCheckoutSession(basicPriceId).then(function (data) {
+                    // Call Stripe.js method to redirect to the new Checkout page
+                    stripe
+                        .redirectToCheckout({
+                            sessionId: data.sessionId
+                        })
+                        .then(handleResult);
+                });
+            });
+        // Setup event handler to create a Checkout Session when button is clicked
+        document
+            .getElementById("pro-plan-btn")
+            .addEventListener("click", function (evt) {
+                createCheckoutSession(proPriceId).then(function (data) {
+                    // Call Stripe.js method to redirect to the new Checkout page
+                    stripe
+                        .redirectToCheckout({
+                            sessionId: data.sessionId
+                        })
+                        .then(handleResult);
+                });
+            });
+        // Setup event handler to create a Checkout Session when button is clicked
+        document
+            .getElementById("vip-plan-btn")
+            .addEventListener("click", function (evt) {
+                createCheckoutSession(vipPriceId).then(function (data) {
+                    // Call Stripe.js method to redirect to the new Checkout page
+                    stripe
+                        .redirectToCheckout({
+                            sessionId: data.sessionId
+                        })
+                        .then(handleResult);
+                });
+            });
+
+    });
+
+// INITIALIZE
+
+// ELEMENTS
+// EVENTS
+
+
+////===== END OF STRIPE
