@@ -184,18 +184,8 @@ app.post('/forgot', function (req, res, next) {
             });
         },
         function (token, user, done) {
-            let output = `<h3>ME CAGO EN MIS MUERTOS</h3>
+            let output = `<h3>Please follow this link in order to reset your password</h3>
             <a href="http://localhost:5000/reset/${token}">RESET</a>`;
-            console.log("========")
-            console.log(`http://localhost:5000/reset/${token}`)
-
-
-            console.log("========")
-            console.log(user)
-
-            console.log("========")
-            console.log(done)
-
             let msg = {
                 to: user.email,
                 // *** change it to be customer's email
@@ -259,29 +249,24 @@ app.post('/reset/:token', function (req, res) {
                     })
                 } else {
                     // req.flash("error", "Passwords do not match.");
-                    return res.redirect('back');
+                    return res.redirect('/');
                 }
             });
         },
         function (user, done) {
-            // var smtpTransport = nodemailer.createTransport({
-            //     service: 'Gmail',
-            //     auth: {
-            //         user: 'learntocodeinfo@gmail.com',
-            //         pass: process.env.GMAILPW
-            //     }
-            // });
-            // var mailOptions = {
-            //     to: user.email,
-            //     from: 'learntocodeinfo@mail.com',
-            //     subject: 'Your password has been changed',
-            //     text: 'Hello,\n\n' +
-            //         'This is a confirmation that the password for your account ' + user.email + ' has just been changed.\n'
-            // };
-            // smtpTransport.sendMail(mailOptions, function (err) {
-            //     req.flash('success', 'Success! Your password has been changed.');
-            // done(err);
-            // });
+            let output = `<h3>Your Password Has Been Changed</h3>
+            <p>If it wasn't you, please change all your passwords as your e-mail might have been compromised.</p>`;
+            let msg = {
+                to: user.email,
+                // *** change it to be customer's email
+                from: 'chi@marandino.dev',
+                subject: 'Password Reset | Insilico Trading',
+                text: 'null',
+                html: output
+            }
+            sgMail.send(msg, function (err) {
+                done(err, "done");
+            });
         }
     ], function (err) {
         res.redirect('/');
