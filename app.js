@@ -14,8 +14,14 @@ var express = require('express'),
     passport = require('passport'),
     LocalStrategy = require('passport-local'),
     passportLocalMongoose = require('passport-local-mongoose'),
+    ///forgotten password
+    ///async is for excecuting functions in order
+    //crypto will generate a token id
     //// PORT
     PORT = process.env.PORT || 5000;
+const async = require("async");
+const crypto = require("crypto");
+
 ////CONNECT TO DATABASE
 const uri = process.env.ATLAS_URI;
 mongoose.set('useUnifiedTopology', true);
@@ -143,13 +149,148 @@ app.get('/logout', (req, res) => {
     req.logout();
     res.redirect('/');
 });
-// ACCOUNT SETTINGS
-app.get('/account', isLoggedIn, (req, res) => {
-    res.render('account');
+// FORGOT PASSWORD
+// forgot password
+app.get('/forgot', function (req, res) {
+    res.render('forgot', {
+        err: null
+    });
 });
 
-//isLoggedIn middleware || checks if the user is logged in
+app.post('/forgot', function (req, res, next) {
+    async.waterfall([
+        function (done) {
+            crypto.randomBytes(20, function (err, buf) {
+                var token = buf.toString('hex');
+                done(err, token);
+            });
+        },
+        function (token, done) {
+            User.findOne({
+                email: req.body.email
+            }, function (err, user) {
+                if (!user) {
+                    // req.flash('error', 'No account with that email address exists.');
+                    console.log("Email not registered")
+                    return res.redirect('/forgot');
+                }
 
+                user.resetPasswordToken = token;
+                user.resetPasswordExpires = Date.now() + 3600000; // 1 hour
+
+                user.save(function (err) {
+                    done(err, token, user);
+                });
+            });
+        },
+        function (token, user, done) {
+            let output = `<h3>ME CAGO EN MIS MUERTOS</h3>
+            <a href="http://localhost:5000/reset/${token}">RESET</a>`;
+            console.log("========")
+            console.log(`http://localhost:5000/reset/${token}`)
+
+
+            console.log("========")
+            console.log(user)
+
+            console.log("========")
+            console.log(done)
+
+            let msg = {
+                to: user.email,
+                // *** change it to be customer's email
+                from: 'chi@marandino.dev',
+                subject: 'Password Reset | Insilico Trading',
+                text: 'null',
+                html: output
+            }
+            sgMail.send(msg, function (err) {
+                done(err, "done");
+            });
+        }
+    ], function (err) {
+        if (err) return next(err);
+        res.redirect('/forgot');
+    });
+});
+
+app.get('/reset/:token', function (req, res) {
+    User.findOne({
+        resetPasswordToken: req.params.token,
+        resetPasswordExpires: {
+            $gt: Date.now()
+        }
+    }, function (err, user) {
+        if (!user) {
+            // req.flash('error', 'Password reset token is invalid or has expired.');
+            console.log("Password reset token is invalid or has expired")
+            return res.redirect('/forgot');
+        }
+        res.render('reset', {
+            token: req.params.token
+        });
+    });
+});
+
+app.post('/reset/:token', function (req, res) {
+    async.waterfall([
+        function (done) {
+            User.findOne({
+                resetPasswordToken: req.params.token,
+                resetPasswordExpires: {
+                    $gt: Date.now()
+                }
+            }, function (err, user) {
+                if (!user) {
+                    // req.flash('error', 'Password reset token is invalid or has expired.');
+                    console.log("Password reset token is invalid or has expired")
+                    return res.redirect('back');
+                }
+                if (req.body.password === req.body.confirm) {
+                    user.setPassword(req.body.password, function (err) {
+                        user.resetPasswordToken = undefined;
+                        user.resetPasswordExpires = undefined;
+
+                        user.save(function (err) {
+                            req.logIn(user, function (err) {
+                                done(err, user);
+                            });
+                        });
+                    })
+                } else {
+                    // req.flash("error", "Passwords do not match.");
+                    return res.redirect('back');
+                }
+            });
+        },
+        function (user, done) {
+            // var smtpTransport = nodemailer.createTransport({
+            //     service: 'Gmail',
+            //     auth: {
+            //         user: 'learntocodeinfo@gmail.com',
+            //         pass: process.env.GMAILPW
+            //     }
+            // });
+            // var mailOptions = {
+            //     to: user.email,
+            //     from: 'learntocodeinfo@mail.com',
+            //     subject: 'Your password has been changed',
+            //     text: 'Hello,\n\n' +
+            //         'This is a confirmation that the password for your account ' + user.email + ' has just been changed.\n'
+            // };
+            // smtpTransport.sendMail(mailOptions, function (err) {
+            //     req.flash('success', 'Success! Your password has been changed.');
+            // done(err);
+            // });
+        }
+    ], function (err) {
+        res.redirect('/');
+    });
+});
+
+
+
+//isLoggedIn middleware || checks if the user is logged in
 function isLoggedIn(req, res, next) {
     if (req.isAuthenticated()) {
         return next();
