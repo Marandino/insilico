@@ -116,7 +116,7 @@ app.post('/register', (req, res) => {
 
             //this part logs in the user after registering
             passport.authenticate('local')(req, res, function () {
-                res.redirect('/lesson');
+                res.redirect('/#pricing');
             });
         }
     );
@@ -131,7 +131,7 @@ app.get('/login', (req, res) => {
 app.post(
     '/login',
     passport.authenticate('local', {
-        successRedirect: '/redirect',
+        successRedirect: '/#pricing',
         failureRedirect: '/login'
     }),
     (req, res) => {}
@@ -171,8 +171,9 @@ app.post('/forgot', function (req, res, next) {
             }, function (err, user) {
                 if (!user) {
                     // req.flash('error', 'No account with that email address exists.');
-                    console.log("Email not registered")
-                    return res.redirect('/forgot');
+                    return res.render('forgot', {
+                        err: "There's no account with that e-mail address"
+                    });
                 }
 
                 user.resetPasswordToken = token;
@@ -200,7 +201,9 @@ app.post('/forgot', function (req, res, next) {
         }
     ], function (err) {
         if (err) return next(err);
-        res.redirect('/forgot');
+        res.render('forgot', {
+            err: "We've sent an e-mail with further instructions on how to reset your password"
+        });
     });
 });
 
@@ -214,10 +217,13 @@ app.get('/reset/:token', function (req, res) {
         if (!user) {
             // req.flash('error', 'Password reset token is invalid or has expired.');
             console.log("Password reset token is invalid or has expired")
-            return res.redirect('/forgot');
+            return res.render('forgot', {
+                err: "This password reset token is invalid or has expired"
+            });
         }
         res.render('reset', {
-            token: req.params.token
+            token: req.params.token,
+            err: false,
         });
     });
 });
@@ -380,7 +386,6 @@ app.get('/lesson/:id', function (req, res) {
     // ejsout all that crap
 
 });
-
 ///STRIPE CHECKOUT 
 // Set your secret key. Remember to switch to your live secret key in production!
 // See your keys here: https://dashboard.stripe.com/account/apikeys
