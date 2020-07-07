@@ -136,7 +136,11 @@
 
                     </ul>
                     <div class="paymentButtons">
-                        <button class="button primary cta" id="basic-plan-btn">CARD</button>
+                        <% if(currentUser){ %>
+                        <button class="button primary cta" id="basic-plan-btn">BE SUPER</button>
+                        <% } else { %>
+                        <a class="button primary cta" href="/register">REGISTER</a>
+                        <% } %>
                         <button id="basicButton" class="button secondary cta">BITCOIN</button>
                     </div>
                 </div>
@@ -163,7 +167,11 @@
                             Access to New Lessons</li>
                     </ul>
                     <div class="paymentButtons">
-                        <button class="button primary cta" id="pro-plan-btn">CARD</button>
+                        <% if(currentUser){ %>
+                        <button class="button primary cta" id="pro-plan-btn">BE PRO</button>
+                        <% } else { %>
+                        <a class="button primary cta" href="/register">REGISTER</a>
+                        <% } %>
                         <button id="premiumButton" class="button secondary cta">BITCOIN</button>
                     </div>
                     <!-- <div class="cta"><a href="/checkout" class="button secondary">BITCOIN</a></div> -->
@@ -195,7 +203,12 @@
                             developers of Insilico</li>
                     </ul>
                     <div class="paymentButtons">
-                        <button class="button primary cta" id="vip-plan-btn">CARD</button>
+                        <% if(currentUser){ %>
+                        <button class="button primary cta" id="vip-plan-btn">BE VIP</button>
+                        <% } else { %>
+                        <a class="button primary cta" href="/register">REGISTER</a>
+                        <% } %>
+
                         <button id="vipButton" class="button secondary cta">BITCOIN</button>
                     </div> <!-- <div class="cta"><a href="/checkout" class="button secondary">BITCOIN</a></div> -->
                 </div>

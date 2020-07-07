@@ -2,11 +2,11 @@
 <img src="svg/form.svg" class="bgIllustration" alt="">
 <section id="form">
     <h3>Create a New Account</h3>
-    <% if(err){ %>
-    <p><%= err.message %> </p>
-    <% } %>
-
     <div class="wrapper box">
+        <% if(err){ %>
+        <p><%= err.message %> </p>
+        <% } %>
+
         <form action="/register" method="post" id="contactForm">
             <label for="username">username</label>
             <input type="text" name="username" pattern="[a-zA-Z0-9]+"
