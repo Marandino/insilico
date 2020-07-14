@@ -15,6 +15,10 @@
             <label for="password">Password</label>
             <input type="password" name="password" pattern="(?=.*).{8,}"
                 title="Must contain at least 8 or more characters" required>
+            <label for="referral">How did you hear about us?</label>
+            <input type="text" name="referral" pattern="[a-zA-Z0-9]+"
+                >
+
             <button class="button primary">Register</button>
             <p>Already Have An Account? <br><a href="/login">Sign In</a></p>
             <a href="/forgot">I don't remember my password</a>
