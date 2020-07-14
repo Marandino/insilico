@@ -532,7 +532,7 @@ app.post('/webhook', async (req, res) => {
 app.post('/create_customer_portal_session', async (req, res) => {
 	let customer = {
 		customer: req.user.stripeId,
-		return_url: 'https://insilicotrading.info'
+		return_url: 'https://www.insilicotrading.info'
 	};
 	stripe.billingPortal.sessions.create(customer, function(err, session) {
 		// asynchronously called
