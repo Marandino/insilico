@@ -191,7 +191,7 @@ app.post('/forgot', function(req, res, next) {
 				let msg = {
 					to: user.email,
 					// *** change it to be customer's email
-					from: 'chi@marandino.dev',
+					from: 'insilico@marandino.dev',
 					subject: 'Password Reset | Insilico Trading',
 					text: 'null',
 					html: output
@@ -275,7 +275,7 @@ app.post('/reset/:token', function(req, res) {
 				let msg = {
 					to: user.email,
 					// *** change it to be customer's email
-					from: 'chi@marandino.dev',
+					from: 'insilico@marandino.dev',
 					subject: 'Password Reset | Insilico Trading',
 					text: 'null',
 					html: output
@@ -343,7 +343,7 @@ app.post('/contact', function(req, res) {
 	const msg = {
 		to: 'chiy100196@gmail.com',
 		// *** change it to be customer's email
-		from: 'chi@marandino.dev',
+		from: 'insilico@marandino.dev',
 		subject: 'Insilico Customer Contact',
 		text: 'null',
 		html: output
@@ -508,14 +508,14 @@ app.post('/webhook', async (req, res) => {
 			<ul>
 				<li>Email: ${user.email}</li> 
 				<li>Referred by: ${user.referral}</li> 
-				<li>Subscription: ${user.subscription / 100} USD</li> 
+				<li>Subscription: ${user.currentSubscription / 100} USD</li> 
 			</ul> 
 		`;
 			//send the email info
 			const msg = {
 				to: 'chiy100196@gmail.com',
 				// *** change it to be customer's email
-				from: 'chi@marandino.dev',
+				from: 'insilico@marandino.dev',
 				subject: 'INSILICO NEW SUBSCRIPTION',
 				text: 'null',
 				html: output
