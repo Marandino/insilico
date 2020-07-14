@@ -21,7 +21,7 @@ var userSchema = new mongoose.Schema({
 		default: null
 	},
 	currentSubscription: {
-		type: String,
+		type: Number,
 		default: null
 	},
 

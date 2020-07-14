@@ -477,36 +477,52 @@ app.post('/webhook', async (req, res) => {
 		eventType = req.body.type;
 	}
 
+	// if (eventType === 'charge.succeeded') {
+	// 	console.log(data);
+	// 	// amount = data.object.amount;
+	// 	//// I NEED TO SEND THE INFO TO THE DATABASE AND THEN SEND AN E-MAIL ********
+	// } else
 	if (eventType === 'charge.succeeded') {
-		console.log(data);
-		// amount = data.object.amount;
-		//// I NEED TO SEND THE INFO TO THE DATABASE AND THEN SEND AN E-MAIL ********
-	} else if (eventType === 'customer.created') {
+		let chargeEmail = data.object.billing_details.email;
+		let chargeAmount = data.object.amount;
+		let chargeCustomer = data.object.customer;
+
 		var conditions = {
-			email: data.object.email
+			email: chargeEmail
 		};
+
 		///SETS UP THE USER ID WE'VE RECEIVED FROM THE TOKEN
 		let update = {
-			stripeId: data.object.id
+			stripeId: chargeCustomer,
+			currentSubscription: chargeAmount
 		};
 		//UPDATES IT ONTO THE DATABASE
 		User.findOneAndUpdate(conditions, update, (err) => {
 			// console.log(err);
 		}); // returns Query
 
-		///SEND AN EMAIL TO INSILICO IF REGISTERED
-		User.findOne(conditions, (err, user) => {
-			if (err) {
-				console.log(err);
-			} else {
-				///SEND MESSAGE WITH USER.REFERRAL INCLUDED
-				// referral = user.referral;
-			}
-		});
-
 		////SEND THE EMAIL TO INSILICO
-		let msg = ``;
-		// console.log(`The amount is ${amount / 100} and the referral was ${referral}`);
+		User.findOne({ email: chargeEmail }, (err, user) => {
+			const output = `
+			<h3> There's a new subscription!</h3> 
+			<ul>
+				<li>Email: ${user.email}</li> 
+				<li>Referred by: ${user.referral}</li> 
+				<li>Subscription: ${user.subscription / 100} USD</li> 
+			</ul> 
+		`;
+			//send the email info
+			const msg = {
+				to: 'chiy100196@gmail.com',
+				// *** change it to be customer's email
+				from: 'chi@marandino.dev',
+				subject: 'INSILICO NEW SUBSCRIPTION',
+				text: 'null',
+				html: output
+			};
+			sgMail.send(msg);
+			///send you back
+		});
 	}
 
 	res.sendStatus(200);
