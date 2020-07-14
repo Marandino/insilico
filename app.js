@@ -431,10 +431,10 @@ app.post('/create-checkout-session', async (req, res) => {
 			}
 		],
 		// ?session_id={CHECKOUT_SESSION_ID} means the redirect will have the session ID set as a query param
-		// success_url: `${domainURL}/success.html?session_id={CHECKOUT_SESSION_ID}`,
-		// cancel_url: `${domainURL}/canceled.html`,
-		success_url: 'http://localhost:5000/success',
-		cancel_url: 'http://localhost:5000/cancel'
+		success_url: `${domainURL}/success.html?session_id={CHECKOUT_SESSION_ID}`,
+		cancel_url: `${domainURL}/canceled.html`
+		// success_url: 'http://localhost:5000/success',
+		// cancel_url: 'http://localhost:5000/cancel'
 	});
 
 	res.send({
