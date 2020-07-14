@@ -455,6 +455,7 @@ app.get('/setup', (req, res) => {
 app.post('/webhook', async (req, res) => {
 	let eventType;
 	// Check if webhook signing is configured.
+
 	if (process.env.STRIPE_WEBHOOK_SECRET) {
 		// Retrieve the event by verifying the signature using the raw body and secret.
 		let event;
@@ -476,12 +477,12 @@ app.post('/webhook', async (req, res) => {
 		eventType = req.body.type;
 	}
 
-	if (eventType === 'checkout.session.completed') {
-		console.log(`🔔  Payment received!`);
-		// console.log(data);
+	if (eventType === 'charge.succeeded') {
+		console.log(data);
+		// amount = data.object.amount;
 		//// I NEED TO SEND THE INFO TO THE DATABASE AND THEN SEND AN E-MAIL ********
 	} else if (eventType === 'customer.created') {
-		let conditions = {
+		var conditions = {
 			email: data.object.email
 		};
 		///SETS UP THE USER ID WE'VE RECEIVED FROM THE TOKEN
@@ -490,11 +491,24 @@ app.post('/webhook', async (req, res) => {
 		};
 		//UPDATES IT ONTO THE DATABASE
 		User.findOneAndUpdate(conditions, update, (err) => {
-			console.log(err);
+			// console.log(err);
 		}); // returns Query
-		console.log('Customer has been created');
-		//SAID SETUP WILL CHANGE THE LOG IN BUTTON INTO A "ACCOUNT BUTTON" SO THEY CAN MANAGE THEIR SUBSCRITPION
+
+		///SEND AN EMAIL TO INSILICO IF REGISTERED
+		User.findOne(conditions, (err, user) => {
+			if (err) {
+				console.log(err);
+			} else {
+				///SEND MESSAGE WITH USER.REFERRAL INCLUDED
+				// referral = user.referral;
+			}
+		});
+
+		////SEND THE EMAIL TO INSILICO
+		let msg = ``;
+		// console.log(`The amount is ${amount / 100} and the referral was ${referral}`);
 	}
+
 	res.sendStatus(200);
 });
 
@@ -502,7 +516,6 @@ app.post('/webhook', async (req, res) => {
 app.post('/create_customer_portal_session', async (req, res) => {
 	let customer = {
 		customer: req.user.stripeId,
-		/////HARDCODED CUSTOMER SHOULD BE FIXED
 		return_url: 'https://insilicotrading.info'
 	};
 	stripe.billingPortal.sessions.create(customer, function(err, session) {
