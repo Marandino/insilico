@@ -433,8 +433,8 @@ app.post('/create-checkout-session', async (req, res) => {
 		// ?session_id={CHECKOUT_SESSION_ID} means the redirect will have the session ID set as a query param
 		// success_url: `${domainURL}/success.html?session_id={CHECKOUT_SESSION_ID}`,
 		// cancel_url: `${domainURL}/canceled.html`,
-		success_url: 'https://insilicotrading.info/success',
-		cancel_url: 'https://insilicotrading.info/cancel'
+		success_url: 'https://www.insilicotrading.info/success',
+		cancel_url: 'https://www.insilicotrading.info/cancel'
 	});
 
 	res.send({
@@ -523,8 +523,20 @@ app.post('/webhook', async (req, res) => {
 			sgMail.send(msg);
 			///send you back
 		});
-	}
+	} else if (eventType === 'customer.subscription.deleted') {
+		var conditions = {
+			stripeId: data.object.customer
+		};
 
+		///SETS UP THE USER ID WE'VE RECEIVED FROM THE TOKEN
+		let update = {
+			currentSubscription: null
+		};
+		//UPDATES IT ONTO THE DATABASE
+		User.findOneAndUpdate(conditions, update, (err) => {
+			console.log(err);
+		}); // returns Query
+	}
 	res.sendStatus(200);
 });
 
