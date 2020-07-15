@@ -125,7 +125,6 @@ app.post('/register', (req, res) => {
 //LOG IN
 app.get('/login', (req, res) => {
 	res.render('login', { query: req.query });
-	console.log(req.query);
 });
 
 app.post(
