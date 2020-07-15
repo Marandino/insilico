@@ -20,6 +20,10 @@ var userSchema = new mongoose.Schema({
 		type: String,
 		default: null
 	},
+	currentSubscription: {
+		type: Number,
+		default: null
+	},
 
 	resetPasswordToken: String,
 	resetPasswordExpires: Date,

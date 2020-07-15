@@ -124,14 +124,14 @@ app.post('/register', (req, res) => {
 
 //LOG IN
 app.get('/login', (req, res) => {
-	res.render('login');
+	res.render('login', { query: req.query });
 });
 
 app.post(
 	'/login',
 	passport.authenticate('local', {
 		successRedirect: '/#pricing',
-		failureRedirect: '/login'
+		failureRedirect: '/login?auth=failed'
 	}),
 	(req, res) => {}
 );
@@ -191,7 +191,7 @@ app.post('/forgot', function(req, res, next) {
 				let msg = {
 					to: user.email,
 					// *** change it to be customer's email
-					from: 'chi@marandino.dev',
+					from: 'insilico@marandino.dev',
 					subject: 'Password Reset | Insilico Trading',
 					text: 'null',
 					html: output
@@ -275,7 +275,7 @@ app.post('/reset/:token', function(req, res) {
 				let msg = {
 					to: user.email,
 					// *** change it to be customer's email
-					from: 'chi@marandino.dev',
+					from: 'insilico@marandino.dev',
 					subject: 'Password Reset | Insilico Trading',
 					text: 'null',
 					html: output
@@ -343,7 +343,7 @@ app.post('/contact', function(req, res) {
 	const msg = {
 		to: 'chiy100196@gmail.com',
 		// *** change it to be customer's email
-		from: 'chi@marandino.dev',
+		from: 'insilico@marandino.dev',
 		subject: 'Insilico Customer Contact',
 		text: 'null',
 		html: output
@@ -433,8 +433,8 @@ app.post('/create-checkout-session', async (req, res) => {
 		// ?session_id={CHECKOUT_SESSION_ID} means the redirect will have the session ID set as a query param
 		// success_url: `${domainURL}/success.html?session_id={CHECKOUT_SESSION_ID}`,
 		// cancel_url: `${domainURL}/canceled.html`,
-		success_url: 'http://localhost:5000/success',
-		cancel_url: 'http://localhost:5000/cancel'
+		success_url: 'https://www.insilicotrading.info/success',
+		cancel_url: 'https://www.insilicotrading.info/cancel'
 	});
 
 	res.send({
@@ -455,6 +455,7 @@ app.get('/setup', (req, res) => {
 app.post('/webhook', async (req, res) => {
 	let eventType;
 	// Check if webhook signing is configured.
+
 	if (process.env.STRIPE_WEBHOOK_SECRET) {
 		// Retrieve the event by verifying the signature using the raw body and secret.
 		let event;
@@ -476,24 +477,60 @@ app.post('/webhook', async (req, res) => {
 		eventType = req.body.type;
 	}
 
-	if (eventType === 'checkout.session.completed') {
-		console.log(`🔔  Payment received!`);
-		// console.log(data);
-		//// I NEED TO SEND THE INFO TO THE DATABASE AND THEN SEND AN E-MAIL ********
-	} else if (eventType === 'customer.created') {
-		let conditions = {
-			email: data.object.email
+	if (eventType === 'charge.succeeded') {
+		let chargeEmail = data.object.billing_details.email;
+
+		var conditions = {
+			email: chargeEmail
 		};
+
 		///SETS UP THE USER ID WE'VE RECEIVED FROM THE TOKEN
 		let update = {
-			stripeId: data.object.id
+			stripeId: chargeCustomer,
+			currentSubscription: chargeAmount
+		};
+		//UPDATES IT ONTO THE DATABASE
+		User.findOneAndUpdate(conditions, update, (err) => {
+			// console.log(err);
+		}); // returns Query
+		let chargeAmount = data.object.amount;
+		let chargeCustomer = data.object.customer;
+
+		////SEND THE EMAIL TO INSILICO
+		User.findOne({ email: chargeEmail }, (err, user) => {
+			const output = `
+			<h3> There's a new subscription!</h3> 
+			<ul>
+				<li>Email: ${user.email}</li> 
+				<li>Referred by: ${user.referral}</li> 
+				<li>Subscription: ${user.currentSubscription / 100} USD</li> 
+			</ul> 
+		`;
+			//send the email info
+			const msg = {
+				to: 'chiy100196@gmail.com',
+				// *** change it to be customer's email
+				from: 'insilico@marandino.dev',
+				subject: 'INSILICO NEW SUBSCRIPTION',
+				text: 'null',
+				html: output
+			};
+			sgMail.send(msg);
+			///send you back
+		});
+	} else if (eventType === 'customer.subscription.deleted') {
+		var conditions = {
+			stripeId: data.object.customer
+		};
+
+		///SETS UP THE USER ID WE'VE RECEIVED FROM THE TOKEN
+		let update = {
+			currentSubscription: null
 		};
 		//UPDATES IT ONTO THE DATABASE
 		User.findOneAndUpdate(conditions, update, (err) => {
 			console.log(err);
 		}); // returns Query
-		console.log('Customer has been created');
-		//SAID SETUP WILL CHANGE THE LOG IN BUTTON INTO A "ACCOUNT BUTTON" SO THEY CAN MANAGE THEIR SUBSCRITPION
 	}
 	res.sendStatus(200);
 });
@@ -502,8 +539,7 @@ app.post('/webhook', async (req, res) => {
 app.post('/create_customer_portal_session', async (req, res) => {
 	let customer = {
 		customer: req.user.stripeId,
-		/////HARDCODED CUSTOMER SHOULD BE FIXED
-		return_url: 'https://insilicotrading.info'
+		return_url: 'https://www.insilicotrading.info'
 	};
 	stripe.billingPortal.sessions.create(customer, function(err, session) {
 		// asynchronously called
