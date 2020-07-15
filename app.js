@@ -477,15 +477,8 @@ app.post('/webhook', async (req, res) => {
 		eventType = req.body.type;
 	}
 
-	// if (eventType === 'charge.succeeded') {
-	// 	console.log(data);
-	// 	// amount = data.object.amount;
-	// 	//// I NEED TO SEND THE INFO TO THE DATABASE AND THEN SEND AN E-MAIL ********
-	// } else
 	if (eventType === 'charge.succeeded') {
 		let chargeEmail = data.object.billing_details.email;
-		let chargeAmount = data.object.amount;
-		let chargeCustomer = data.object.customer;
 
 		var conditions = {
 			email: chargeEmail
@@ -500,6 +493,8 @@ app.post('/webhook', async (req, res) => {
 		User.findOneAndUpdate(conditions, update, (err) => {
 			// console.log(err);
 		}); // returns Query
+		let chargeAmount = data.object.amount;
+		let chargeCustomer = data.object.customer;
 
 		////SEND THE EMAIL TO INSILICO
 		User.findOne({ email: chargeEmail }, (err, user) => {
@@ -544,7 +539,7 @@ app.post('/webhook', async (req, res) => {
 app.post('/create_customer_portal_session', async (req, res) => {
 	let customer = {
 		customer: req.user.stripeId,
-		return_url: 'https://insilicotrading.info'
+		return_url: 'https://www.insilicotrading.info'
 	};
 	stripe.billingPortal.sessions.create(customer, function(err, session) {
 		// asynchronously called
