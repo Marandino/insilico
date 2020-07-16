@@ -2,10 +2,10 @@
 <!-- lesson is just the information passed by the ID (this specific lesson) -->
 <%- include('partials/header'); %>
 <section id="indicators">
-    <h3>Meet our Premium Indicators</h3>
+    <h3>Here are our comprehensive Trading Suites</h3>
     <div class="container">
         <div id="best5">
-            <h2 class="subtitle">The Best 5:</h2>
+            <h2 class="subtitle">Price Action Package:</h2>
             <% top5.forEach(indicator => { %>
             <div class="indicator">
                 <div class="text">
@@ -32,7 +32,7 @@
             </div>
             <% }) %>
         </div>
-        <h2 class="subtitle">All Indicators:</h2>
+        <h2 class="subtitle">For everything else:</h2>
 
         <div id="theRest">
             <% top20.forEach(indicator => { %>
