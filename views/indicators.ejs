@@ -1,0 +1,49 @@
+<!-- lessonsData is for all the lessons db -->
+<!-- lesson is just the information passed by the ID (this specific lesson) -->
+<%- include('partials/header'); %>
+<section id="indicators">
+    <h3>Meet our Premium Indicators</h3>
+    <div class="container">
+        <div id="best5">
+            <h2 class="subtitle">The Best 5:</h2>
+            <% top5.forEach(indicator => { %>
+            <div class="indicator">
+                <div class="text">
+                    <a href="<%= indicator.tv %> ">
+                        <h2><%= indicator.name %> </h2>
+                        <p><%= indicator.description %> </p>
+                    </a>
+                </div>
+                <img src="images/indicators/<%= indicator.thumbnail %>.png" alt="">
+            </div>
+            <% }) %>
+        </div>
+        <div id="best10">
+            <h2 class="subtitle">Honorable Mentions:</h2>
+            <% top10.forEach(indicator => { %>
+            <div class="indicator">
+                <div class="text">
+                    <a href="<%= indicator.tv %> ">
+                        <h2><%= indicator.name %> </h2>
+                        <p><%= indicator.description %> </p>
+                    </a>
+                </div>
+                <img src="images/indicators/<%= indicator.thumbnail %>.png" alt="">
+            </div>
+            <% }) %>
+        </div>
+        <h2 class="subtitle">All Indicators:</h2>
+
+        <div id="theRest">
+            <% top20.forEach(indicator => { %>
+            <div class="indicator">
+                <a href="<%= indicator.tv %> ">
+                    <p><%= indicator.name %> </p>
+                </a>
+            </div>
+            <% }) %>
+        </div>
+
+    </div>
+</section>
+<%- include('partials/footer'); %>

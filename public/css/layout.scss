@@ -1,35 +1,36 @@
 @font-face {
-    font-family: SF-Pro;
-    src: url("/fonts/SF-Pro.otf") format("opentype");
+  font-family: SF-Pro;
+  src: url("/fonts/SF-Pro.otf") format("opentype");
 }
 
-$colors: (primary: #e74b7fff,
-    contrast: #2ad1a7,
-    secondary: #6557b2ff,
-    gradient: -webkit-linear-gradient(244.48deg, #73a4e7ff 1.52%, #6557b2ff 96.76%),
-    background: #f6f6f6,
-    danger: #ff7f33,
-    dark: #040116);
+$colors: (
+  primary: #e74b7fff,
+  contrast: #2ad1a7,
+  secondary: #6557b2ff,
+  gradient: -webkit-linear-gradient(244.48deg, #73a4e7ff 1.52%, #6557b2ff 96.76%),
+  background: #f6f6f6,
+  danger: #ff7f33,
+  dark: #040116,
+);
 //// otra opcion  FFEE70 DB5461
 
-
 @function color($color-name) {
-    @return map-get($colors, $color-name);
+  @return map-get($colors, $color-name);
 }
 
 $desktop: 900px;
 $mobileS: 360px;
 
 @mixin desktop {
-    @media (min-width: #{$desktop}) {
-        @content;
-    }
+  @media (min-width: #{$desktop}) {
+    @content;
+  }
 }
 
 @mixin mobileS {
-    @media (max-width: #{$mobileS}) {
-        @content;
-    }
+  @media (max-width: #{$mobileS}) {
+    @content;
+  }
 }
 
 //MOBILE-FIRST CSS//
@@ -37,1138 +38,1098 @@ $mobileS: 360px;
 //@include desktop {}
 //global css
 form input {
-    &[type="text"] {
-        text-transform: lowercase;
-    }
+  &[type="text"] {
+    text-transform: lowercase;
+  }
 
-    &.capitalize {
-        text-transform: capitalize;
-    }
+  &.capitalize {
+    text-transform: capitalize;
+  }
 }
 
 input:invalid {
-    border: solid 1px color(danger);
+  border: solid 1px color(danger);
 }
 
 .hidden {
-    display: none;
+  display: none;
 }
 
 .desktopOnly {
-    display: none;
+  display: none;
 
-    @include desktop {
-        display: inherit;
-    }
+  @include desktop {
+    display: inherit;
+  }
 }
 
 .box {
-    box-shadow: 3px 3px 3px rgba($color: #000000, $alpha: 0.25);
+  box-shadow: 3px 3px 3px rgba($color: #000000, $alpha: 0.25);
 }
 
 body {
-    margin: 0;
-    padding: 0;
-    color: black;
-    background-color: color(background);
-    font-family: 'SF-Pro';
-    font-weight: 500;
-    color: color(background);
-    margin: 0;
-    padding: 0;
-    overflow-x: hidden; //horizontal
-
+  margin: 0;
+  padding: 0;
+  color: black;
+  background-color: color(background);
+  font-family: "SF-Pro";
+  font-weight: 500;
+  color: color(background);
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden; //horizontal
 }
 
 a {
-    color: inherit;
-    text-decoration: none;
+  color: inherit;
+  text-decoration: none;
 }
 
 h3 {
-    text-transform: capitalize;
-    font-size: 2em;
-    text-align: center;
+  text-transform: capitalize;
+  font-size: 2em;
+  text-align: center;
 }
 
 ul {
-    list-style: none;
+  list-style: none;
 }
 
 section {
-    /* <----- Smooth Scroll ---- */
-    scroll-behavior: smooth;
+  /* <----- Smooth Scroll ---- */
+  scroll-behavior: smooth;
 
-    padding-top: 50px;
+  padding-top: 50px;
 
-    @include desktop {
-        min-height: 100vh;
-    }
+  @include desktop {
+    min-height: 100vh;
+  }
 }
 
 /////ACCORDEON STYLE
 .accordionButton {
-    opacity: .9;
-    display: block;
-    width: 100%;
-    padding: 1em;
-    border: none;
-    outline: none;
-    cursor: pointer;
-    background-color: color(secondary);
-    color: color(background);
-    text-align: left;
-    font-size: 1.2em;
+  opacity: 0.9;
+  display: block;
+  width: 100%;
+  padding: 1em;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  background-color: color(secondary);
+  color: color(background);
+  text-align: left;
+  font-size: 1.2em;
 
-    &.active {
-        opacity: 1;
-    }
+  &.active {
+    opacity: 1;
+  }
 
-    transition: all .3s;
+  transition: all 0.3s;
 }
 
 .accordionContent {
-    overflow: hidden;
-    max-height: 0;
-    padding: 0 1em;
-    transition: all .3s;
+  overflow: hidden;
+  max-height: 0;
+  padding: 0 1em;
+  transition: all 0.3s;
 }
 
 ////END OF ACCORDEON STYLE
 
 #bg {
-    background: linear-gradient(265.88deg, #5790e2 1.52%, #4d428e 96.76%);
-    position: fixed;
-    width: 100vw;
-    height: 100vh;
-    z-index: -2;
-
+  background: linear-gradient(265.88deg, #5790e2 1.52%, #4d428e 96.76%);
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  z-index: -2;
 }
 
 .bgIllustration {
-    display: none;
-    position: absolute;
-    z-index: -1;
-    width: 100vw;
-    height: 100vh;
+  display: none;
+  position: absolute;
+  z-index: -1;
+  width: 100vw;
+  height: 100vh;
 
-    @include desktop {
-        display: block;
-    }
+  @include desktop {
+    display: block;
+  }
 }
 
 .container {
-    max-width: 90%;
-    margin: auto;
+  max-width: 90%;
+  margin: auto;
 }
 
 .video {
-    max-width: 300px;
-    margin: auto;
-    padding: 20%;
+  max-width: 300px;
+  margin: auto;
+  padding: 20%;
 }
 
 //BUTTONS
 .button {
-    font-family: 'SF-Pro',
-        sans-serif;
-    border: none;
-    font-size: 16px;
-    border-radius: 3px;
-    box-shadow: 3px 3px 3px rgba($color: #000000, $alpha: 0.25);
-    //  -3px -3px 3px rgba($color: #fff, $alpha: 0.25)
-    padding: .5em 1em;
-    text-transform: uppercase;
-    font-weight: 500;
-    //not really sure
-    color: inherit;
-    outline: none;
-    cursor: pointer;
-    transition: background-color 300ms;
+  font-family: "SF-Pro", sans-serif;
+  border: none;
+  font-size: 16px;
+  border-radius: 3px;
+  box-shadow: 3px 3px 3px rgba($color: #000000, $alpha: 0.25);
+  //  -3px -3px 3px rgba($color: #fff, $alpha: 0.25)
+  padding: 0.5em 1em;
+  text-transform: uppercase;
+  font-weight: 500;
+  //not really sure
+  color: inherit;
+  outline: none;
+  cursor: pointer;
+  transition: background-color 300ms;
 
-    &.primary {
-        background-color: color(primary);
+  &.primary {
+    background-color: color(primary);
 
-        &:hover {
-            color: color(primary);
-            background-color: color(background);
-        }
+    &:hover {
+      color: color(primary);
+      background-color: color(background);
     }
+  }
 
-    &.secondary {
-        background-color: color(secondary);
+  &.secondary {
+    background-color: color(secondary);
 
-        &:hover {
-            color: color(primary);
-            background-color: color(background);
-        }
+    &:hover {
+      color: color(primary);
+      background-color: color(background);
     }
+  }
 }
 
 #mobileNavbar {
-
-    /*
+  /*
  * Made by Erik Terwan
  * 24th of November 2015
  * MIT License
  */
-    img {
-        max-width: 50px
-    }
+  img {
+    max-width: 50px;
+  }
 
-    #menuToggle {
-        background: color(gradient);
-        padding: 1em;
-        width: 100vw;
-        display: inline-block;
-        position: fixed;
-        z-index: 1;
-        -webkit-user-select: none;
-        user-select: none;
-        text-transform: uppercase;
-    }
+  #menuToggle {
+    background: color(gradient);
+    padding: 1em;
+    width: 100vw;
+    display: inline-block;
+    position: fixed;
+    z-index: 1;
+    -webkit-user-select: none;
+    user-select: none;
+    text-transform: uppercase;
+  }
 
-    #menuToggle a {
-        text-decoration: none;
-        transition: color 0.3s ease;
-    }
+  #menuToggle a {
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
 
-    #menuToggle a:hover {
-        color: color(background);
-    }
+  #menuToggle a:hover {
+    color: color(background);
+  }
 
-    #menuToggle input {
-        display: block;
-        width: 40px;
-        height: 32px;
-        position: absolute;
-        top: -7px;
-        left: -5px;
+  #menuToggle input {
+    display: block;
+    width: 40px;
+    height: 32px;
+    position: absolute;
+    top: -7px;
+    left: -5px;
 
-        cursor: pointer;
+    cursor: pointer;
 
-        opacity: 0;
-        /* hide this */
-        z-index: 2;
-        /* and place it over the hamburger */
+    opacity: 0;
+    /* hide this */
+    z-index: 2;
+    /* and place it over the hamburger */
 
-        -webkit-touch-callout: none;
-    }
+    -webkit-touch-callout: none;
+  }
 
-    /*
+  /*
  * Just a quick hamburger
  */
-    #menuToggle span {
-        text-align: right;
-        display: block;
-        width: 33px;
-        height: 4px;
-        margin-bottom: 5px;
-        position: relative;
-        background: color(background);
-        border-radius: 3px;
-        z-index: 1;
-        transform-origin: 4px 0px;
-        transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1.0),
-            background 0.5s cubic-bezier(0.77, 0.2, 0.05, 1.0), opacity 0.55s ease;
-    }
+  #menuToggle span {
+    text-align: right;
+    display: block;
+    width: 33px;
+    height: 4px;
+    margin-bottom: 5px;
+    position: relative;
+    background: color(background);
+    border-radius: 3px;
+    z-index: 1;
+    transform-origin: 4px 0px;
+    transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1),
+      background 0.5s cubic-bezier(0.77, 0.2, 0.05, 1), opacity 0.55s ease;
+  }
 
-    #menuToggle span:first-child {
-        transform-origin: 0% 0%;
-    }
+  #menuToggle span:first-child {
+    transform-origin: 0% 0%;
+  }
 
-    #menuToggle span:nth-last-child(2) {
-        transform-origin: 0% 100%;
-    }
+  #menuToggle span:nth-last-child(2) {
+    transform-origin: 0% 100%;
+  }
 
-    /* 
+  /* 
  * Transform all the slices of hamburger
  * into a crossmark.
  */
-    #menuToggle input:checked~span {
-        opacity: 1;
-        transform: rotate(45deg) translate(-2px, -1px);
-        background: color(background);
-    }
+  #menuToggle input:checked ~ span {
+    opacity: 1;
+    transform: rotate(45deg) translate(-2px, -1px);
+    background: color(background);
+  }
 
-    /*
+  /*
  * But let's hide the middle one.
  */
-    #menuToggle input:checked~span:nth-last-child(3) {
-        opacity: 0;
-        transform: rotate(0deg) scale(0.2, 0.2);
-    }
+  #menuToggle input:checked ~ span:nth-last-child(3) {
+    opacity: 0;
+    transform: rotate(0deg) scale(0.2, 0.2);
+  }
 
-    /*
+  /*
  * Ohyeah and the last one should go the other direction
  */
-    #menuToggle input:checked~span:nth-last-child(2) {
-        transform: rotate(-45deg) translate(0, -1px);
-    }
+  #menuToggle input:checked ~ span:nth-last-child(2) {
+    transform: rotate(-45deg) translate(0, -1px);
+  }
 
-    /*
+  /*
  * Make this absolute positioned
  * at the top left of the screen
  */
-    #menu {
-        position: absolute;
-        width: 50%;
-        margin: -100px 0 0 -50px;
-        padding: 50px;
-        padding-top: 125px;
-        background: color(secondary);
-        list-style-type: none;
-        -webkit-font-smoothing: antialiased;
-        /* to stop flickering of text in safari */
+  #menu {
+    position: absolute;
+    width: 50%;
+    margin: -100px 0 0 -50px;
+    padding: 50px;
+    padding-top: 125px;
+    background: color(secondary);
+    list-style-type: none;
+    -webkit-font-smoothing: antialiased;
+    /* to stop flickering of text in safari */
 
-        transform-origin: 0% 0%;
-        transform: translate(-100%, 0);
-        opacity: 95%;
-        transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1.0);
-    }
+    transform-origin: 0% 0%;
+    transform: translate(-100%, 0);
+    opacity: 95%;
+    transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1);
+  }
 
-    #menu li {
-        padding: 10px 0;
-        font-size: 22px;
-        border-bottom: solid 1px rgba($color: #ffffff, $alpha: 0.25);
-    }
+  #menu li {
+    padding: 10px 0;
+    font-size: 22px;
+    border-bottom: solid 1px rgba($color: #ffffff, $alpha: 0.25);
+  }
 
-    /*
+  /*
  * And let's slide it in from the left
  */
-    #menuToggle input:checked~ul {
-        transform: none;
-    }
+  #menuToggle input:checked ~ ul {
+    transform: none;
+  }
 
-    // hide on desktop size
-    @include desktop {
-        display: none;
-    }
+  // hide on desktop size
+  @include desktop {
+    display: none;
+  }
 }
 
 #home {
-    padding-top: 2em;
-    min-height: 70vh;
+  padding-top: 2em;
+  min-height: 70vh;
 
-    .wrapper {
-        display: flex;
-        flex-direction: column-reverse;
-        padding-top: 5em;
-        text-align: center;
+  .wrapper {
+    display: flex;
+    flex-direction: column-reverse;
+    padding-top: 5em;
+    text-align: center;
 
-        .illustration {
-            img {
-                max-width: 70%;
-
-            }
-        }
+    .illustration {
+      img {
+        max-width: 70%;
+      }
     }
+  }
 
+  .button {
+    margin: 0.5em 0.5em;
+  }
 
-    .button {
-        margin: .5em .5em;
-    }
-
-    .tradingview-widget-container {
-        margin-top: 3em;
-    }
+  .tradingview-widget-container {
+    margin-top: 3em;
+  }
 }
 
 #features {
-    padding: 3em 1em;
-    text-align: center;
+  padding: 3em 1em;
+  text-align: center;
 
-    .wrapper {
-        .text {
-            h3 {
-                margin: 0;
-            }
+  .wrapper {
+    .text {
+      h3 {
+        margin: 0;
+      }
 
-            p {
-                text-align: left;
+      p {
+        text-align: left;
 
-                &.right {
-                    text-align: right;
-                }
-            }
-
-            .button {
-                display: block;
-                margin: auto;
-                margin-bottom: 2em;
-                max-width: 150px;
-            }
+        &.right {
+          text-align: right;
         }
+      }
 
-        .illustration {
-            img {
-                max-width: 80%;
-            }
-        }
-
-    }
-}
-
-#pricing {
-    .wrapper {
-        .item {
-            margin: 3em 0;
-            background-color: color(background);
-
-            .title {
-                background-color: color(secondary);
-                padding: 0.5em;
-                line-height: 0;
-                text-align: center;
-
-                h3 {
-                    text-transform: uppercase;
-                }
-
-                p {
-                    opacity: 90%;
-                }
-            }
-
-            .details {
-                color: color(dark);
-                padding: 1em 4em;
-
-                p {
-                    margin: 0;
-                }
-
-                .price {
-                    &::first-letter {
-                        vertical-align: 1.3em;
-                    }
-
-                    span {
-                        font-size: 3em;
-                    }
-                }
-
-                ul {
-                    padding: 0;
-
-                    .fa-check {
-                        position: absolute;
-                        margin-left: -2em;
-                        color: color(contrast);
-                    }
-                }
-            }
-
-            .paymentButtons {
-                display: flex;
-                justify-content: center;
-
-                .button {
-                    margin: 0 .5em;
-                }
-
-            }
-
-            .cta {
-                border: none;
-                color: color(background);
-                font-weight: 600;
-                margin: auto;
-                cursor: pointer;
-
-                &:hover {
-                    color: color(secondary);
-                }
-
-                a.button {
-                    margin: 0 auto;
-                    padding: 1em 2em;
-                }
-            }
-        }
+      .button {
+        display: block;
+        margin: auto;
+        margin-bottom: 2em;
+        max-width: 150px;
+      }
     }
 
     .illustration {
+      img {
+        max-width: 80%;
+      }
+    }
+  }
+}
+
+#pricing {
+  .wrapper {
+    .item {
+      margin: 3em 0;
+      background-color: color(background);
+
+      .title {
+        background-color: color(secondary);
+        padding: 0.5em;
+        line-height: 0;
+        text-align: center;
+
+        h3 {
+          text-transform: uppercase;
+        }
+
+        p {
+          opacity: 90%;
+        }
+      }
+
+      .details {
+        color: color(dark);
+        padding: 1em 4em;
+
+        p {
+          margin: 0;
+        }
+
+        .price {
+          &::first-letter {
+            vertical-align: 1.3em;
+          }
+
+          span {
+            font-size: 3em;
+          }
+        }
+
+        ul {
+          padding: 0;
+
+          .fa-check {
+            position: absolute;
+            margin-left: -2em;
+            color: color(contrast);
+          }
+        }
+      }
+
+      .paymentButtons {
         display: flex;
         justify-content: center;
 
-        img {
-            max-width: 70%;
+        .button {
+          margin: 0 0.5em;
         }
-    }
+      }
 
+      .cta {
+        border: none;
+        color: color(background);
+        font-weight: 600;
+        margin: auto;
+        cursor: pointer;
+
+        &:hover {
+          color: color(secondary);
+        }
+
+        a.button {
+          margin: 0 auto;
+          padding: 1em 2em;
+        }
+      }
+    }
+  }
+
+  .illustration {
+    display: flex;
+    justify-content: center;
+
+    img {
+      max-width: 70%;
+    }
+  }
 }
 
 #tutorials {
-    padding-top: 20%;
+  padding-top: 20%;
 
-    h3 {
-        display: none;
-    }
+  h3 {
+    display: none;
+  }
 
-    .wrapper {
-        .lessonBox {
-            a {
-                img {
-                    max-width: 100vw;
-                }
-            }
-
-            .title {
-                margin: 0 1em;
-
-                h2 {
-                    margin-top: 0;
-                    margin-bottom: 0;
-                }
-
-                p {
-                    font-size: 1.2em;
-                    margin-top: 0;
-                    opacity: 60%;
-                }
-
-            }
+  .wrapper {
+    .lessonBox {
+      a {
+        img {
+          max-width: 100vw;
         }
+      }
+
+      .title {
+        margin: 0 1em;
+
+        h2 {
+          margin-top: 0;
+          margin-bottom: 0;
+        }
+
+        p {
+          font-size: 1.2em;
+          margin-top: 0;
+          opacity: 60%;
+        }
+      }
     }
+  }
 }
 
 // &.pri
 #testimonials {
-    .card {
-        margin: 1em 0;
+  .card {
+    margin: 1em 0;
 
-        .top {
-            background-color: color(secondary);
-            padding: 1em;
-            font-size: 1.4em;
-            text-align: center;
+    .top {
+      background-color: color(secondary);
+      padding: 1em;
+      font-size: 1.4em;
+      text-align: center;
 
-            p {
-                margin: 0;
-            }
+      p {
+        margin: 0;
+      }
 
-            .quote {
-                font-weight: 800;
-            }
-        }
-
-        .bottom {
-            padding: 1em 3em;
-            display: flex;
-            flex-wrap: wrap;
-            flex-direction: row;
-            background-color: color(background);
-            color: color(dark);
-
-            .text {
-                align-self: center;
-
-                h2 {
-                    margin: 0;
-
-                    span {
-                        opacity: 80%;
-                        font-size: .9em;
-                    }
-                }
-            }
-
-            .stars {
-                color: color(danger);
-            }
-        }
+      .quote {
+        font-weight: 800;
+      }
     }
+
+    .bottom {
+      padding: 1em 3em;
+      display: flex;
+      flex-wrap: wrap;
+      flex-direction: row;
+      background-color: color(background);
+      color: color(dark);
+
+      .text {
+        align-self: center;
+
+        h2 {
+          margin: 0;
+
+          span {
+            opacity: 80%;
+            font-size: 0.9em;
+          }
+        }
+      }
+
+      .stars {
+        color: color(danger);
+      }
+    }
+  }
 }
 
-
 #footer {
-    ul {
-        padding: 0;
-        margin: 0;
-    }
+  ul {
+    padding: 0;
+    margin: 0;
+  }
 
-    li {
-        padding: 1em;
+  li {
+    padding: 1em;
 
-        h2,
-        p {
-            margin: 0;
-        }
+    h2,
+    p {
+      margin: 0;
     }
+  }
 
-    p#tm {
-        text-align: center;
-        opacity: 80%;
-    }
+  p#tm {
+    text-align: center;
+    opacity: 80%;
+  }
 }
 
 #form {
-    width: 95%;
-    max-width: 500px;
-    margin: auto;
-    padding-top: 50px;
+  width: 95%;
+  max-width: 500px;
+  margin: auto;
+  padding-top: 50px;
 
-    .wrapper {
-        background-color: color(secondary);
-        padding: 2em;
+  .wrapper {
+    background-color: color(secondary);
+    padding: 2em;
 
-        #contactForm {
-            display: flex;
-            flex-wrap: wrap;
-            flex-direction: column;
-            overflow: hidden;
+    #contactForm {
+      display: flex;
+      flex-wrap: wrap;
+      flex-direction: column;
+      overflow: hidden;
 
-            a {
-                color: color(contrast);
-                font-size: 1.2em;
-            }
+      a {
+        color: color(contrast);
+        font-size: 1.2em;
+      }
 
-            label {
-                text-transform: capitalize;
-            }
+      label {
+        text-transform: capitalize;
+      }
 
-            &>* {
-                padding: .5em 1em;
-                outline: none;
-            }
+      & > * {
+        padding: 0.5em 1em;
+        outline: none;
+      }
 
-            input {
-                font-size: 18px;
-            }
+      input {
+        font-size: 18px;
+      }
 
-            .button {
-                width: 50%;
-                margin: auto;
-                margin-top: 1em;
-                padding: .5em;
-                font-size: 1.2em;
-            }
-        }
+      .button {
+        width: 50%;
+        margin: auto;
+        margin-top: 1em;
+        padding: 0.5em;
+        font-size: 1.2em;
+      }
     }
+  }
 }
 
 #account {
-    .wrapper {
-        &.left {
-            display: flex;
-            flex-wrap: wrap;
-            flex-direction: row;
-            justify-content: center;
+  .wrapper {
+    &.left {
+      display: flex;
+      flex-wrap: wrap;
+      flex-direction: row;
+      justify-content: center;
 
-            img {
-                width: 50px;
-                border-radius: 50%;
-                margin: 0 1em;
-            }
+      img {
+        width: 50px;
+        border-radius: 50%;
+        margin: 0 1em;
+      }
 
-            ul {
-                width: 100vw;
-                padding: 0;
-                text-align: center;
-            }
-        }
-
-        &.right {
-            .form {
-                form {
-                    padding: 1em 4em;
-                    display: flex;
-                    flex-wrap: wrap;
-                    flex-direction: column;
-                    text-align: center;
-
-                    input {
-                        padding: .5em;
-                        margin: 1em 0;
-                    }
-                }
-            }
-        }
+      ul {
+        width: 100vw;
+        padding: 0;
+        text-align: center;
+      }
     }
+
+    &.right {
+      .form {
+        form {
+          padding: 1em 4em;
+          display: flex;
+          flex-wrap: wrap;
+          flex-direction: column;
+          text-align: center;
+
+          input {
+            padding: 0.5em;
+            margin: 1em 0;
+          }
+        }
+      }
+    }
+  }
 }
 
 #lesson {
-    .container {
-        margin: 0;
+  .container {
+    margin: 0;
 
-        .videoWrapper {
-            width: 100vw;
+    .videoWrapper {
+      width: 100vw;
 
-            .accordionButton {
-                background: none;
+      .accordionButton {
+        background: none;
 
-                span {
-                    float: right;
-                    opacity: 80%;
-                    font-weight: 500;
-                }
-            }
+        span {
+          float: right;
+          opacity: 80%;
+          font-weight: 500;
         }
-
-        h2 {
-            padding-left: 1em;
-        }
-
-
-        .wrapper {
-            .lessonBox {
-
-                a {
-                    margin: auto;
-                    width: 100vw;
-                    display: flex;
-                    flex-wrap: wrap;
-                    justify-content: space-around;
-
-
-                    img {
-                        max-width: 45%;
-                        margin: .5em 0;
-                    }
-
-                    .title {
-                        min-width: 45%;
-                        align-self: center;
-
-                        h2 {
-                            font-size: 1em;
-
-                        }
-                    }
-                }
-
-            }
-        }
+      }
     }
+
+    h2 {
+      padding-left: 1em;
+    }
+
+    .wrapper {
+      .lessonBox {
+        a {
+          margin: auto;
+          width: 100vw;
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: space-around;
+
+          img {
+            max-width: 45%;
+            margin: 0.5em 0;
+          }
+
+          .title {
+            min-width: 45%;
+            align-self: center;
+
+            h2 {
+              font-size: 1em;
+            }
+          }
+        }
+      }
+    }
+  }
 }
 
-#checkout {
-    .container {
-        padding-top: 20%;
-        max-width: 400px;
-        background-color: color(secondary);
-
-        form {
-            background-color: color(background);
-            padding: 4em;
-            color: color(secondary);
-            // .card-element {
-            //     box-sizing: border-box;
-            //     height: 40px;
-            //     padding: 10px 12px;
-            //     border-radius: 4px;
-            // }
-
-            // .card-element--invalid {
-            //     border-color: color(primary);
-            // }
-
-            // .payment-form--webkit-autofill {
-            //     background-color: color(background) !important;
-            // }
-            button {
-                display: block;
-                margin: 1em auto;
-                background-color: color(secondary);
-                color: color(background);
-
-                &:hover {
-                    background-color: color(contrast);
-                    color: color(background);
-                }
-            }
-        }
-
+#indicators {
+  .indicator {
+    img {
+      width: 90vw;
     }
+  }
 }
 
 ///POP UP STYLES///
 #popup {
-    padding: 2em 5%;
-    text-align: center;
-    z-index: 2;
-    background-color: color(secondary);
-    position: fixed;
-    top: 10%;
-    bottom: 5%;
-    left: 10%;
-    right: 10%;
-    transition-duration: display 1s;
+  padding: 2em 5%;
+  text-align: center;
+  z-index: 2;
+  background-color: color(secondary);
+  position: fixed;
+  top: 10%;
+  bottom: 5%;
+  left: 10%;
+  right: 10%;
+  transition-duration: display 1s;
 
-    h3 {
-        font-weight: 500;
-        padding: 0;
-        margin: 0;
-    }
+  h3 {
+    font-weight: 500;
+    padding: 0;
+    margin: 0;
+  }
 
-    h2 {
-        font-size: 1.2em;
-    }
+  h2 {
+    font-size: 1.2em;
+  }
 
-    img {
-        min-width: 200px;
-        max-width: 20%;
-    }
+  img {
+    min-width: 200px;
+    max-width: 20%;
+  }
 
-    button {
-        margin-right: 1em;
-    }
+  button {
+    margin-right: 1em;
+  }
 
-    p {
-        word-break: break-word;
-
-    }
+  p {
+    word-break: break-word;
+  }
 }
 
 //========== END OF POPUP
 
 //// DESKTOP ONLY RULES
 #navbar {
-    @include desktop {
-        display: inline-block;
-    }
+  @include desktop {
+    display: inline-block;
+  }
 
-    width: 100%;
-    text-transform: uppercase;
-    font-weight: 500;
-    position: fixed;
-    letter-spacing: 1px;
-    top: 0;
-    z-index: 1;
-    margin: 0;
+  width: 100%;
+  text-transform: uppercase;
+  font-weight: 500;
+  position: fixed;
+  letter-spacing: 1px;
+  top: 0;
+  z-index: 1;
+  margin: 0;
+  padding: 0;
+  background: color(gradient);
+  max-height: 50px;
+
+  ul {
+    display: flex;
+    justify-content: space-around;
     padding: 0;
-    background: color(gradient);
-    max-height: 50px;
 
-    ul {
-        display: flex;
-        justify-content: space-around;
-        padding: 0;
+    #elements {
+      display: flex;
+      flex-wrap: wrap;
 
-        #elements {
-            display: flex;
-            flex-wrap: wrap;
-
-            li {
-                padding: 0 1.5em;
-            }
-        }
-
-        #logo {
-            margin-top: -15px;
-
-            img {
-                width: 50px;
-            }
-        }
-
-        #buttons {
-            display: flex;
-            align-items: baseline;
-            margin-top: -.5em;
-
-            .buttonsPreLogin {
-                display: flex;
-                margin-top: .5em;
-            }
-
-            li {
-                padding: 0 .5em;
-            }
-
-            // #manageBillingButton {
-            //     padding: 0;
-            //     margin: 0;
-            //     padding: .5em .5em;
-            // }
-        }
+      li {
+        padding: 0 1.5em;
+      }
     }
 
+    #logo {
+      margin-top: -15px;
+
+      img {
+        width: 50px;
+      }
+    }
+
+    #buttons {
+      display: flex;
+      align-items: baseline;
+      margin-top: -0.5em;
+
+      .buttonsPreLogin {
+        display: flex;
+        margin-top: 0.5em;
+      }
+
+      li {
+        padding: 0 0.5em;
+      }
+
+      // #manageBillingButton {
+      //     padding: 0;
+      //     margin: 0;
+      //     padding: .5em .5em;
+      // }
+    }
+  }
 }
 
 @include desktop {
-    #home {
-        padding-top: 10%;
+  #home {
+    padding-top: 10%;
 
-        p {
-            padding: 1em .5em;
-        }
-
-        .wrapper {
-            flex-direction: row;
-            justify-content: space-around;
-            padding-bottom: 3em;
-
-            .content {
-                max-width: 50%;
-            }
-
-            .tradingTickers {
-                align-self: flex-end;
-                display: flex;
-                background-color: black;
-                border-radius: 10px;
-            }
-        }
+    p {
+      padding: 1em 0.5em;
     }
 
-    #features {
-        padding-top: 10%;
+    .wrapper {
+      flex-direction: row;
+      justify-content: space-around;
+      padding-bottom: 3em;
 
-        .wrapper {
-            padding: 0 0 10em 0;
-            display: flex;
-            flex-wrap: wrap;
-            flex-direction: row;
-            justify-content: space-around;
+      .content {
+        max-width: 50%;
+      }
 
-            &.last {
-                padding: 0;
-            }
-
-            &.alt {
-                flex-direction: row-reverse;
-            }
-
-            .text {
-                width: 40%;
-                text-align: center;
-                align-self: center;
-            }
-
-            .illustration {
-                img {
-
-                    width: 500px;
-                }
-            }
-
-            .desktopOnly {
-                display: flex;
-            }
-        }
-    }
-
-    #pricing {
-        min-height: 100%;
-
-        li {
-            line-height: 1.5;
-        }
-
-        .wrapper {
-            display: flex;
-            justify-content: space-evenly;
-
-            .item {
-                margin: 1em;
-                max-width: 30%;
-            }
-        }
-    }
-
-
-    #testimonials {
-        padding-top: 3em;
-
-        .wrapper {
-            display: flex;
-            flex-wrap: wrap;
-            flex-direction: row;
-            justify-content: space-between;
-
-            .card {
-                margin: 1em;
-                max-width: 30%;
-
-                .top {
-                    min-height: 220px;
-
-                    p {
-                        margin-top: .7em;
-                    }
-                }
-
-                .bottom {
-                    display: flex;
-                    justify-content: center;
-
-                    .avatar {
-                        margin: 0;
-                    }
-                }
-            }
-        }
-    }
-
-    #faq {
-        .wrapper {
-            display: flex;
-            flex-wrap: wrap;
-            flex-direction: row;
-            justify-content: center;
-
-            .item {
-                margin: 1em;
-                text-align: center;
-                max-width: 500px
-            }
-        }
-    }
-
-    #form {
-        margin: auto;
-        padding-top: 10vh;
-
-        h3 {
-            background-color: color(secondary);
-            padding: .5em;
-        }
-    }
-
-    #account {
-        .container {
-            display: flex;
-            flex-wrap: flex;
-            flex-direction: row;
-            justify-content: center;
-
-            .wrapper {
-                margin: 1em;
-                box-shadow: none;
-
-                &.left {
-                    // flex-direction: column;
-                    width: 200px;
-                    justify-content: center;
-                    align-content: center;
-                    padding: 2em;
-                    background-color: color(secondary);
-                }
-
-                &.right .box {
-                    padding: 1em;
-                    margin: 1em;
-                    background-color: color(secondary);
-                }
-            }
-        }
-    }
-
-    .links ul {
+      .tradingTickers {
+        align-self: flex-end;
         display: flex;
-        flex-wrap: wrap;
-        flex-direction: row;
-        justify-content: space-around;
+        background-color: black;
+        border-radius: 10px;
+      }
+    }
+  }
 
-        li {
-            max-width: 25%;
+  #features {
+    padding-top: 10%;
+
+    .wrapper {
+      padding: 0 0 10em 0;
+      display: flex;
+      flex-wrap: wrap;
+      flex-direction: row;
+      justify-content: space-around;
+
+      &.last {
+        padding: 0;
+      }
+
+      &.alt {
+        flex-direction: row-reverse;
+      }
+
+      .text {
+        width: 40%;
+        text-align: center;
+        align-self: center;
+      }
+
+      .illustration {
+        img {
+          width: 500px;
         }
+      }
+
+      .desktopOnly {
+        display: flex;
+      }
+    }
+  }
+
+  #pricing {
+    min-height: 100%;
+
+    li {
+      line-height: 1.5;
     }
 
-    #lesson {
-        padding-top: 10vh;
+    .wrapper {
+      display: flex;
+      justify-content: space-evenly;
 
-        .container {
-            display: flex;
-            flex-wrap: wrap;
-            margin: auto;
-            min-width: 95%;
+      .item {
+        margin: 1em;
+        max-width: 30%;
+      }
+    }
+  }
 
-            .videoWrapper {
-                max-width: 70%;
+  #testimonials {
+    padding-top: 3em;
 
-                .accordionButton {
-                    display: flex;
-                    align-items: center;
-                    justify-content: space-between;
-                    padding: .5em;
+    .wrapper {
+      display: flex;
+      flex-wrap: wrap;
+      flex-direction: row;
+      justify-content: space-between;
 
-                    span {
-                        background-color: color(secondary);
-                        padding: .5em 1em;
-                    }
-                }
+      .card {
+        margin: 1em;
+        max-width: 30%;
+
+        .top {
+          min-height: 220px;
+
+          p {
+            margin-top: 0.7em;
+          }
+        }
+
+        .bottom {
+          display: flex;
+          justify-content: center;
+
+          .avatar {
+            margin: 0;
+          }
+        }
+      }
+    }
+  }
+
+  #faq {
+    .wrapper {
+      display: flex;
+      flex-wrap: wrap;
+      flex-direction: row;
+      justify-content: center;
+
+      .item {
+        margin: 1em;
+        text-align: center;
+        max-width: 500px;
+      }
+    }
+  }
+
+  #form {
+    margin: auto;
+    padding-top: 10vh;
+
+    h3 {
+      background-color: color(secondary);
+      padding: 0.5em;
+    }
+  }
+
+  #account {
+    .container {
+      display: flex;
+      flex-wrap: flex;
+      flex-direction: row;
+      justify-content: center;
+
+      .wrapper {
+        margin: 1em;
+        box-shadow: none;
+
+        &.left {
+          // flex-direction: column;
+          width: 200px;
+          justify-content: center;
+          align-content: center;
+          padding: 2em;
+          background-color: color(secondary);
+        }
+
+        &.right .box {
+          padding: 1em;
+          margin: 1em;
+          background-color: color(secondary);
+        }
+      }
+    }
+  }
+
+  .links ul {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-around;
+
+    li {
+      max-width: 25%;
+    }
+  }
+
+  #lesson {
+    padding-top: 10vh;
+
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      margin: auto;
+      min-width: 95%;
+
+      .videoWrapper {
+        max-width: 70%;
+
+        .accordionButton {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding: 0.5em;
+
+          span {
+            background-color: color(secondary);
+            padding: 0.5em 1em;
+          }
+        }
+      }
+
+      .wrapper {
+        max-width: 25%;
+
+        .lessonBox {
+          a {
+            max-width: 100%;
+            margin: 0;
+            margin-left: 2em;
+            justify-content: left;
+
+            h2 {
+              align-self: start;
             }
-
-            .wrapper {
-                max-width: 25%;
-
-                .lessonBox {
-
-                    a {
-                        max-width: 100%;
-                        margin: 0;
-                        margin-left: 2em;
-                        justify-content: left;
-
-                        h2 {
-                            align-self: start;
-                        }
-                    }
-                }
-            }
-
+          }
         }
+      }
+    }
+  }
+
+  #tutorials {
+    padding-top: 5%;
+
+    h3 {
+      display: block;
     }
 
+    .wrapper {
+      margin: auto;
+      padding: 1em 2em;
+      display: flex;
+      flex-wrap: wrap;
+      flex-direction: row;
+      justify-content: center;
 
-    #tutorials {
-        padding-top: 5%;
+      .lessonBox {
+        margin: 1em;
+        max-width: 350px;
 
-        h3 {
-            display: block;
+        a {
+          img {
+            max-width: 100%;
+          }
+
+          h2 {
+            font-size: 1.2em;
+          }
         }
-
-        .wrapper {
-            margin: auto;
-            padding: 1em 2em;
-            display: flex;
-            flex-wrap: wrap;
-            flex-direction: row;
-            justify-content: center;
-
-            .lessonBox {
-                margin: 1em;
-                max-width: 350px;
-
-                a {
-                    img {
-                        max-width: 100%;
-                    }
-
-                    h2 {
-                        font-size: 1.2em;
-                    }
-                }
-            }
-        }
+      }
     }
-
-    #footer {
-        ul {
-            justify-content: space-between;
-        }
-
+  }
+  #indicators {
+    .subtitle {
+      font-size: 1.6em;
+      text-align: center;
     }
+    .indicator {
+      padding: 1em;
+      display: flex;
+      img {
+        max-width: 50vw;
+      }
+      .text {
+        margin-right: 1em;
+      }
+    }
+    #theRest {
+      display: flex;
+    }
+  }
+  #footer {
+    ul {
+      justify-content: space-between;
+    }
+  }
 }
 
 [data-scroll] {
-    transition: all 2s;
-    overflow: hidden;
+  transition: all 2s;
+  overflow: hidden;
 }
 
 [data-scroll="in"] {
-    opacity: 1;
-    transform: translateX(0);
+  opacity: 1;
+  transform: translateX(0);
 }
 
 [data-scroll="out"] {
-    opacity: 0;
-    transform: translateX(-200px);
-
+  opacity: 0;
+  transform: translateX(-200px);
 }
-
 
 //// TEST FOR PAYMENTS CSS<script src="https://js.stripe.com/v3/"></script>
