@@ -304,20 +304,23 @@ function isLoggedIn(req, res, next) {
 /////// END OF LOGIN INFORMATION ============
 
 app.get("/indicators", (req, res) => {
-  Indicator.find({}, function (err, indicators) {
-    if (err) {
-      console.log(err);
-    } else {
-      const top5 = indicators.slice(0, 5);
-      const top10 = indicators.slice(5, 10);
-      const top20 = indicators.slice(10);
-      res.render("indicators", {
-        top5: top5,
-        top10: top10,
-        top20: top20,
-      });
-    }
-  });
+  Indicator.find({})
+    .sort({ ranking: -1 })
+    .exec(function (err, indicators) {
+      if (err) {
+        console.log(err);
+        res.redirect("/");
+      } else {
+        const top5 = indicators.slice(0, 5);
+        const top10 = indicators.slice(5, 10);
+        const top20 = indicators.slice(10);
+        res.render("indicators", {
+          top5: top5,
+          top10: top10,
+          top20: top20,
+        });
+      }
+    });
 });
 
 //INDEX ROUTE
