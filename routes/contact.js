@@ -21,7 +21,7 @@ router.post("/contact", function (req, res) {
     `;
   //send the email info
   const msg = {
-    to: "chiy100196@gmail.com",
+    to: process.env.INSILICO_EMAIL,
     // *** change it to be customer's email
     from: "insilico@marandino.dev",
     subject: "Insilico Customer Contact",
