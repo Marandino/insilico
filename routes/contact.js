@@ -1,6 +1,9 @@
 ///express router
 const express = require("express"),
   router = express.Router();
+const sgMail = require("@sendgrid/mail"),
+  { update } = require("../models/lessons");
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 /// CONTACT FORM
 router.get("/contact", function (req, res) {
