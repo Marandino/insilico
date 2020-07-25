@@ -13,12 +13,12 @@ const express = require("express"),
   passport = require("passport"),
   LocalStrategy = require("passport-local"),
   ///forgotten password
-  //// VARIABLES
+  //// VARIABLES MAILING
+
   //atlas
   uri = process.env.ATLAS_URI,
   //port
   PORT = process.env.PORT || 5000;
-
 /////midddleware
 ////MONGOOSE
 mongoose.set("useUnifiedTopology", true);
@@ -28,11 +28,6 @@ mongoose.connect(uri, {
   useNewUrlParser: true,
 });
 ////=======
-////EMAILING VARIABLES
-const sgMail = require("@sendgrid/mail"),
-  { update } = require("./models/lessons");
-sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-//////<
 
 //INIT DEPENDENCIES
 app.use(

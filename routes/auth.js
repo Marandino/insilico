@@ -8,9 +8,21 @@ const express = require("express"),
   User = require("../models/users"),
   router = express.Router();
 ////EMAILING VARIABLES
-const sgMail = require("@sendgrid/mail"),
-  { update } = require("../models/lessons");
-sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+const nodemailer = require("nodemailer");
+const transporter = nodemailer.createTransport({
+  host: "mail.privateemail.com",
+  port: 465,
+  secure: true, // true for 465, false for other ports
+  auth: {
+    user: "chi@marandino.dev", // generated ethereal user
+    pass: process.env.MARANDINO_PASSWORD, // generated ethereal password
+  },
+});
+
+// const sgMail = require("@sendgrid/mail"),
+//   { update } = require("../models/lessons");
+// sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+
 //////<
 ///USER AUTHENTICATION
 //REGISTER
@@ -114,14 +126,15 @@ router.post("/forgot", function (req, res, next) {
         let output = `<h3>Please follow this link in order to reset your password</h3>
             <a href="http://localhost:5000/reset/${token}">RESET</a>`;
         let msg = {
-          to: user.email,
-          // *** change it to be customer's email
-          from: "insilico@marandino.dev",
-          subject: "Password Reset | Insilico Trading",
-          text: "null",
-          html: output,
+          from: '"Insilico" <insilico@marandino.dev>', // sender address
+          to: process.env.INSILICO_EMAIL, // list of receivers
+          subject: "Password Reset", // Subject line
+          text: "Hello world?", // plain text body
+          html: output, // html body
         };
-        sgMail.send(msg, function (err) {
+
+        //send the email info
+        transporter.sendMail(msg, function (err) {
           done(err, "done");
         });
       },

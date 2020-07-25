@@ -1,10 +1,18 @@
 ///express router
 const express = require("express"),
   router = express.Router();
-const sgMail = require("@sendgrid/mail");
-sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-
+// const sgMail = require("@sendgrid/mail");
+// sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 const nodemailer = require("nodemailer");
+const transporter = nodemailer.createTransport({
+  host: "mail.privateemail.com",
+  port: 465,
+  secure: true, // true for 465, false for other ports
+  auth: {
+    user: "chi@marandino.dev", // generated ethereal user
+    pass: process.env.MARANDINO_PASSWORD, // generated ethereal password
+  },
+});
 
 /// CONTACT FORM
 router.get("/contact", function (req, res) {
@@ -24,16 +32,6 @@ router.post("/contact", async (req, res) => {
             <li>message: ${req.body.message}</li> 
         </ul> 
     `;
-
-  let transporter = nodemailer.createTransport({
-    host: "mail.privateemail.com",
-    port: 465,
-    secure: true, // true for 465, false for other ports
-    auth: {
-      user: "chi@marandino.dev", // generated ethereal user
-      pass: process.env.MARANDINO_PASSWORD, // generated ethereal password
-    },
-  });
 
   //send the email info
   let info = await transporter.sendMail({
