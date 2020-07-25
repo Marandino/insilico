@@ -163,6 +163,9 @@ router.post("/create_customer_portal_session", async (req, res) => {
     }
   });
 });
+router.get("/create_customer_portal_session", (req, res) => {
+  res.redirect("/");
+});
 
 /// END OF PAYMENTS
 
