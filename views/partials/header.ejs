@@ -22,20 +22,28 @@
                 <li><a href="/contact">contact</a></li>
             </span>
             <span id="buttons">
-                <% if(!currentUser){ %>
-                <div class="buttonsPreLogin">
-                    <li><a class="button primary" href="/login">sign in</a></li>
-                    <li><a class="button secondary" href="/register">sign up</a></li>
-                </div>
-                <% } else{ %>
+                <% if(currentUser){ %>
+                <% if (currentUser.stripeId) { %>
                 <li>
                     <form method="POST" action="/create_customer_portal_session">
                         <button id="manageBillingButton" class="button primary" type="submit">Manage
                             billing</button>
                     </form>
                 </li>
-                <!-- <li><a class="button primary" href="/test">Subscribe</a></li> -->
                 <li><a class="button secondary" href="/logout">log out</a></li>
+
+                <% } else{%>
+                <div class="buttonsPreLogin">
+                    <li><a class="button primary" href="/#pricing">Subscribe</a></li>
+                    <li><a class="button secondary" href="/logout">log out</a></li>
+                </div>
+
+                <% } %>
+                <% } else{ %>
+                <div class="buttonsPreLogin">
+                    <li><a class="button primary" href="/login">sign in</a></li>
+                    <li><a class="button secondary" href="/register">sign up</a></li>
+                </div>
                 <% } %>
             </span>
 
@@ -67,32 +75,46 @@
                 Too bad the menu has to be inside of the button
                 but hey, it's pure CSS magic.
                 -->
+
+
                 <ul id="menu">
                     <li><a href="/#home">home</a></li>
                     <li><a href="/#features">features</a></li>
                     <li><a href="/indicators">products</a></li>
                     <li><a href="/lesson">tutorials</a></li>
                     <li><a href="/contact">contact</a></li>
-                    <% if(!currentUser){ %>
-                    <div class="buttonsPreLogin">
-                        <li><a class="button primary" href="/login">sign in</a></li>
-                        <li><a class="button secondary" href="/register">sign up</a></li>
-                    </div>
-                    <% } else{ %>
+                    <% if(currentUser){ %>
+                    <% if (currentUser.stripeId) { %>
                     <li>
                         <form method="POST" action="/create_customer_portal_session">
                             <button id="manageBillingButton" class="button primary" type="submit">Manage
                                 billing</button>
                         </form>
                     </li>
-                    <!-- <li><a class="button primary" href="/test">Subscribe</a></li> -->
                     <li><a class="button secondary" href="/logout">log out</a></li>
+
+                    <% } else{%>
+                    <div class="buttonsPreLogin">
+                        <li><a class="button primary" href="/#pricing">Subscribe</a></li>
+                        <li><a class="button secondary" href="/logout">log out</a></li>
+                    </div>
+
+                    <% } %>
+                    <% } else{ %>
+                    <div class="buttonsPreLogin">
+                        <li><a class="button primary" href="/login">sign in</a></li>
+                        <li><a class="button secondary" href="/register">sign up</a></li>
+                    </div>
                     <% } %>
                 </ul>
 
             </div>
+            <% 
+                        if (currentUser) {
+                            if(currentUser.stripeId){
+                                console.log("mierda")
+                            } }%>
 
         </nav>
-
     </nav>
     <div id="bg"></div>
