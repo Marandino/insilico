@@ -5,10 +5,16 @@ const express = require("express"),
   User = require("../models/users"),
   router = express.Router();
 ////EMAILING VARIABLES
-const sgMail = require("@sendgrid/mail"),
-  { update } = require("../models/lessons");
-
-sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+const nodemailer = require("nodemailer");
+const transporter = nodemailer.createTransport({
+  host: "mail.privateemail.com",
+  port: 465,
+  secure: true, // true for 465, false for other ports
+  auth: {
+    user: "chi@marandino.dev", // generated ethereal user
+    pass: process.env.MARANDINO_PASSWORD, // generated ethereal password
+  },
+});
 //////<
 ///STRIPE
 router.get("/success", (req, res) => {
@@ -114,7 +120,7 @@ router.post("/webhook", async (req, res) => {
 			<ul>
 				<li>Email: ${user.email}</li> 
 				<li>Referred by: ${user.referral}</li> 
-				<li>Subscription: ${user.currentSubscription / 100} USD</li> 
+				<li>Subscription: ${chargeAmount / 100} USD</li> 
 			</ul> 
 		`;
       //send the email info
@@ -126,7 +132,7 @@ router.post("/webhook", async (req, res) => {
         text: "null",
         html: output,
       };
-      sgMail.send(msg);
+      transporter.sendMail(msg);
       ///send you back
     });
   } else if (eventType === "customer.subscription.deleted") {

@@ -219,7 +219,7 @@ router.post("/reset/:token", function (req, res) {
           text: "null",
           html: output,
         };
-        sgMail.send(msg, function (err) {
+        transporter.sendMail(msg, function (err) {
           done(err, "done");
         });
       },
