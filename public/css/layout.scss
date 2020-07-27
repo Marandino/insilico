@@ -408,7 +408,11 @@ section {
     .item {
       margin: 3em 0;
       background-color: color(background);
-
+      position: relative;
+      padding-bottom: 3em;
+      display: flex;
+      flex-wrap: wrap;
+      flex-direction: column;
       .title {
         background-color: color(secondary);
         padding: 0.5em;
@@ -456,7 +460,9 @@ section {
       .paymentButtons {
         display: flex;
         justify-content: center;
-
+        position: absolute;
+        bottom: 1em;
+        align-self: center;
         .button {
           margin: 0 0.5em;
         }
@@ -1134,3 +1140,30 @@ section {
 }
 
 //// TEST FOR PAYMENTS CSS<script src="https://js.stripe.com/v3/"></script>
+
+#test {
+  .wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-evenly;
+    .item {
+      background-color: color(background);
+      color: color(dark);
+      max-width: 30%;
+      display: flex;
+      flex-direction: column;
+      min-height: 600px;
+      position: relative;
+      .title {
+      }
+      .details {
+      }
+      .paymentButtons {
+        align-self: center;
+        position: absolute;
+        bottom: 1px;
+      }
+    }
+  }
+}

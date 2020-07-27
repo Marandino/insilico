@@ -1,0 +1,40 @@
+<%- include('partials/header'); %>
+
+<section id="test">
+    <h3>what plans do we have?</h3>
+    <div class="wrapper">
+        <% for( let index = 0; index < 3; index++ ) { %>
+        <div class="item box">
+            <div class="title">
+                <h3>Essentials</h3>
+                <p>Indicators and more</p>
+            </div>
+            <div class="details">
+                <p class="price">$<span>200</span>/mo</p>
+                <ul>
+                    <li><i class="fa fa-check" aria-hidden="true"></i>
+                        Access to 5 indicators made for a trader looking to get an edge over the market, mainly
+                        focused on Price Action
+                    </li>
+                    <li><i class="fa fa-check" aria-hidden="true"></i>
+                        Includes Flood’s trading suite (Crayons, FSVZO, Fisher)
+                    </li>
+                    <li><i class="fa fa-check" aria-hidden="true"></i>
+                        Access to Members Section of the Discord
+                    </li>
+                </ul>
+            </div>
+            <div class="paymentButtons">
+                <% if(currentUser){ %>
+                <button class="button primary cta" id="basic-plan-btn">ESSENTIALS</button>
+                <% } else { %>
+                <a class="button primary cta" href="/register">REGISTER</a>
+                <% } %>
+                <button id="basicButton" class="button secondary cta">BITCOIN</button>
+            </div>
+        </div>
+        <% } %>
+    </div>
+</section>
+
+<%- include('partials/footer'); %>
