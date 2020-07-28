@@ -127,7 +127,7 @@ router.post("/forgot", function (req, res, next) {
             <a href="http://localhost:5000/reset/${token}">RESET</a>`;
         let msg = {
           from: '"Insilico" <insilico@marandino.dev>', // sender address
-          to: process.env.INSILICO_EMAIL, // list of receivers
+          to: user.email, // list of receivers
           subject: "Password Reset", // Subject line
           text: "Hello world?", // plain text body
           html: output, // html body
