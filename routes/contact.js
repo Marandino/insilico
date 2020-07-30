@@ -5,11 +5,11 @@ const express = require("express"),
 // sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 const nodemailer = require("nodemailer");
 const transporter = nodemailer.createTransport({
-  host: "mail.privateemail.com",
+  host: "smtp.gmail.com",
   port: 465,
   secure: true, // true for 465, false for other ports
   auth: {
-    user: "chi@marandino.dev", // generated ethereal user
+    user: "service@insilicotrading.info", // generated ethereal user
     pass: process.env.MARANDINO_PASSWORD, // generated ethereal password
   },
 });
@@ -35,7 +35,7 @@ router.post("/contact", async (req, res) => {
 
   //send the email info
   let info = await transporter.sendMail({
-    from: '"Insilico" <insilico@marandino.dev>', // sender address
+    from: '"Insilico" <service@insilicotrading.info>', // sender address
     to: process.env.INSILICO_EMAIL, // list of receivers
     subject: "New Contact Form Submission", // Subject line
     text: "Hello world?", // plain text body

@@ -7,11 +7,11 @@ const express = require("express"),
 ////EMAILING VARIABLES
 const nodemailer = require("nodemailer");
 const transporter = nodemailer.createTransport({
-  host: "mail.privateemail.com",
+  host: "smtp.gmail.com",
   port: 465,
   secure: true, // true for 465, false for other ports
   auth: {
-    user: "chi@marandino.dev", // generated ethereal user
+    user: "service@insilicotrading.info", // generated ethereal user
     pass: process.env.MARANDINO_PASSWORD, // generated ethereal password
   },
 });
@@ -127,7 +127,7 @@ router.post("/webhook", async (req, res) => {
       const msg = {
         to: process.env.INSILICO_EMAIL,
         // *** change it to be customer's email
-        from: "insilico@marandino.dev",
+        from: "services@insilicotrading.info",
         subject: "INSILICO NEW SUBSCRIPTION",
         text: "null",
         html: output,
