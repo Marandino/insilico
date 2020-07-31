@@ -1099,8 +1099,12 @@ section {
   }
   #indicators {
     .subtitle {
-      font-size: 1.6em;
-      text-align: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      .button {
+        margin-left: 3em;
+      }
     }
     .indicator {
       padding: 1em;
