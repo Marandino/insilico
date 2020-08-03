@@ -3,45 +3,13 @@ const express = require("express"),
   //stripe
   stripe = require("stripe")(process.env.STRIPE_SECRET_KEY),
   User = require("../models/users"),
+  email = require("./email"),
   router = express.Router();
-////EMAILING VARIABLES
-//GMAIL 0Auth
-const { google } = require("googleapis");
-const OAuth2 = google.auth.OAuth2;
-
-const oauth2Client = new OAuth2(
-  process.env.OAUTH_CLIENT_ID, // ClientID
-  process.env.OAUTH_CLIENT_SECRET, // Client Secret
-  "https://developers.google.com/oauthplayground" // Redirect URL
-);
-
-oauth2Client.setCredentials({
-  refresh_token: process.env.REFRESH_TOKEN,
-});
-const accessToken = oauth2Client.getAccessToken();
-///END OF GOOGLE OAUTH
-///NODEMAILER
-const nodemailer = require("nodemailer");
-const transporter = nodemailer.createTransport({
-  service: "gmail",
-  auth: {
-    type: "OAuth2",
-    user: "service@insilicotrading.info",
-    clientId: process.env.OAUTH_CLIENT_ID,
-    clientSecret: process.env.OAUTH_CLIENT_SECRET,
-    refreshToken: process.env.REFRESH_TOKEN,
-    accessToken: accessToken,
-  },
-});
-////====
-//////<
 ///STRIPE
 router.get("/success", (req, res) => {
   res.render("success");
 });
-
 // Fetch the Checkout Session to display the JSON result on the success page
-
 router.get("/checkout-session", async (req, res) => {
   const { sessionId } = req.query;
   const session = await stripe.checkout.sessions.retrieve(sessionId);
@@ -132,27 +100,27 @@ router.post("/webhook", async (req, res) => {
     User.findOneAndUpdate(conditions, update, (err) => {
       // console.log(err);
     }); // returns Query
+
     ////SEND THE EMAIL TO INSILICO
     User.findOne({ email: chargeEmail }, (err, user) => {
-      const output = `
-			<h3> There's a new subscription!</h3> 
-			<ul>
-				<li>Email: ${user.email}</li> 
-				<li>Referred by: ${user.referral}</li> 
-				<li>Subscription: ${chargeAmount / 100} USD</li> 
-			</ul> 
-		`;
+      // <li>Email: ${user.email}</li>
+      // <li>Referred by: ${user.referral}</li>
+      // <li>Subscription: ${chargeAmount / 100} USD</li>
+
       //send the email info
-      const msg = {
-        to: process.env.INSILICO_EMAIL,
-        // *** change it to be customer's email
-        from: "services@insilicotrading.info",
-        subject: "INSILICO NEW SUBSCRIPTION",
-        text: "null",
-        html: output,
-      };
-      transporter.sendMail(msg);
-      ///send you back
+      email.send({
+        template: "charge",
+        message: {
+          to: process.env.INSILICO_EMAIL,
+        },
+        locals: {
+          email: user.email,
+          referral: user.referral,
+          charge: chargeAmount / 100,
+        },
+      });
+      console.log("Message sent: %s");
+      //end of email sending
     });
   } else if (eventType === "customer.subscription.deleted") {
     var conditions = {
