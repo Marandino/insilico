@@ -38,7 +38,7 @@ const email = new Email({
   //send: process.env.DEBUG !== 'true',
   send: true, //always set to true because we have a custom transporter above
   transport: transporter,
-  preview: true,
+  preview: false,
   // TODO: maybe use this?
   // https://github.com/Automattic/juice
   // https://www.npmjs.com/package/email-templates#automatic-inline-css-via-stylesheets
@@ -47,7 +47,12 @@ const email = new Email({
 		webResources: {
 			relativeTo: 'static'
 		}
-	}*/
+  }*/
+  views: {
+    options: {
+      extension: "ejs", // <---- HERE
+    },
+  },
 });
 
 module.exports = email;
