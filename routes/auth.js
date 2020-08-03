@@ -193,19 +193,21 @@ router.post("/reset/:token", function (req, res) {
         );
       },
       function (user, done) {
-        let output = `<h3>Your Password Has Been Changed</h3>
-            <p>If it wasn't you, please change all your passwords as your e-mail might have been compromised.</p>`;
-        let msg = {
-          to: user.email,
-          // *** change it to be customer's email
-          from: "service@insilicotrading.info",
-          subject: "Password Reset | Insilico Trading",
-          text: "null",
-          html: output,
-        };
-        transporter.sendMail(msg, function (err) {
-          done(err, "done");
-        });
+        ///EMAIL
+        email.send(
+          {
+            template: "passwordReseted",
+            message: {
+              to: user.email,
+            },
+            locals: {
+              name: user.username,
+            },
+          },
+          function (err) {
+            done(err, "done");
+          }
+        );
       },
     ],
     function (err) {
