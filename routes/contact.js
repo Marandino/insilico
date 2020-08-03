@@ -24,11 +24,10 @@ router.post("/contact", async (req, res) => {
     },
   });
   console.log("Message sent: %s", info.messageId);
+  ///NEXXT (sends you back)
   res.render("contact", {
     alert: "Your Message Has Been Sent",
   });
-  ///send you back
 });
-////>
 
 module.exports = router;
