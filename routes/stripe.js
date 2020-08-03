@@ -103,10 +103,9 @@ router.post("/webhook", async (req, res) => {
 
     ////SEND THE EMAIL TO INSILICO
     User.findOne({ email: chargeEmail }, (err, user) => {
-      // <li>Email: ${user.email}</li>
-      // <li>Referred by: ${user.referral}</li>
-      // <li>Subscription: ${chargeAmount / 100} USD</li>
-
+      if (err) {
+        console.log(err);
+      }
       //send the email info
       email.send({
         template: "charge",
@@ -119,8 +118,19 @@ router.post("/webhook", async (req, res) => {
           charge: chargeAmount / 100,
         },
       });
-      console.log("Message sent: %s");
+      console.log("Message sent to Insilico");
       //end of email sending
+      //Email to Client
+      email.send({
+        template: "thankyou",
+        message: {
+          to: user.email,
+        },
+        locals: {
+          name: user.username,
+        },
+      });
+      console.log("Message sent to Customer");
     });
   } else if (eventType === "customer.subscription.deleted") {
     var conditions = {

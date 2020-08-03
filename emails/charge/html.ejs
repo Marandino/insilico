@@ -1,9 +1,12 @@
 <%- include('../emailTop'); %>
 
 <h1>
-    You've received a new payment for: <%= charge %> USD
+    You've received a new <%= charge %> USD payment.
 </h1>
 <p>New subscription by user: <%= email %> </p>
-<p>Who was referred by: <%= referral %>
+<% if (referral) { %>
+<p>referred by: <%= referral %> </p>
+<% } %>
 </p>
+
 <%- include('../emailBottom'); %>
