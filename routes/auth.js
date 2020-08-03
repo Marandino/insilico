@@ -34,9 +34,20 @@ router.post("/register", (req, res) => {
           err: err,
         });
       }
-
       //this part logs in the user after registering
       passport.authenticate("local")(req, res, function () {
+        //callback function
+        ///EMAIL
+        email.send({
+          template: "welcome",
+          message: {
+            to: req.body.email,
+          },
+          locals: {
+            name: req.body.username,
+          },
+        });
+        console.log("Message sent: to", user.email);
         res.redirect("/#pricing");
       });
     }

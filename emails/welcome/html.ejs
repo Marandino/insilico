@@ -1,26 +1,13 @@
 <%- include('../emailTop'); %>
-<strong style="font-family:Helvetica,Arial,sans-serif;color:#6557b2">Hello
-</strong>
-
-<h1 style="font-size:26px;line-height:30px;color:#6557b2;word-break:normal">
-    Welcome to Insilico Trading!.
+<h1>
+    Hello <%= name %>!
 </h1>
-</td>
-</tr>
-</tbody>
-</table>
-</td>
-</tr>
-
-<tr>
-    <td>
-        <center>
-            <table style="background-color:#fff;margin-bottom:20px;table-layout:fixed" align="center" width=""
-                cellspacing="0" cellpadding="0">
-                <tbody>
-                    <tr>
-                        <td>
-                            welcome <%= name %>
-                        </td>
-
-                        <%- include('../emailBottom'); %>
+<h3>Welcome to Insilico Trading</h3>
+<!--Padded button-->
+<p>
+    You can message one of our admins @ our <a href="https://discord.gg/a3FAQ5G" target="_blank">
+        Discord Server
+    </a>
+    and they will guide you on your bitcoin payment.
+</p>
+<%- include('../emailBottom'); %>
