@@ -24,7 +24,6 @@ router.post("/contact", async (req, res) => {
     },
   });
   console.log("Message sent: %s", info.messageId);
-  // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
   res.render("contact", {
     alert: "Your Message Has Been Sent",
   });
