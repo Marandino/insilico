@@ -8,36 +8,7 @@ const express = require("express"),
   User = require("../models/users"),
   router = express.Router();
 ////EMAILING VARIABLES
-//GMAIL 0Auth
-const { google } = require("googleapis");
-const OAuth2 = google.auth.OAuth2;
-
-const oauth2Client = new OAuth2(
-  process.env.OAUTH_CLIENT_ID, // ClientID
-  process.env.OAUTH_CLIENT_SECRET, // Client Secret
-  "https://developers.google.com/oauthplayground" // Redirect URL
-);
-
-oauth2Client.setCredentials({
-  refresh_token: process.env.REFRESH_TOKEN,
-});
-const accessToken = oauth2Client.getAccessToken();
-///END OF GOOGLE OAUTH
-///NODEMAILER
-const nodemailer = require("nodemailer");
-const transporter = nodemailer.createTransport({
-  service: "gmail",
-  auth: {
-    type: "OAuth2",
-    user: "service@insilicotrading.info",
-    clientId: process.env.OAUTH_CLIENT_ID,
-    clientSecret: process.env.OAUTH_CLIENT_SECRET,
-    refreshToken: process.env.REFRESH_TOKEN,
-    accessToken: accessToken,
-  },
-});
-////====
-//////<
+const email = require("./email");
 ///USER AUTHENTICATION
 //REGISTER
 router.get("/register", (req, res) => {
@@ -63,9 +34,20 @@ router.post("/register", (req, res) => {
           err: err,
         });
       }
-
       //this part logs in the user after registering
       passport.authenticate("local")(req, res, function () {
+        //callback function
+        ///EMAIL
+        email.send({
+          template: "welcome",
+          message: {
+            to: req.body.email,
+          },
+          locals: {
+            name: req.body.username,
+          },
+        });
+        console.log("Message sent: to", user.email);
         res.redirect("/#pricing");
       });
     }
@@ -137,20 +119,19 @@ router.post("/forgot", function (req, res, next) {
         );
       },
       function (token, user, done) {
-        let output = `<h3>Please follow this link in order to reset your password</h3>
-            <a href="http://localhost:5000/reset/${token}">RESET</a>`;
-        let msg = {
-          from: '"Insilico" <insilico@marandino.dev>', // sender address
-          to: user.email, // list of receivers
-          subject: "Password Reset", // Subject line
-          text: "Hello world?", // plain text body
-          html: output, // html body
-        };
-
-        //send the email info
-        transporter.sendMail(msg, function (err) {
-          done(err, "done");
+        ///EMAIL
+        email.send({
+          template: "passwordReset",
+          message: {
+            to: user.email,
+          },
+          locals: {
+            name: user.username,
+            token,
+          },
         });
+        console.log("Message sent: to", user.email);
+        ///NEXXT (sends you back)
       },
     ],
     function (err) {
@@ -223,19 +204,21 @@ router.post("/reset/:token", function (req, res) {
         );
       },
       function (user, done) {
-        let output = `<h3>Your Password Has Been Changed</h3>
-            <p>If it wasn't you, please change all your passwords as your e-mail might have been compromised.</p>`;
-        let msg = {
-          to: user.email,
-          // *** change it to be customer's email
-          from: "service@insilicotrading.info",
-          subject: "Password Reset | Insilico Trading",
-          text: "null",
-          html: output,
-        };
-        transporter.sendMail(msg, function (err) {
-          done(err, "done");
-        });
+        ///EMAIL
+        email.send(
+          {
+            template: "passwordReseted",
+            message: {
+              to: user.email,
+            },
+            locals: {
+              name: user.username,
+            },
+          },
+          function (err) {
+            done(err, "done");
+          }
+        );
       },
     ],
     function (err) {
