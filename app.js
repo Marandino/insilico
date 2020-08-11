@@ -21,10 +21,18 @@ const express = require("express"),
   PORT = process.env.PORT || 5000;
 /////midddleware
 if (process.env.NODE_ENV === "production") {
-  app.get("*", function (req, res, next) {
-    if (req.headers["x-forwarded-proto"] != "https")
-      res.redirect("https://www.insilicotrading.info" + req.url);
-    else next(); /* Continue to other routes if we're not redirecting */
+  // app.get("*", function (req, res, next) {
+  //   if (req.headers["x-forwarded-proto"] != "https")
+  //     res.redirect("https://www.insilicotrading.info" + req.url);
+  //   else next(); /* Continue to other routes if we're not redirecting */
+  // });
+  app.all(/.*/, function (req, res, next) {
+    var host = req.header("host");
+    if (host.match(/^www\..*/i)) {
+      next();
+    } else {
+      res.redirect(301, "https://www.insilicotrading.info" + host);
+    }
   });
 }
 ////MONGOOSE
