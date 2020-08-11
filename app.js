@@ -20,6 +20,13 @@ const express = require("express"),
   //port
   PORT = process.env.PORT || 5000;
 /////midddleware
+if (process.env.NODE_ENV === "production") {
+  app.get("*", function (req, res, next) {
+    if (req.headers["x-forwarded-proto"] != "https")
+      res.redirect("https://www.insilicotrading.info" + req.url);
+    else next(); /* Continue to other routes if we're not redirecting */
+  });
+}
 ////MONGOOSE
 mongoose.set("useUnifiedTopology", true);
 ///removes deprecation when updoating files
