@@ -136,12 +136,12 @@ router.post("/forgot", function (req, res, next) {
     ],
     function (err) {
       if (err) return next(err);
-      res.render("forgot", {
-        err:
-          "We've sent an e-mail with further instructions on how to reset your password",
-      });
     }
   );
+  res.render("forgot", {
+    err:
+      "We've sent an e-mail with further instructions on how to reset your password",
+  });
 });
 
 router.get("/reset/:token", function (req, res) {
@@ -191,8 +191,8 @@ router.post("/reset/:token", function (req, res) {
                 user.resetPasswordExpires = undefined;
 
                 user.save(function (err) {
-                  req.logIn(user, function (err) {
-                    done(err, user);
+                  req.logIn(user, (err) => {
+                    err ? console.log(err) : console.log("el nene esta bien");
                   });
                 });
               });
@@ -205,26 +205,24 @@ router.post("/reset/:token", function (req, res) {
       },
       function (user, done) {
         ///EMAIL
-        email.send(
-          {
-            template: "passwordReseted",
-            message: {
-              to: user.email,
-            },
-            locals: {
-              name: user.username,
-            },
+        email.send({
+          template: "passwordReseted",
+          message: {
+            to: user.email,
           },
-          function (err) {
-            done(err, "done");
-          }
-        );
+          locals: {
+            name: user.username,
+          },
+        });
+        done(err, "done");
       },
     ],
-    function (err) {
-      res.redirect("/");
+    (err) => {
+      res.render("index");
+      console.log(err);
     }
   );
+  return res.render("forgot", { err: "Your password has been updated!" });
 });
 
 //isLoggedIn middleware || checks if the user is logged in
