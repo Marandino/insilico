@@ -10,9 +10,11 @@ router.get("/contact", function (req, res) {
   });
 });
 
-router.post("/contact", async (req, res) => {
+router.post("/contact", (req, res) => {
   // //send the email info
-  const info = await email.send({
+  if (!req.body.email)
+    return res.render("contact", { alert: "We don't want spammers" });
+  email.send({
     template: "contact",
     message: {
       to: process.env.INSILICO_EMAIL,
@@ -23,7 +25,7 @@ router.post("/contact", async (req, res) => {
       message: req.body.message,
     },
   });
-  console.log("Message sent: %s", info.messageId);
+  // console.log("Message sent: %s", info.messageId);
   ///NEXXT (sends you back)
   res.render("contact", {
     alert: "Your Message Has Been Sent",

@@ -6,19 +6,15 @@
         <%if(alert){%>
         <h2><%= alert %></h2>
         <%}%>
-        <h2>Contact Form Is Currently Unavailable</h2>
-<p>You can contact us via e-mail at: <strong><a
-        href="mailto:service@insilicotrading.info">service@insilicotrading.info</a></strong>
-</p>       
- <!-- <form action="/contact" method="post" id="contactForm">
+        <form action="/contact" method="post" id="contactForm">
             <label for="user">tradingview username</label>
-            <input type="text" name="user">
+            <input type="text" name="user" required>
             <label for="email" required>email address</label>
             <input type="email" name="email">
             <label for="message">inquiry</label>
             <textarea name="message" id="contactForm" cols="30" rows="10" required></textarea>
             <button class="button primary">Send</button>
-        </form> -->
+        </form>
     </div>
 </section>
 <%- include('partials/footer'); %>
